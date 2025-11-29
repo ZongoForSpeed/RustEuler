@@ -1,0 +1,9 @@
+[package]
+name = "RustEuler"
+version = "0.1.0"    # thecurrent version, obeying semver
+edition = '2024'
+include = ["src"]
+
+[dependencies]
+num-traits = "0.2.19"
+bit-set = "0.8.0"
