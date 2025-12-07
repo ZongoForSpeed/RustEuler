@@ -1,0 +1,27 @@
+use crate::maths::timer::ScopeTimer;
+
+pub fn problem028() -> i64 {
+    let _timer = ScopeTimer::new("Problem 28 Quadratic primes", false);
+    // Starting with the number 1 and moving to the right in a clockwise direction a 5 by 5 spiral is
+    // formed as follows:
+    //
+    //                                        21 22 23 24 25
+    //                                        20  7  8  9 10
+    //                                        19  6  1  2 11
+    //                                        18  5  4  3 12
+    //                                        17 16 15 14 13
+    //
+    // It can be verified that the sum of the numbers on the diagonals is 101.
+    //
+    // What is the sum of the numbers on the diagonals in a 1001 by 1001 spiral formed in the same way?
+    let mut somme = 0;
+    for n in (1..1002).step_by(2) {
+        if n == 1 {
+            somme += n;
+        } else {
+            somme += 2 * n * n - 2 * (n - 1);
+            somme += 2 * n * n - 4 * (n - 1);
+        }
+    }
+    somme
+}

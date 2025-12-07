@@ -1,0 +1,29 @@
+use crate::maths::timer::ScopeTimer;
+use chrono::{Datelike, Months, NaiveDate, Weekday};
+
+pub fn problem019() -> u64 {
+    let _timer = ScopeTimer::new("Problem 19 Counting Sundays", false);
+    // You are given the following information, but you may prefer to do some research for yourself.
+    //
+    // 1 Jan 1900 was a Monday.
+    // Thirty days has September,
+    // April, June and November.
+    // All the rest have thirty-one,
+    // Saving February alone,
+    // Which has twenty-eight, rain or shine.
+    // And on leap years, twenty-nine.
+    // A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.
+    //
+    // How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
+    let mut start = NaiveDate::from_ymd_opt(1901, 1, 1).unwrap();
+    let end = NaiveDate::from_ymd_opt(2000, 12, 31).unwrap();
+    let months = Months::new(1);
+    let mut result = 0;
+    while start <= end {
+        if start.weekday() == Weekday::Sun {
+            result += 1;
+        }
+        start = start.checked_add_months(months).unwrap()
+    }
+    result
+}

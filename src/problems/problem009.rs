@@ -1,7 +1,7 @@
 use crate::maths::timer::ScopeTimer;
 
 pub fn problem009(limite: u64) -> u64 {
-    let _timer = ScopeTimer::new("Problem 9 Special Pythagorean triplet", true);
+    let _timer = ScopeTimer::new("Problem 9 Special Pythagorean triplet", false);
     // A Pythagorean triplet is a set of three natural numbers, a < b < c, for which, a² + b² = c²
     // For example, 3² + 4² = 9 + 16 = 25 = 5².
     //

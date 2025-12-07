@@ -3,7 +3,7 @@ use maths::chiffres;
 use crate::maths::timer::ScopeTimer;
 
 pub fn problem004(borne: u64) -> u64 {
-    let _timer = ScopeTimer::new("Problem 4 Largest palindrome product", true);
+    let _timer = ScopeTimer::new("Problem 4 Largest palindrome product", false);
     // A palindromic number reads the same both ways. The largest palindrome made from the product
     // of two 2-digit numbers is 9009 = 91 × 99.
     //

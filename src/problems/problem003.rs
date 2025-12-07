@@ -1,7 +1,7 @@
 use crate::maths::timer::ScopeTimer;
 
 pub fn problem003(borne: u64) -> u64 {
-    let _timer = ScopeTimer::new("Problem 3 Largest prime factor", true);
+    let _timer = ScopeTimer::new("Problem 3 Largest prime factor", false);
     // The prime factors of 13195 are 5, 7, 13 and 29.
     //
     // What is the largest prime factor of the number 600851475143 ?

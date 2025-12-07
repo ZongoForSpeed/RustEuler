@@ -1,18 +1,25 @@
-use num_traits::PrimInt;
+use std::ops::{Add, DivAssign};
+use num_traits::{One, Zero};
 
 pub(crate) fn fibonacci<N>() -> impl Iterator<Item = N>
 where
-    N: PrimInt + std::ops::DivAssign,
+    N: Zero + One + DivAssign + Add + Clone,
 {
-    std::iter::successors(Some((N::zero(), N::one())), |(a, b)| Some((*b, a.add(*b))))
+    std::iter::successors(Some((N::zero(), N::one())), |a| next_fib(a))
         .map(|(a, _)| a)
+}
+
+fn next_fib<N>(t: &(N, N)) -> Option<(N, N)> where
+    N: Zero + One + DivAssign + Add + Clone {
+    let ab = t.0.clone() + t.1.clone();
+    Some((t.1.clone(), ab))
 }
 
 pub(crate) fn fibonacci_limit<N>(limite: N) -> impl Iterator<Item = N>
 where
-    N: PrimInt + std::ops::DivAssign + 'static,
+    N: Zero + One + DivAssign + 'static + PartialOrd + Clone,
 {
-    fibonacci::<N>().take_while(move |&a| a < limite)
+    fibonacci::<N>().take_while(move |a| *a < limite)
 }
 
 

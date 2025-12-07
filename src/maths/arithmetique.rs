@@ -1,38 +1,46 @@
+use crate::maths::puissance::puissance;
 use num_traits::PrimInt;
-use std::ops::DivAssign;
+use num_traits::Zero;
+use std::ops::{Div, DivAssign, Mul, MulAssign, Rem};
 
 pub(crate) fn pgcd<Nombre>(_a: Nombre, _b: Nombre) -> Nombre
 where
-    Nombre: PrimInt + std::ops::DivAssign,
+    Nombre: Zero + Rem + Eq + DivAssign + Copy + From<<Nombre as Rem>::Output>,
 {
-    let zero = Nombre::from(0u8).unwrap();
-    if _a == zero {
+    if _a.is_zero() {
         return _b;
     }
-    if _b == zero {
+    if _b.is_zero() {
         return _a;
     }
 
     let mut a = _a;
     let mut b = _b;
-    let mut pgcd;
     loop {
-        pgcd = a % b;
-        if pgcd == zero {
-            pgcd = b;
-            break;
+        let pgcd: Nombre = (a % b).into();
+        if pgcd.is_zero() {
+            return b;
         }
         a = b;
         b = pgcd;
     }
-    pgcd
 }
 
 pub(crate) fn ppcm<Nombre>(a: Nombre, b: Nombre) -> Nombre
 where
-    Nombre: PrimInt + std::ops::DivAssign,
+    Nombre: Zero
+        + Mul
+        + Div
+        + Rem
+        + Eq
+        + DivAssign
+        + Copy
+        + From<<Nombre as Rem>::Output>
+        + From<<Nombre as Div>::Output>
+        + From<<Nombre as Mul>::Output>,
 {
-    (a * b) / pgcd(a, b)
+    let ab: Nombre = (a * b).into();
+    (ab / pgcd(a, b)).into()
 }
 
 pub(crate) fn nombre_diviseurs<'a, N, V>(mut _n: N, premiers: V) -> u32
@@ -64,6 +72,34 @@ where
     d
 }
 
+pub(crate) fn somme_diviseurs<'a, N, V>(mut _n: N, premiers: V) -> N
+where
+    N: PrimInt + MulAssign + DivAssign + Copy + 'a,
+    V: IntoIterator<Item = &'a N>,
+{
+    let one = N::one();
+    let mut s = N::one();
+    let mut n = _n;
+    for &p in premiers {
+        if p * p > n {
+            break;
+        }
+        if (n % p).is_zero() {
+            let mut compteur: u32 = 0;
+            while (n % p).is_zero() {
+                n /= p;
+                compteur += 1;
+            }
+            s *= (puissance(p, compteur + 1) - one) / (p - one);
+        }
+    }
+
+    if n > N::one() {
+        s *= n + one;
+    }
+    s
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -88,5 +124,15 @@ mod tests {
         ];
         assert_eq!(nombre_diviseurs(456753, &premiers), 8);
         assert_eq!(nombre_diviseurs(3246999210, &premiers), 640);
+    }
+    #[test]
+    fn test_somme_diviseurs() {
+        let premiers: Vec<u64> = vec![
+            2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83,
+            89, 97,
+        ];
+        assert_eq!(somme_diviseurs(456753, &premiers), 664416);
+        assert_eq!(somme_diviseurs(496, &premiers), 992);
+        assert_eq!(somme_diviseurs(3246999210u64, &premiers), 11708928000);
     }
 }

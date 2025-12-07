@@ -6,7 +6,11 @@ pub struct ScopeTimer<'a> {
 
 impl<'a> ScopeTimer<'a> {
     pub fn new(label: &'a str, debug_only: bool) -> Self {
-        println!("Starting: '{}' ...", label);
+        match debug_only {
+            false => println!("Starting: '{}' ...", label),
+            true if cfg!(debug_assertions) => println!("Starting: '{}' ...", label),
+            _ => (),
+        }
         Self {
             label,
             now: std::time::Instant::now(),
