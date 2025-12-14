@@ -14,7 +14,7 @@ pub fn problem031() -> u64 {
     let mut dp: Vec<u64> = vec![0; objectif + 1];
     dp[0] = 1;
     for piece in pieces {
-        for j in piece..objectif + 1 {
+        for j in piece..=objectif {
             dp[j] += dp[j - piece];
         }
     }

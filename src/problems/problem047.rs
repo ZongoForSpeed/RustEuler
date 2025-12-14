@@ -1,0 +1,59 @@
+use crate::maths::arithmetique;
+use crate::maths::premiers::crible235;
+use crate::maths::puissance::puissance;
+use crate::maths::timer::ScopeTimer;
+use std::collections::{BTreeSet, HashSet, VecDeque};
+
+pub fn problem047() -> u64 {
+    let _timer = ScopeTimer::new("Problem 47 Distinct primes factors", false);
+    // The first two consecutive numbers to have two distinct prime factors are:
+    //
+    //              14 = 2 × 7
+    //              15 = 3 × 5
+    //
+    // The first three consecutive numbers to have three distinct prime factors are:
+    //
+    //              644 = 2² × 7 × 23
+    //              645 = 3 × 5 × 43
+    //              646 = 2 × 17 × 19.
+    //
+    // Find the first four consecutive integers to have four distinct prime factors.
+    // What is the first of these numbers?
+    let mut premiers: BTreeSet<u64> = BTreeSet::new();
+    crible235(1000000, |p| {
+        premiers.insert(p);
+    });
+
+    let mut result = 0;
+
+    let mut decomposition: VecDeque<Vec<u64>> = VecDeque::new();
+
+    for n in 2.. {
+        {
+            let mut f: Vec<u64> = Vec::new();
+            arithmetique::decomposition(n, &premiers, |p, c| {
+                f.push(puissance(p, c));
+            });
+            decomposition.push_back(f);
+        }
+
+        if decomposition.len() > 4 {
+            decomposition.pop_front();
+        }
+
+        let mut facteur: HashSet<u64> = HashSet::new();
+        for i in &decomposition {
+            if i.len() != 4 {
+                break;
+            }
+            for f in i {
+                facteur.insert(*f);
+            }
+        }
+        if facteur.len() == 16 {
+            result = n - 3;
+            break;
+        }
+    }
+    result
+}

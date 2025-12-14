@@ -72,6 +72,32 @@ where
     d
 }
 
+pub(crate) fn decomposition<'a, N, V, F>(_n: N, premiers: V, mut output: F)
+where
+    N: PrimInt + DivAssign + Copy + 'a,
+    V: IntoIterator<Item = &'a N>,
+    F: FnMut(N, usize),
+{
+    let mut n = _n;
+    for &p in premiers {
+        if p * p > n {
+            break;
+        }
+        if (n % p).is_zero() {
+            let mut count: usize = 0;
+            while (n % p).is_zero() {
+                n /= p;
+                count += 1;
+            }
+            output(p, count);
+        }
+    }
+
+    if n > N::one() {
+        output(n, 1);
+    }
+}
+
 pub(crate) fn somme_diviseurs<'a, N, V>(mut _n: N, premiers: V) -> N
 where
     N: PrimInt + MulAssign + DivAssign + Copy + 'a,
@@ -103,6 +129,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::collections::HashMap;
 
     #[test]
     fn test_pgcd() {
@@ -134,5 +161,19 @@ mod tests {
         assert_eq!(somme_diviseurs(456753, &premiers), 664416);
         assert_eq!(somme_diviseurs(496, &premiers), 992);
         assert_eq!(somme_diviseurs(3246999210u64, &premiers), 11708928000);
+    }
+    #[test]
+    fn test_decomposition() {
+        let premiers: Vec<u64> = vec![
+            2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83,
+            89, 97,
+        ];
+        let mut d: HashMap<u64, usize> = HashMap::new();
+        decomposition(3246999210u64, &premiers, |p, c| {
+            d.insert(p, c);
+        });
+        println!("{:?}", d);
+        let expected = HashMap::from([(29, 1), (7, 3), (13, 1), (3, 4), (5, 1), (31, 1), (2, 1)]);
+        assert_eq!(d, expected);
     }
 }

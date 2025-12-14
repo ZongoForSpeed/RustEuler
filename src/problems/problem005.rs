@@ -8,7 +8,7 @@ pub fn problem005(borne: u64) -> u64 {
     //
     // What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
     let mut solution = 2;
-    for d in 3..borne + 1 {
+    for d in 3..=borne {
         solution = arithmetique::ppcm(solution, d);
     }
     println!("solution 005: {}", solution);

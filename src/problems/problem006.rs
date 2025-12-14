@@ -11,7 +11,7 @@ pub fn problem006(borne: u64) -> u64 {
     // and the square of the sum.
     let mut somme: u64 = 0;
     let mut somme_carre: u64 = 0;
-    for n in 1..borne + 1 {
+    for n in 1..=borne {
         somme += n;
         somme_carre += n * n;
     }

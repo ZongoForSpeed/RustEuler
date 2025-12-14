@@ -27,14 +27,15 @@ where
 
 pub(crate) fn palindrome<T>(n: T, base: T) -> bool
 where
-    T: PrimInt + std::ops::DivAssign,
+    T: PrimInt + DivAssign,
 {
     let chiffres = extraire_chiffres(n, base);
     chiffres.iter().eq(chiffres.iter().rev())
 }
 
-fn addmul<'a, N>(a: N, b: N, base: N) -> N where
-    N: PrimInt + Mul+ DivAssign + Copy + 'a,
+fn addmul<'a, N>(a: N, b: N, base: N) -> N
+where
+    N: PrimInt + Mul + DivAssign + Copy + 'a,
 {
     base * a + b
 }
@@ -42,9 +43,14 @@ fn addmul<'a, N>(a: N, b: N, base: N) -> N where
 pub(crate) fn conversion<'a, N, V>(list: V, base: N) -> N
 where
     N: PrimInt + DivAssign + Copy + 'a,
-    V: IntoIterator<Item = &'a N>,{
-    list.into_iter().map(N::clone).reduce(|a, b| addmul(a, b, base)).unwrap()
+    V: IntoIterator<Item = &'a N>,
+{
+    list.into_iter()
+        .map(N::clone)
+        .reduce(|a, b| addmul(a, b, base))
+        .unwrap()
 }
+
 
 #[cfg(test)]
 mod tests {
@@ -70,4 +76,5 @@ mod tests {
         assert_eq!(palindrome(1234567890, 10), false);
         assert_eq!(palindrome(1234567890987654321u64, 10), true);
     }
+
 }

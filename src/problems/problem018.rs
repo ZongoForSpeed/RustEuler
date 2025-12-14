@@ -41,7 +41,7 @@ pub fn problem018() -> u64 {
         if i == 0 {
             ligne.push(triangle[i][i]);
         } else {
-            for j in 0..i + 1 {
+            for j in 0..=i {
                 if j == 0 {
                     ligne.push(resultat[i - 1][j] + triangle[i][j]);
                 } else if i == j {

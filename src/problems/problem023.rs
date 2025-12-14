@@ -34,7 +34,7 @@ pub fn problem023() -> usize {
     let len = abundant.len();
     for i in 0..len {
         let n = abundant[i];
-        for j in 0..i + 1 {
+        for j in 0..=i {
             let m = abundant[j];
             if n + m < limite {
                 test.remove(n + m);

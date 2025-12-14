@@ -4,3 +4,7 @@ pub mod fibonacci;
 pub mod premiers;
 pub mod timer;
 pub mod puissance;
+pub mod combinatoire;
+pub mod pythagorean;
+pub mod polygonal;
+pub mod integer_root;

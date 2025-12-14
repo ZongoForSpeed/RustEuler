@@ -1,15 +1,15 @@
 use gmp_mpfr_sys::gmp;
 use gmp_mpfr_sys::gmp::mpz_t;
 use gmp_mpfr_sys::mpc::free_str;
+use num_traits::{One, Zero};
 use std::cmp::Ordering;
-use std::ffi::{CStr, CString, c_char, c_int, c_long, c_ulong};
+use std::ffi::{CStr, CString, c_char, c_int, c_long, c_ulong, c_void};
 use std::fmt::{Display, Formatter};
 use std::hash::{Hash, Hasher};
 use std::mem::MaybeUninit;
 use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Rem, RemAssign, Sub, SubAssign};
 use std::ptr::null_mut;
 use std::str::FromStr;
-use num_traits::{One, Zero};
 
 #[derive(Debug)]
 pub(crate) struct MpzNombre {
@@ -70,6 +70,21 @@ impl MpzNombre {
         }
     }
 
+    pub fn set_u128(&mut self, n: u128) {
+        unsafe {
+            let my_num_ptr: *const u128 = &n;
+            gmp::mpz_import(
+                &mut self.data,
+                1,
+                -1,
+                128 / 8,
+                0,
+                0,
+                my_num_ptr as *const c_void,
+            );
+        }
+    }
+
     pub fn set_si(&mut self, si: i64) {
         unsafe {
             gmp::mpz_set_si(&mut self.data, si as c_long);
@@ -78,6 +93,23 @@ impl MpzNombre {
 
     pub fn get_ui(&self) -> c_ulong {
         unsafe { gmp::mpz_get_ui(&self.data) }
+    }
+
+    pub fn get_u128(&self) -> u128 {
+        let mut res = 0;
+        unsafe {
+            let my_num_ptr: *mut u128 = &mut res;
+            gmp::mpz_export(
+                my_num_ptr as *mut c_void,
+                0 as *mut usize,
+                -1,
+                128 / 8,
+                0,
+                0,
+                &self.data,
+            );
+        }
+        res
     }
 
     pub fn get_si(&self) -> c_long {
@@ -269,6 +301,17 @@ impl MpzNombre {
         res
     }
 
+    pub(crate) fn puissance_m_ui(base: u64, exposant: u64, modulo: u64) -> MpzNombre {
+        let mut res = MpzNombre::new();
+        let z_base = MpzNombre::from_u64(base);
+        let z_modulo = MpzNombre::from_u64(modulo);
+        unsafe {
+            //     pub fn mpz_powm_ui(rop: mpz_ptr, base: mpz_srcptr, exp: c_ulong, modu: mpz_srcptr);
+            gmp::mpz_powm_ui(&mut res.data, &z_base.data, exposant, &z_modulo.data);
+        }
+        res
+    }
+
     fn hash<H: Hasher>(&self, state: &mut H) {
         // TODO implement better hash method
         self.to_string().hash(state);
@@ -327,9 +370,7 @@ impl PartialEq for MpzNombre {
     }
 }
 
-impl Eq for MpzNombre {
-
-}
+impl Eq for MpzNombre {}
 
 impl Hash for MpzNombre {
     fn hash<H: Hasher>(&self, state: &mut H) {
@@ -366,7 +407,6 @@ impl PartialOrd for MpzNombre {
         self.cmp(&other) >= 0
     }
 }
-
 
 // region From
 macro_rules! impl_from_unsigned {
@@ -750,6 +790,9 @@ mod tests {
 
         mpz.set_si(-42);
         assert_eq!(mpz.get_si(), -42);
+
+        let z = MpzNombre::from_z(&mpz);
+        assert_eq!(z, mpz);
     }
 
     #[test]
@@ -757,6 +800,29 @@ mod tests {
         let mpz: MpzNombre = MpzNombre::from_u64(165);
         assert_eq!(mpz.get_ui(), 165);
         assert_eq!(mpz.get_str(), "165");
+    }
+
+    #[test]
+    fn test_init_u128() {
+        let mut mpz: MpzNombre = MpzNombre::new();
+        mpz.set_u128(123456789098760000066600005432123456789);
+        assert_eq!(mpz.get_u128(), 123456789098760000066600005432123456789);
+    }
+
+    #[test]
+    fn test_bin() {
+        let bin = MpzNombre::binomial_ui(40, 20);
+        assert_eq!(bin.get_u128(), 137846528820);
+
+        let fac = MpzNombre::factorial(20);
+        assert_eq!(fac.get_u128(), 2432902008176640000);
+
+        assert_eq!(fac > bin, true);
+        assert_eq!(fac < bin, false);
+        assert_eq!(fac == bin, false);
+        assert_eq!(fac != bin, true);
+        assert_eq!(fac.is_zero(), false);
+        assert_eq!(fac.sign(), 1);
     }
 
     #[test]
@@ -781,6 +847,7 @@ mod tests {
 
         rr += &r;
         assert_eq!(rr.get_str(), "123456789111111111025691356654");
+        assert_eq!(rr.get_u128(), 123456789111111111025691356654);
 
         rr = &r + 1234567890;
         assert_eq!(rr.get_str(), "2234567889");
@@ -881,4 +948,18 @@ mod tests {
         rr = 12345566123456i64 % &r;
         assert_eq!(rr.get_str(), "71");
     }
+
+
+    #[test]
+    fn test_puissance() {
+        let p = MpzNombre::puissance_ui(11, 11);
+        assert_eq!(p.get_ui(), 285311670611);
+    }
+
+    #[test]
+    fn test_puissance_m() {
+        let p = MpzNombre::puissance_m_ui(11, 1111, 123456789);
+        assert_eq!(p.get_ui(), 116094638);
+    }
+
 }
