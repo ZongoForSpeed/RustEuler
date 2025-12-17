@@ -1,11 +1,15 @@
 use bit_set::BitSet;
 use num_traits::PrimInt;
+use crate::maths::timer::ScopeTimer;
 
 pub(crate) fn crible2<T, F>(taille: usize, mut sortie: F)
 where
     T: PrimInt + std::ops::DivAssign,
     F: FnMut(T),
 {
+    let label = format!("Crible 2 with taille = {}", taille);
+    let _timer = ScopeTimer::new(label.as_str(), false);
+
     let taille_crible = taille / 2;
     let mut test: BitSet<usize> = BitSet::from_iter(1..taille_crible);
     let mut p = 1;
@@ -36,6 +40,9 @@ where
     T: PrimInt + std::ops::DivAssign,
     F: FnMut(T),
 {
+    let label = format!("Crible 2-3 with taille = {}", taille);
+    let _timer = ScopeTimer::new(label.as_str(), false);
+
     let taille_crible = taille / 6 + 1;
     let mut test1: BitSet<usize> = BitSet::from_iter(1..taille_crible);
     let mut test5: BitSet<usize> = BitSet::from_iter(0..taille_crible);
@@ -71,6 +78,9 @@ where
     T: PrimInt + std::ops::DivAssign,
     F: FnMut(T),
 {
+    let label = format!("Crible 2-3-5 with taille = {}", taille);
+    let _timer = ScopeTimer::new(label.as_str(), false);
+
     let taille_crible = taille / 30 + 1;
     let mut test1: BitSet<usize> = BitSet::from_iter(1..taille_crible);
     let mut test7: BitSet<usize> = BitSet::from_iter(0..taille_crible);

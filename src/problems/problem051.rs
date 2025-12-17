@@ -1,0 +1,63 @@
+use crate::maths::chiffres::{conversion, extraire_chiffres};
+use crate::maths::premiers::crible2;
+use crate::maths::timer::ScopeTimer;
+use std::collections::BTreeSet;
+
+pub fn problem051() -> u64 {
+    let _timer = ScopeTimer::new("Problem 51 Prime digit replacements", false);
+    // By replacing the 1st digit of the 2-digit number *3, it turns out that six of the nine
+    // possible values: 13, 23, 43, 53, 73, and 83, are all prime.
+    //
+    // By replacing the 3rd and 4th digits of 56**3 with the same digit, this 5-digit number
+    // is the first example having seven primes among the ten generated numbers, yielding the
+    // family: 56003, 56113, 56333, 56443, 56663, 56773, and 56993. Consequently 56003, being
+    // the first member of this family, is the smallest prime with this property.
+    //
+    // Find the smallest prime which, by replacing part of the number (not necessarily adjacent digits)
+    // with the same digit, is part of an eight prime value family.
+    let limite = 1000000;
+
+    let mut primes = BTreeSet::new();
+    crible2(limite, |p| {
+        primes.insert(p);
+    });
+
+    let mut result = 0;
+    let mut found = false;
+
+    for p in &primes {
+        let chiffres = extraire_chiffres(*p, 10);
+        let unique = chiffres.iter().cloned().collect::<BTreeSet<_>>();
+        for c in unique {
+            if c != 0 {
+                let chiffres2 = chiffres
+                    .iter()
+                    .cloned()
+                    .map(|d| return if d == c { 0 } else { d })
+                    .collect::<Vec<_>>();
+                let q = conversion(&chiffres2, 10);
+                let diff = (p - q) / c;
+                let mut count = 0;
+                for n in c..10 {
+                    let i = q + n * diff;
+                    if primes.contains(&i) {
+                        count += 1;
+                    }
+                }
+
+                if count == 8 {
+                    println!("p={}, q={}, count={}", p, q, count);
+                    result = *p;
+                    found = true;
+                    break;
+                }
+            }
+        }
+
+        if found {
+            break;
+        }
+    }
+
+    result
+}

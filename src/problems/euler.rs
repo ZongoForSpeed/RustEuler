@@ -50,6 +50,16 @@ mod tests {
     use crate::problems::problem048::problem048;
     use crate::problems::problem049::problem049;
     use crate::problems::problem050::problem050;
+    use crate::problems::problem051::problem051;
+    use crate::problems::problem052::problem052;
+    use crate::problems::problem053::problem053;
+    use crate::problems::problem054::problem054;
+    use crate::problems::problem055::problem055;
+    use crate::problems::problem056::problem056;
+    use crate::problems::problem057::problem057;
+    use crate::problems::problem058::problem058;
+    use crate::problems::problem059::problem059;
+    use crate::problems::problem060::problem060;
 
     #[test]
     fn test_problem001() {
@@ -350,4 +360,65 @@ mod tests {
         let result = problem050();
         assert_eq!(result, 997651);
     }
+
+    #[test]
+    fn test_problem051() {
+        let result = problem051();
+        assert_eq!(result, 121313);
+    }
+
+    #[test]
+    fn test_problem052() {
+        let result = problem052();
+        assert_eq!(result, 142857);
+    }
+
+    #[test]
+    fn test_problem053() {
+        let result = problem053();
+        assert_eq!(result, 4075);
+    }
+
+    #[test]
+    fn test_problem054() {
+        let result = problem054();
+        assert_eq!(result, 376);
+    }
+
+    #[test]
+    fn test_problem055() {
+        let result = problem055();
+        assert_eq!(result, 249);
+    }
+
+    #[test]
+    fn test_problem056() {
+        let result = problem056();
+        assert_eq!(result, 972);
+    }
+
+    #[test]
+    fn test_problem057() {
+        let result = problem057();
+        assert_eq!(result, 153);
+    }
+
+    #[test]
+    fn test_problem058() {
+        let result = problem058();
+        assert_eq!(result, 26241);
+    }
+
+    #[test]
+    fn test_problem059() {
+        let result = problem059();
+        assert_eq!(result, 129448);
+    }
+
+    #[test]
+    fn test_problem060() {
+        let result = problem060();
+        assert_eq!(result, 26033);
+    }
+
 }

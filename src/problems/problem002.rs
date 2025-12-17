@@ -1,3 +1,4 @@
+use maths::fibonacci::fibonacci_limit;
 use crate::maths;
 use maths::timer;
 use timer::ScopeTimer;
@@ -27,7 +28,7 @@ pub fn problem002() -> u64 {
     // By considering the terms in the Fibonacci sequence whose values do not exceed four million,
     // find the sum of the even-valued terms.
     let mut solution: u64 = 0;
-    for n in maths::fibonacci::fibonacci_limit(4000000u64) {
+    for n in fibonacci_limit(4000000) {
         if n % 2 == 0 {
             solution += n;
         }

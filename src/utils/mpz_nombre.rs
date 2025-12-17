@@ -3,6 +3,7 @@ use gmp_mpfr_sys::gmp::mpz_t;
 use gmp_mpfr_sys::mpc::free_str;
 use num_traits::{One, Zero};
 use std::cmp::Ordering;
+use std::collections::VecDeque;
 use std::ffi::{CStr, CString, c_char, c_int, c_long, c_ulong, c_void};
 use std::fmt::{Display, Formatter};
 use std::hash::{Hash, Hasher};
@@ -281,6 +282,37 @@ impl MpzNombre {
         }
     }
 
+    pub(crate) fn extraire_chiffres(&self, base: u64) -> VecDeque<u64> {
+        let mut chiffres = VecDeque::new();
+        self.boucle_chiffre(base, |r| {
+            chiffres.push_front(r);
+        });
+        chiffres
+    }
+
+    pub(crate) fn conversion<V>(list: V, base: u64) -> MpzNombre
+    where
+        V: IntoIterator<Item = u64>,
+    {
+        let mut z = MpzNombre::new();
+        for d in list.into_iter() {
+            z *= base;
+            z += d;
+        }
+        z
+    }
+
+    pub(crate) fn inverser_nombre(&self, base: u64) -> MpzNombre {
+        let chiffres = self.extraire_chiffres(base);
+        let chiffres: Vec<u64> = chiffres.into_iter().rev().collect();
+        Self::conversion(chiffres, base)
+    }
+
+    pub(crate) fn palindrome(&self, base: u64) -> bool {
+        let chiffres = self.extraire_chiffres(base);
+        chiffres.iter().eq(chiffres.iter().rev())
+    }
+
     pub(crate) fn somme_chiffre(&self, base: u64) -> u64 {
         let mut result: u64 = 0;
         self.boucle_chiffre(base, |r| result += r);
@@ -457,6 +489,45 @@ macro_rules! impl_from_unsigned {
                     MpzNombre::internal_mod(&MpzNombre::from_u64(self as u64), &rhs)
                 }
             }
+            impl Add<MpzNombre> for $t {
+                type Output = MpzNombre;
+
+                fn add(self, rhs: MpzNombre) -> MpzNombre {
+                    MpzNombre::internal_add_ui(&rhs, self as u64)
+                }
+            }
+
+            impl Mul<MpzNombre> for $t {
+                type Output = MpzNombre;
+
+                fn mul(self, rhs: MpzNombre) -> MpzNombre {
+                    MpzNombre::internal_mul_ui(&rhs, self as u64)
+                }
+            }
+
+            impl Sub<MpzNombre> for $t {
+                type Output = MpzNombre;
+
+                fn sub(self, rhs: MpzNombre) -> MpzNombre {
+                    MpzNombre::internal_ui_sub(self as u64, &rhs)
+                }
+            }
+
+            impl Div<MpzNombre> for $t {
+                type Output = MpzNombre;
+
+                fn div(self, rhs: MpzNombre) -> MpzNombre {
+                    MpzNombre::internal_div(&MpzNombre::from_u64(self as u64), &rhs)
+                }
+            }
+
+            impl Rem<MpzNombre> for $t {
+                type Output = MpzNombre;
+
+                fn rem(self, rhs: MpzNombre) -> MpzNombre {
+                    MpzNombre::internal_mod(&MpzNombre::from_u64(self as u64), &rhs)
+                }
+            }
         )*
     }
 }
@@ -508,6 +579,46 @@ macro_rules! impl_from_signed {
                 type Output = MpzNombre;
 
                 fn rem(self, rhs: &MpzNombre) -> MpzNombre {
+                    MpzNombre::internal_mod(&MpzNombre::from_i64(self as i64), &rhs)
+                }
+            }
+
+            impl Add<MpzNombre> for $t {
+                type Output = MpzNombre;
+
+                fn add(self, rhs: MpzNombre) -> MpzNombre {
+                    MpzNombre::internal_add(&MpzNombre::from_i64(self as i64), &rhs)
+                }
+            }
+
+            impl Mul<MpzNombre> for $t {
+                type Output = MpzNombre;
+
+                fn mul(self, rhs: MpzNombre) -> MpzNombre {
+                    MpzNombre::internal_mul_si(&rhs, self as i64)
+                }
+            }
+
+            impl Sub<MpzNombre> for $t {
+                type Output = MpzNombre;
+
+                fn sub(self, rhs: MpzNombre) -> MpzNombre {
+                    MpzNombre::internal_sub(&MpzNombre::from_i64(self as i64), &rhs)
+                }
+            }
+
+            impl Div<MpzNombre> for $t {
+                type Output = MpzNombre;
+
+                fn div(self, rhs: MpzNombre) -> MpzNombre {
+                    MpzNombre::internal_div(&MpzNombre::from_i64(self as i64), &rhs)
+                }
+            }
+
+            impl Rem<MpzNombre> for $t {
+                type Output = MpzNombre;
+
+                fn rem(self, rhs: MpzNombre) -> MpzNombre {
                     MpzNombre::internal_mod(&MpzNombre::from_i64(self as i64), &rhs)
                 }
             }
@@ -949,7 +1060,6 @@ mod tests {
         assert_eq!(rr.get_str(), "71");
     }
 
-
     #[test]
     fn test_puissance() {
         let p = MpzNombre::puissance_ui(11, 11);
@@ -961,5 +1071,4 @@ mod tests {
         let p = MpzNombre::puissance_m_ui(11, 1111, 123456789);
         assert_eq!(p.get_ui(), 116094638);
     }
-
 }
