@@ -1,8 +1,8 @@
-use crate::maths::premiers::crible235;
+use crate::maths::primes::crible235;
 use crate::maths::timer::ScopeTimer;
 use itertools::Itertools;
 use std::collections::{BTreeSet, HashMap, HashSet};
-use crate::maths::chiffres::concat_numbers;
+use crate::maths::digits::concat_numbers;
 
 fn v_intersection(a: &Vec<u64>, b: &Vec<u64>) -> Vec<u64> {
     let set_a = HashSet::<u64>::from_iter(a.iter().cloned());

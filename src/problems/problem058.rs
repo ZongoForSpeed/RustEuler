@@ -1,4 +1,4 @@
-use crate::maths::premiers::crible235;
+use crate::maths::primes::crible235;
 use crate::maths::timer::ScopeTimer;
 use std::collections::HashSet;
 

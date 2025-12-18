@@ -1,4 +1,4 @@
-use crate::maths::premiers;
+use crate::maths::primes;
 use crate::maths::timer::ScopeTimer;
 
 pub fn problem010(limite: usize) -> u64 {
@@ -7,7 +7,7 @@ pub fn problem010(limite: usize) -> u64 {
     //
     // Find the sum of all the primes below two million.
     let mut solution: u64 = 0;
-    premiers::crible2(limite, |p: u64| solution += p);
+    primes::crible2(limite, |p: u64| solution += p);
     println!("Solution 010: {}", solution);
     solution
 }

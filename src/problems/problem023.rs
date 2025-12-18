@@ -1,5 +1,5 @@
 use crate::maths::timer::ScopeTimer;
-use crate::maths::{arithmetique, premiers};
+use crate::maths::{arithmetique, primes};
 use bit_set::BitSet;
 
 pub fn problem023() -> usize {
@@ -19,12 +19,12 @@ pub fn problem023() -> usize {
     //
     // Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers.
     let limite = 28123;
-    let mut premiers: Vec<usize> = Vec::new();
-    premiers::crible2(limite, |p| premiers.push(p));
+    let mut primes: Vec<usize> = Vec::new();
+    primes::crible2(limite, |p| primes.push(p));
 
     let mut abundant: Vec<usize> = Vec::new();
     for n in 12..limite {
-        if arithmetique::somme_diviseurs(n, &premiers) > 2 * n {
+        if arithmetique::sum_of_divisors(n, &primes) > 2 * n {
             abundant.push(n);
         }
     }

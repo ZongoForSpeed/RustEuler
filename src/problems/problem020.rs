@@ -1,5 +1,5 @@
 use crate::maths::timer::ScopeTimer;
-use crate::utils::mpz_nombre::MpzNombre;
+use crate::utils::mpz_number::MpzNumber;
 
 pub fn problem020() -> u64 {
     let _timer = ScopeTimer::new("Problem 20 Factorial digit sum", false);
@@ -9,5 +9,5 @@ pub fn problem020() -> u64 {
     // and the sum of the digits in the number 10! is 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27.
     //
     // Find the sum of the digits in the number 100!
-    MpzNombre::factorial(100).somme_chiffre(10)
+    MpzNumber::factorial(100).sum_digits(10)
 }

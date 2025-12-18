@@ -1,5 +1,5 @@
 use crate::maths::timer::ScopeTimer;
-use crate::utils::mpz_nombre::MpzNombre;
+use crate::utils::mpz_number::MpzNumber;
 
 pub fn problem015() -> u64 {
     let _timer = ScopeTimer::new("Problem 15 Lattice paths", false);
@@ -7,7 +7,7 @@ pub fn problem015() -> u64 {
     // there are exactly 6 routes to the bottom right corner.
     //
     // How many such routes are there through a 20×20 grid?
-    let result = MpzNombre::binomial_ui(40, 20);
+    let result = MpzNumber::binomial_ui(40, 20);
     println!("C(40, 20) = {}", result);
     result.get_ui()
 }

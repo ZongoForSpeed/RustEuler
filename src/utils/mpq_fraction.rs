@@ -1,6 +1,6 @@
-use crate::utils::mpz_nombre::MpzNombre;
+use crate::utils::mpz_number::MpzNumber;
 use gmp_mpfr_sys::gmp;
-use gmp_mpfr_sys::mpc::free_str;
+use gmp_mpfr_sys::mpc;
 use num_traits::{One, Zero};
 use std::cmp::Ordering;
 use std::ffi::{c_char, c_int, CStr, CString};
@@ -51,7 +51,7 @@ impl MpqFraction {
         z
     }
 
-    pub fn from_z(n: &MpzNombre) -> Self {
+    pub fn from_z(n: &MpzNumber) -> Self {
         let mut z = MpqFraction::new();
         unsafe {
             gmp::mpq_set_z(&mut z.data, &n.data);
@@ -60,7 +60,7 @@ impl MpqFraction {
         z
     }
 
-    pub fn from_zz(n: &MpzNombre, d: &MpzNombre) -> Self {
+    pub fn from_zz(n: &MpzNumber, d: &MpzNumber) -> Self {
         let mut z = MpqFraction::new();
         unsafe {
             gmp::mpq_set_num(&mut z.data, &n.data);
@@ -89,16 +89,16 @@ impl MpqFraction {
         z
     }
 
-    pub fn numerator(&self) -> MpzNombre {
-        let mut n = MpzNombre::new();
+    pub fn numerator(&self) -> MpzNumber {
+        let mut n = MpzNumber::new();
         unsafe {
             gmp::mpq_get_num(&mut n.data, &self.data);
         }
         n
     }
 
-    pub fn denominator(&self) -> MpzNombre {
-        let mut d = MpzNombre::new();
+    pub fn denominator(&self) -> MpzNumber {
+        let mut d = MpzNumber::new();
         unsafe {
             gmp::mpq_get_den(&mut d.data, &self.data);
         }
@@ -114,7 +114,7 @@ impl MpqFraction {
             let char_ptr = gmp::mpq_get_str(null_mut(), 10, &self.data);
             let c_str = CStr::from_ptr(char_ptr);
             let string = c_str.to_string_lossy().into_owned();
-            free_str(char_ptr);
+            mpc::free_str(char_ptr);
             string
         }
     }
@@ -298,20 +298,20 @@ impl PartialOrd for MpqFraction {
     }
 }
 
-// region MpzNombre
-impl From<MpzNombre> for MpqFraction {
-    fn from(value: MpzNombre) -> MpqFraction {
+// region MpzNumber
+impl From<MpzNumber> for MpqFraction {
+    fn from(value: MpzNumber) -> MpqFraction {
         MpqFraction::from_z(&value)
     }
 }
 
-impl From<&MpzNombre> for MpqFraction {
-    fn from(value: &MpzNombre) -> MpqFraction {
+impl From<&MpzNumber> for MpqFraction {
+    fn from(value: &MpzNumber) -> MpqFraction {
         MpqFraction::from_z(&value)
     }
 }
 
-impl Add<&MpqFraction> for MpzNombre {
+impl Add<&MpqFraction> for MpzNumber {
     type Output = MpqFraction;
 
     fn add(self, rhs: &MpqFraction) -> MpqFraction {
@@ -319,7 +319,7 @@ impl Add<&MpqFraction> for MpzNombre {
     }
 }
 
-impl Add<MpqFraction> for MpzNombre {
+impl Add<MpqFraction> for MpzNumber {
     type Output = MpqFraction;
 
     fn add(self, rhs: MpqFraction) -> MpqFraction {
@@ -327,7 +327,7 @@ impl Add<MpqFraction> for MpzNombre {
     }
 }
 
-impl Mul<&MpqFraction> for MpzNombre {
+impl Mul<&MpqFraction> for MpzNumber {
     type Output = MpqFraction;
 
     fn mul(self, rhs: &MpqFraction) -> MpqFraction {
@@ -335,7 +335,7 @@ impl Mul<&MpqFraction> for MpzNombre {
     }
 }
 
-impl Mul<MpqFraction> for MpzNombre {
+impl Mul<MpqFraction> for MpzNumber {
     type Output = MpqFraction;
 
     fn mul(self, rhs: MpqFraction) -> MpqFraction {
@@ -343,7 +343,7 @@ impl Mul<MpqFraction> for MpzNombre {
     }
 }
 
-impl Sub<&MpqFraction> for MpzNombre {
+impl Sub<&MpqFraction> for MpzNumber {
     type Output = MpqFraction;
 
     fn sub(self, rhs: &MpqFraction) -> MpqFraction {
@@ -351,7 +351,7 @@ impl Sub<&MpqFraction> for MpzNombre {
     }
 }
 
-impl Sub<MpqFraction> for MpzNombre {
+impl Sub<MpqFraction> for MpzNumber {
     type Output = MpqFraction;
 
     fn sub(self, rhs: MpqFraction) -> MpqFraction {
@@ -359,7 +359,7 @@ impl Sub<MpqFraction> for MpzNombre {
     }
 }
 
-impl Div<&MpqFraction> for MpzNombre {
+impl Div<&MpqFraction> for MpzNumber {
     type Output = MpqFraction;
 
     fn div(self, rhs: &MpqFraction) -> MpqFraction {
@@ -367,7 +367,7 @@ impl Div<&MpqFraction> for MpzNombre {
     }
 }
 
-impl Div<MpqFraction> for MpzNombre {
+impl Div<MpqFraction> for MpzNumber {
     type Output = MpqFraction;
 
     fn div(self, rhs: MpqFraction) -> MpqFraction {
@@ -751,11 +751,11 @@ mod tests {
 
     #[test]
     fn test_init_z() {
-        let q: MpqFraction = MpqFraction::from_z(&MpzNombre::binomial_ui(100, 50));
+        let q: MpqFraction = MpqFraction::from_z(&MpzNumber::binomial_ui(100, 50));
         assert_eq!(q.get_f(), 1.0089134454556418e29);
         assert_eq!(q.get_str(), "100891344545564193334812497256");
 
-        let z = MpzNombre::factorial(20);
+        let z = MpzNumber::factorial(20);
         let f = q / z;
         assert_eq!(f.get_f(), 41469547152.52921);
         assert_eq!(f.get_str(), "3370857116638995647473/81285120000")
@@ -764,8 +764,8 @@ mod tests {
 
     #[test]
     fn test_init_zz() {
-        let n = MpzNombre::binomial_ui(100, 50);
-        let d = MpzNombre::factorial(20);
+        let n = MpzNumber::binomial_ui(100, 50);
+        let d = MpzNumber::factorial(20);
         let q: MpqFraction = MpqFraction::from_zz(&n, &d);
         assert_eq!(q.get_f(), 41469547152.52921);
         assert_eq!(q.get_str(), "3370857116638995647473/81285120000");

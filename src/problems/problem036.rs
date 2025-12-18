@@ -1,4 +1,4 @@
-use crate::maths::chiffres::palindrome;
+use crate::maths::digits::palindrome;
 use crate::maths::timer::ScopeTimer;
 
 pub fn problem036() -> u64 {

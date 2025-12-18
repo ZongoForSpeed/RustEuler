@@ -1,5 +1,5 @@
 use crate::maths::timer::ScopeTimer;
-use crate::utils::mpz_nombre::MpzNombre;
+use crate::utils::mpz_number::MpzNumber;
 
 pub fn problem056() -> u64 {
     let _timer = ScopeTimer::new("Problem 56 Powerful digit sum", false);
@@ -10,7 +10,7 @@ pub fn problem056() -> u64 {
     // Considering natural numbers of the form, a^b, where a, b < 100, what is the maximum digital sum?
     let mut maximum = 0;
     for (a, b) in itertools::iproduct!(1..100, 1..100) {
-        let sum = MpzNombre::puissance_ui(a, b).somme_chiffre(10);
+        let sum = MpzNumber::power_ui(a, b).sum_digits(10);
         maximum = std::cmp::max(maximum, sum);
     }
     maximum

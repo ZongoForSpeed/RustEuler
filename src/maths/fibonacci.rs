@@ -1,16 +1,17 @@
-use std::ops::{Add, DivAssign};
 use num_traits::{One, Zero};
+use std::ops::{Add, DivAssign};
 
 pub(crate) fn fibonacci<N>() -> impl Iterator<Item = N>
 where
     N: Zero + One + DivAssign + Add + Clone,
 {
-    std::iter::successors(Some((N::zero(), N::one())), |a| next_fib(a))
-        .map(|(a, _)| a)
+    std::iter::successors(Some((N::zero(), N::one())), next_fib).map(|(a, _)| a)
 }
 
-fn next_fib<N>(t: &(N, N)) -> Option<(N, N)> where
-    N: Zero + One + DivAssign + Add + Clone {
+fn next_fib<N>(t: &(N, N)) -> Option<(N, N)>
+where
+    N: Zero + One + DivAssign + Add + Clone,
+{
     let ab = t.0.clone() + t.1.clone();
     Some((t.1.clone(), ab))
 }
@@ -21,7 +22,6 @@ where
 {
     fibonacci::<N>().take_while(move |a| *a < limite)
 }
-
 
 #[cfg(test)]
 mod tests {

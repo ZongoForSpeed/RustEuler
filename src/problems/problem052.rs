@@ -1,4 +1,4 @@
-use crate::maths::chiffres::is_permutation;
+use crate::maths::digits::is_permutation;
 use crate::maths::timer::ScopeTimer;
 
 pub fn problem052() -> u64 {

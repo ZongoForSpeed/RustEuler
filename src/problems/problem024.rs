@@ -1,6 +1,6 @@
 use crate::maths::timer::ScopeTimer;
 
-use crate::maths::chiffres::conversion;
+use crate::maths::digits::conversion;
 use permutohedron::LexicalPermutation;
 
 pub fn problem024() -> u64 {

@@ -1,5 +1,5 @@
-use crate::maths::chiffres::{conversion, extraire_chiffres};
-use crate::maths::premiers::crible2;
+use crate::maths::digits::{conversion, extract_digits};
+use crate::maths::primes::crible2;
 use crate::maths::timer::ScopeTimer;
 use std::collections::BTreeSet;
 
@@ -26,7 +26,7 @@ pub fn problem051() -> u64 {
     let mut found = false;
 
     for p in &primes {
-        let chiffres = extraire_chiffres(*p, 10);
+        let chiffres = extract_digits(*p, 10);
         let unique = chiffres.iter().cloned().collect::<BTreeSet<_>>();
         for c in unique {
             if c != 0 {

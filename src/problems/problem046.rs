@@ -1,4 +1,4 @@
-use crate::maths::premiers::crible235;
+use crate::maths::primes::crible235;
 use crate::maths::timer::ScopeTimer;
 use std::collections::HashSet;
 
@@ -17,19 +17,19 @@ pub fn problem046() -> i64 {
     // It turns out that the conjecture was false.
     //
     // What is the smallest odd composite that cannot be written as the sum of a prime and twice a square?
-    let mut premiers: HashSet<i64> = HashSet::new();
+    let mut primes: HashSet<i64> = HashSet::new();
     crible235(10000, |p| {
-        premiers.insert(p);
+        primes.insert(p);
     });
     for n in (9..).step_by(2) {
-        if !premiers.contains(&n) {
+        if !primes.contains(&n) {
             let mut success = false;
             for i in 1.. {
                 if 2 * i * i >= n {
                     break;
                 }
                 let p = n - 2 * i * i;
-                if premiers.contains(&p) {
+                if primes.contains(&p) {
                     success = true;
                     break;
                 }

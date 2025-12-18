@@ -1,5 +1,5 @@
 use crate::maths::timer::ScopeTimer;
-use crate::utils::mpz_nombre::MpzNombre;
+use crate::utils::mpz_number::MpzNumber;
 
 pub fn problem053() -> u64 {
     let _timer = ScopeTimer::new("Problem 53 Combinatoric selections", false);
@@ -16,10 +16,10 @@ pub fn problem053() -> u64 {
     //
     // How many, not necessarily distinct, values of  nCr, for 1 ≤ n ≤ 100, are greater than one-million?
     let mut count = 0;
-    let limit = MpzNombre::from_u64(1000000);
+    let limit = MpzNumber::from_u64(1000000);
     for n in 1..=100 {
         for p in 0..=n {
-            if MpzNombre::binomial_ui(n, p) > limit {
+            if MpzNumber::binomial_ui(n, p) > limit {
                 count += 1;
             }
         }

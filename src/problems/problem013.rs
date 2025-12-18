@@ -1,5 +1,5 @@
 use crate::maths::timer::ScopeTimer;
-use crate::utils::mpz_nombre::MpzNombre;
+use crate::utils::mpz_number::MpzNumber;
 
 pub fn problem013() -> String {
     let _timer = ScopeTimer::new("Problem 13 Large Sum", false);
@@ -108,7 +108,7 @@ pub fn problem013() -> String {
     let solution = input
         .split("\n")
         .map(String::from)
-        .map(|s| MpzNombre::from_str(s))
+        .map(|s| MpzNumber::from_str(s))
         .reduce(|a, b| a + b)
         .unwrap();
     solution.to_string()[0..10].to_string()

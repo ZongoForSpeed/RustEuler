@@ -1,5 +1,5 @@
 use crate::maths;
-use maths::chiffres;
+use maths::digits;
 use crate::maths::timer::ScopeTimer;
 
 pub fn problem004(borne: u64) -> u64 {
@@ -12,7 +12,7 @@ pub fn problem004(borne: u64) -> u64 {
     for a in 100..borne {
         for b in 100..a {
             let ab = a * b;
-            if chiffres::palindrome(ab, 10) {
+            if digits::palindrome(ab, 10) {
                 solution = u64::max(solution, ab);
             }
         }

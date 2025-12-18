@@ -1,8 +1,8 @@
-use crate::maths::premiers::crible235;
+use crate::maths::primes::crible235;
 use crate::maths::timer::ScopeTimer;
-use crate::maths::chiffres;
+use crate::maths::digits;
 use std::collections::VecDeque;
-use chiffres::{conversion, extraire_chiffres};
+use digits::{conversion, extract_digits};
 
 fn is_permutation<T: Ord + Clone>(a: &VecDeque<T>, b: &VecDeque<T>) -> bool {
     if a.len() != b.len() {
@@ -31,32 +31,32 @@ pub fn problem049() -> u64 {
     // What 12-digit number do you form by concatenating the three terms in this sequence?
     let limite = 10000;
 
-    let mut premiers: Vec<u64> = Vec::new();
-    crible235(limite, |p| premiers.push(p));
+    let mut primes: Vec<u64> = Vec::new();
+    crible235(limite, |p| primes.push(p));
 
-    let mut suites_premiers : Vec<Vec<u64>> = Vec::new();
-    let size = premiers.len();
+    let mut prime_permutations: Vec<Vec<u64>> = Vec::new();
+    let size = primes.len();
     for i in 0..size {
-        let p = premiers[i];
+        let p = primes[i];
         if p > 1000 {
             let mut suite: Vec<u64> = vec![p];
-            let chiffres = extraire_chiffres(p, 10);
+            let chiffres = extract_digits(p, 10);
             for j in i+1..size {
-                let q = premiers[j];
-                if is_permutation(&chiffres, &extraire_chiffres(q, 10)) {
+                let q = primes[j];
+                if is_permutation(&chiffres, &extract_digits(q, 10)) {
                     suite.push(q);
                 }
             }
 
             if suite.len() > 2 {
                 println!("Suites: {:?}", suite);
-                suites_premiers.push(suite);
+                prime_permutations.push(suite);
             }
         }
     }
 
     let mut result = Vec::<u64>::new();
-    for s in suites_premiers {
+    for s in prime_permutations {
         if s.len() == 3 && (s[2] - s[1]) == (s[1] - s[0]) {
             result = s;
         }

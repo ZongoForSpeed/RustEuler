@@ -1,5 +1,5 @@
-use crate::maths::chiffres::boucle_chiffre;
-use crate::maths::combinatoire;
+use crate::maths::digits::loop_digits;
+use crate::maths::factorial;
 use crate::maths::timer::ScopeTimer;
 
 pub fn problem034() -> u64 {
@@ -13,7 +13,7 @@ pub fn problem034() -> u64 {
     let mut solution: u64 = 0;
     for n in 10..borne {
         let mut s = 0;
-        boucle_chiffre::<u64, _>(n, 10, |d| s += combinatoire::factorial(d));
+        loop_digits::<u64, _>(n, 10, |d| s += factorial::factorial(d));
         if s == n {
             solution += n;
         }

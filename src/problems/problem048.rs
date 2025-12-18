@@ -1,12 +1,12 @@
-use puissance::puissance_m;
-use crate::maths::puissance;
+use power::power_mod;
+use crate::maths::power;
 use crate::maths::timer::ScopeTimer;
 
 fn serie(limit: u128) -> u128 {
     let modulo: u128 = 10_000_000_000;
     let mut result: u128 = 0;
     for n in 1..=limit {
-        result += puissance_m(n, n, modulo);
+        result += power_mod(n, n, modulo);
         result %= modulo;
     }
     result

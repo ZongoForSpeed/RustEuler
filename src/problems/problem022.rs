@@ -1,15 +1,17 @@
 use crate::maths::timer::ScopeTimer;
 use std::path::Path;
 
+fn to_usize(c: u8) -> usize {
+    if c == '"' as u8 {
+        0
+    } else {
+        let d = c - 'A' as u8;
+        (d + 1) as usize
+    }
+}
+
 fn conversion(s: &String) -> usize {
-    s.bytes().map(|c| {
-        if c == '"' as u8 {
-            return 0;
-        } else {
-            let d = c - 'A' as u8;
-            (d + 1) as usize
-        }
-    }).sum()
+    s.bytes().map(to_usize).sum()
 }
 
 pub fn problem022() -> usize {
@@ -29,7 +31,12 @@ pub fn problem022() -> usize {
         .unwrap()
         .lines()
         .map(String::from)
-        .map(|s| s.split(',').into_iter().map(String::from).collect::<Vec<String>>())
+        .map(|s| {
+            s.split(',')
+                .into_iter()
+                .map(String::from)
+                .collect::<Vec<String>>()
+        })
         .flatten()
         .collect();
 

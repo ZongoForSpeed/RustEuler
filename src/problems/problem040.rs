@@ -1,4 +1,3 @@
-use crate::maths::puissance;
 use crate::maths::timer::ScopeTimer;
 
 pub fn problem040() -> u32 {
@@ -20,7 +19,7 @@ pub fn problem040() -> u32 {
 
     let mut result = 1;
     for p in 0..7 {
-        let pos: usize = puissance::puissance(10, p);
+        let pos: usize = 10usize.pow(p);
         result *= s.chars().nth(pos).unwrap().to_digit(10).unwrap();
     }
     result

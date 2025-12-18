@@ -1,13 +1,13 @@
 use std::collections::HashSet;
 use num_traits::abs;
-use crate::maths::premiers::crible235;
+use crate::maths::primes::crible235;
 use crate::maths::timer::ScopeTimer;
 
-fn suite_premier(premiers: &HashSet<i64>, a: i64, b: i64) -> i64 {
+fn prime_seq(primes: &HashSet<i64>, a: i64, b: i64) -> i64 {
     let mut compteur = 0;
     let mut n = b;
 
-    while premiers.contains(&n) {
+    while primes.contains(&n) {
         compteur += 1;
         n = compteur * compteur + a * compteur + b;
     }
@@ -36,18 +36,17 @@ pub fn problem027() -> i64 {
     // e.g. |11| = 11 and |−4| = 4
     // Find the product of the coefficients, a and b, for the quadratic expression that produces the maximum number of
     // primes for consecutive values of n, starting with n = 0.
-    let mut premiers: HashSet<i64> = HashSet::new();
-
-    crible235(1000000, |p| {premiers.insert(p);} );
+    let mut primes: HashSet<i64> = HashSet::new();
+    crible235(1000000, |p| { primes.insert(p);} );
 
     let mut a_max = 0;
     let mut b_max = 0;
     let mut c_max = 0;
     for b in 2..1000 {
-        if premiers.contains(&b) {
+        if primes.contains(&b) {
             for a in -999..1000 {
                 if abs(a) > 1 {
-                    let compteur = suite_premier(&premiers, a, b);
+                    let compteur = prime_seq(&primes, a, b);
                     if compteur > c_max {
                         c_max = compteur;
                         a_max = a;

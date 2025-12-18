@@ -1,6 +1,5 @@
 use crate::maths::arithmetique;
-use crate::maths::premiers::crible235;
-use crate::maths::puissance::puissance;
+use crate::maths::primes::crible235;
 use crate::maths::timer::ScopeTimer;
 use std::collections::{BTreeSet, HashSet, VecDeque};
 
@@ -19,9 +18,9 @@ pub fn problem047() -> u64 {
     //
     // Find the first four consecutive integers to have four distinct prime factors.
     // What is the first of these numbers?
-    let mut premiers: BTreeSet<u64> = BTreeSet::new();
+    let mut primes: BTreeSet<u64> = BTreeSet::new();
     crible235(1000000, |p| {
-        premiers.insert(p);
+        primes.insert(p);
     });
 
     let mut result = 0;
@@ -31,8 +30,8 @@ pub fn problem047() -> u64 {
     for n in 2.. {
         {
             let mut f: Vec<u64> = Vec::new();
-            arithmetique::decomposition(n, &premiers, |p, c| {
-                f.push(puissance(p, c));
+            arithmetique::factorization(n, &primes, |p, c| {
+                f.push(p.pow(c as u32));
             });
             decomposition.push_back(f);
         }

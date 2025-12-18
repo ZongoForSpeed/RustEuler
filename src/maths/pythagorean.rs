@@ -1,3 +1,4 @@
+use std::iter::successors;
 use crate::maths::arithmetique::pgcd;
 use num_traits::PrimInt;
 use std::ops::{AddAssign, DivAssign, Rem};
@@ -6,9 +7,7 @@ pub(crate) fn pythagorean<N>() -> impl Iterator<Item = (N, N, N)>
 where
     N: PrimInt + AddAssign + DivAssign,
 {
-    std::iter::successors(Some((N::one() + N::one(), N::one())), |a| {
-        next_pythagorean(a)
-    })
+    successors(Some((N::one() + N::one(), N::one())), next_pythagorean)
     .map(|(p, q)| build_triplet(p, q))
 }
 
@@ -71,9 +70,7 @@ pub(crate) fn pythagorean_limit<N>(limite: N) -> impl Iterator<Item = (N, N, N)>
 where
     N: PrimInt + AddAssign + DivAssign + 'static,
 {
-    std::iter::successors(Some((N::one() + N::one(), N::one(), limite)), |a| {
-        next_pythagorean_limit(a)
-    })
+    successors(Some((N::one() + N::one(), N::one(), limite)), next_pythagorean_limit)
     .map(|(p, q, _)| build_triplet(p, q))
 }
 

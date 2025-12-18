@@ -1,6 +1,5 @@
-use std::collections::VecDeque;
-use crate::maths::{arithmetique, premiers};
 use crate::maths::timer::ScopeTimer;
+use crate::maths::{arithmetique, primes};
 
 pub fn problem012() -> u32 {
     let _timer = ScopeTimer::new("Problem 12 Highly divisible triangular number", false);
@@ -21,15 +20,12 @@ pub fn problem012() -> u32 {
     // We can see that 28 is the first triangle number to have over five divisors.
     //
     // What is the value of the first triangle number to have over five hundred divisors?
-    let mut premiers = VecDeque::new();
-    {
-        let _timer = ScopeTimer::new("Crible", false);
-        premiers::crible235(100000000, |p| premiers.push_back(p));
-    }
+    let mut primes = Vec::new();
+    primes::crible235(100000000, |p| primes.push(p));
 
     let mut triangle = 1;
     let mut n = 1;
-    while arithmetique::nombre_diviseurs(triangle, &premiers) < 500 {
+    while arithmetique::number_of_divisors(triangle, &primes) < 500 {
         n += 1;
         triangle += n;
     }

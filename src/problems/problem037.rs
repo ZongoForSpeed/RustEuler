@@ -1,4 +1,4 @@
-use crate::maths::premiers::crible2;
+use crate::maths::primes::crible2;
 use crate::maths::timer::ScopeTimer;
 use std::collections::HashSet;
 
@@ -12,21 +12,21 @@ pub fn problem037() -> u64 {
     //
     // NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
 
-    let mut premiers: HashSet<u64> = HashSet::new();
+    let mut primes: HashSet<u64> = HashSet::new();
     crible2(1000000, |p| {
-        premiers.insert(p);
+        primes.insert(p);
     });
     let mut resultat = 0;
-    for &p in &premiers {
+    for &p in &primes {
         let mut q = p;
         let mut test = true;
         while q != 0 && test {
-            test = premiers.contains(&q);
+            test = primes.contains(&q);
             q /= 10;
         }
         q = 10;
         while q < p && test {
-            test = premiers.contains(&(p % q));
+            test = primes.contains(&(p % q));
             q *= 10;
         }
         if test && p > 10 {

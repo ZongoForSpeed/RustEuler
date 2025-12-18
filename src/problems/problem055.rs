@@ -1,5 +1,5 @@
 use crate::maths::timer::ScopeTimer;
-use crate::utils::mpz_nombre::MpzNombre;
+use crate::utils::mpz_number::MpzNumber;
 
 pub fn problem055() -> u64 {
     let _timer = ScopeTimer::new("Problem 55 Lychrel numbers", false);
@@ -30,9 +30,9 @@ pub fn problem055() -> u64 {
     let mut count = 0;
     for n in 1..10000 {
         let mut lychrel = false;
-        let mut m = MpzNombre::from_u64(n);
+        let mut m = MpzNumber::from_u64(n);
         for _ in 1..50 {
-            m = m.inverser_nombre(10) + m;
+            m = m.invert(10) + m;
             if m.palindrome(10) {
                 lychrel = true;
                 break;

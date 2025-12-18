@@ -1,10 +1,10 @@
 pub mod arithmetique;
-pub mod chiffres;
+pub mod digits;
 pub mod fibonacci;
-pub mod premiers;
+pub mod primes;
 pub mod timer;
-pub mod puissance;
-pub mod combinatoire;
+pub mod power;
+pub mod factorial;
 pub mod pythagorean;
 pub mod polygonal;
 pub mod integer_root;

@@ -1,4 +1,4 @@
-use crate::maths::chiffres::boucle_chiffre;
+use crate::maths::digits::loop_digits;
 use crate::maths::timer::ScopeTimer;
 use std::collections::HashMap;
 use std::ops::AddAssign;
@@ -7,7 +7,7 @@ use std::ops::AddAssign;
 pub(crate) fn pandigital(n: u64) -> bool
 {
     let mut chiffres: HashMap<u64, usize> = HashMap::new();
-    boucle_chiffre(n, 10, |digit| {
+    loop_digits(n, 10, |digit| {
         chiffres.entry(digit).or_insert(0).add_assign(1);
     });
 

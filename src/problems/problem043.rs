@@ -1,4 +1,4 @@
-use crate::maths::chiffres::conversion;
+use crate::maths::digits::conversion;
 use crate::maths::timer::ScopeTimer;
 use permutohedron::LexicalPermutation;
 

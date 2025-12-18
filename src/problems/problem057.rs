@@ -22,7 +22,7 @@ pub fn problem057() -> u64 {
     let mut count = 0;
     for _ in 1..1000 {
         f = 1 + 1 / (f + 1);
-        if f.numerator().nombre_chiffre(10) > f.denominator().nombre_chiffre(10) {
+        if f.numerator().number_digits(10) > f.denominator().number_digits(10) {
             count += 1;
         }
     }

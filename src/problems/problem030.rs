@@ -1,5 +1,5 @@
-use crate::maths::chiffres::boucle_chiffre;
-use crate::maths::puissance;
+use crate::maths::digits::loop_digits;
+use crate::maths::power;
 use crate::maths::timer::ScopeTimer;
 
 pub fn problem030() -> u64 {
@@ -17,7 +17,7 @@ pub fn problem030() -> u64 {
     let mut result = 0;
     for n in 2..200000 {
         let mut s = 0;
-        boucle_chiffre(n, 10, |d| s += puissance::puissance(d, 5));
+        loop_digits(n, 10, |d| s += power::power(d, 5));
         if s == n {
             result += n;
         }

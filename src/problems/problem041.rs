@@ -1,5 +1,5 @@
-use crate::maths::chiffres::extraire_chiffres;
-use crate::maths::premiers::crible235;
+use crate::maths::digits::extract_digits;
+use crate::maths::primes::crible235;
 use crate::maths::timer::ScopeTimer;
 
 fn is_permutation<T: Ord + Clone>(a: &[T], b: &[T]) -> bool {
@@ -15,7 +15,7 @@ fn is_permutation<T: Ord + Clone>(a: &[T], b: &[T]) -> bool {
 }
 
 fn pandigital(n: u32, pandigits: &Vec<u32>) -> bool {
-    let chiffres = Vec::from_iter(extraire_chiffres(n, 10));
+    let chiffres = Vec::from_iter(extract_digits(n, 10));
     is_permutation(&chiffres, &pandigits[0..chiffres.len()])
 }
 
@@ -25,11 +25,11 @@ pub fn problem041() -> u32 {
     // For example, 2143 is a 4-digit pandigital and is also prime.
     //
     // What is the largest n-digit pandigital prime that exists?
-    let mut premiers: Vec<u32> = Vec::new();
-    crible235(10000000, |p| premiers.push(p));
+    let mut primes: Vec<u32> = Vec::new();
+    crible235(10000000, |p| primes.push(p));
 
     let pandigits = vec![1, 2, 3, 4, 5, 6, 7, 8, 9];
-    premiers
+    primes
         .into_iter()
         .rev()
         .filter(|p| pandigital(*p, &pandigits))
