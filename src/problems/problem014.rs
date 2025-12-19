@@ -34,25 +34,19 @@ pub fn problem014() -> u64 {
             }
             chaine.push(p);
         }
-
-        match cache.get(&p) {
-            None => {}
-            Some(longueur) => {
-                let mut mut_longueur = longueur.clone();
-                for c in chaine.iter().rev() {
-                    mut_longueur += 1;
-                    cache.insert(*c, mut_longueur);
-                }
+        
+        if let Some(length) = cache.get_mut(&p) {
+            let mut mut_longueur = length.clone();
+            for c in chaine.iter().rev() {
+                mut_longueur += 1;
+                cache.insert(*c, mut_longueur);
             }
         }
 
-        match cache.get(&n) {
-            None => {}
-            Some(longueur) => {
-                if *longueur > max_longueur {
-                    max_longueur = *longueur;
-                    max_nombre = n;
-                }
+        if let Some(length) = cache.get(&n) {
+            if *length > max_longueur {
+                max_longueur = *length;
+                max_nombre = n;
             }
         }
     }

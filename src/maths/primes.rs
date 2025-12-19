@@ -16,9 +16,11 @@ where
     let mut p = 1;
     while p * p < taille_crible / 2 {
         if test.contains(p) {
-            (2 * (p * p + p)..taille_crible).step_by(2 * p + 1).for_each(|n| {
-                test.remove(n);
-            });
+            ((2 * (p * p + p))..taille_crible)
+                .step_by(2 * p + 1)
+                .for_each(|n| {
+                    test.remove(n);
+                });
         }
 
         p += 1;
@@ -115,225 +117,362 @@ where
         if test1.contains(k) {
             let p = 30 * k + 1;
 
-            (30 * k * k + 2 * k + 0..taille).step_by(p).for_each(|n| {
-                test1.remove(n);
-            });
-            (30 * k * k + 8 * k + 0..taille).step_by(p).for_each(|n| {
-                test7.remove(n);
-            });
-            (30 * k * k + 12 * k + 0..taille).step_by(p).for_each(|n| {
-                test11.remove(n);
-            });
-            (30 * k * k + 14 * k + 0..taille).step_by(p).for_each(|n| {
-                test13.remove(n);
-            });
-            (30 * k * k + 18 * k + 0..taille).step_by(p).for_each(|n| {
-                test17.remove(n);
-            });
-            (30 * k * k + 20 * k + 0..taille).step_by(p).for_each(|n| {
-                test19.remove(n);
-            });
-            (30 * k * k + 24 * k + 0..taille).step_by(p).for_each(|n| {
-                test23.remove(n);
-            });
-            (30 * k * k + 30 * k + 0..taille).step_by(p).for_each(|n| {
-                test29.remove(n);
+            rayon::scope(|s| {
+                s.spawn(|_| {
+                    (30 * k * k + 2 * k + 0..taille).step_by(p).for_each(|n| {
+                        test1.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 8 * k + 0..taille).step_by(p).for_each(|n| {
+                        test7.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 12 * k + 0..taille).step_by(p).for_each(|n| {
+                        test11.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 14 * k + 0..taille).step_by(p).for_each(|n| {
+                        test13.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 18 * k + 0..taille).step_by(p).for_each(|n| {
+                        test17.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 20 * k + 0..taille).step_by(p).for_each(|n| {
+                        test19.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 24 * k + 0..taille).step_by(p).for_each(|n| {
+                        test23.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 30 * k + 0..taille).step_by(p).for_each(|n| {
+                        test29.remove(n);
+                    })
+                });
             });
         }
         if test7.contains(k) {
             let p = 30 * k + 7;
-
-            (30 * k * k + 14 * k + 1..taille).step_by(p).for_each(|n| {
-                test19.remove(n);
-            });
-            (30 * k * k + 18 * k + 2..taille).step_by(p).for_each(|n| {
-                test17.remove(n);
-            });
-            (30 * k * k + 20 * k + 3..taille).step_by(p).for_each(|n| {
-                test1.remove(n);
-            });
-            (30 * k * k + 24 * k + 3..taille).step_by(p).for_each(|n| {
-                test29.remove(n);
-            });
-            (30 * k * k + 26 * k + 4..taille).step_by(p).for_each(|n| {
-                test13.remove(n);
-            });
-            (30 * k * k + 30 * k + 5..taille).step_by(p).for_each(|n| {
-                test11.remove(n);
-            });
-            (30 * k * k + 36 * k + 6..taille).step_by(p).for_each(|n| {
-                test23.remove(n);
-            });
-            (30 * k * k + 38 * k + 7..taille).step_by(p).for_each(|n| {
-                test7.remove(n);
+            rayon::scope(|s| {
+                s.spawn(|_| {
+                    (30 * k * k + 14 * k + 1..taille).step_by(p).for_each(|n| {
+                        test19.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 18 * k + 2..taille).step_by(p).for_each(|n| {
+                        test17.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 20 * k + 3..taille).step_by(p).for_each(|n| {
+                        test1.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 24 * k + 3..taille).step_by(p).for_each(|n| {
+                        test29.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 26 * k + 4..taille).step_by(p).for_each(|n| {
+                        test13.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 30 * k + 5..taille).step_by(p).for_each(|n| {
+                        test11.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 36 * k + 6..taille).step_by(p).for_each(|n| {
+                        test23.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 38 * k + 7..taille).step_by(p).for_each(|n| {
+                        test7.remove(n);
+                    })
+                });
             });
         }
         if test11.contains(k) {
             let p = 30 * k + 11;
-
-            (30 * k * k + 22 * k + 4..taille).step_by(p).for_each(|n| {
-                test1.remove(n);
-            });
-            (30 * k * k + 24 * k + 4..taille).step_by(p).for_each(|n| {
-                test23.remove(n);
-            });
-            (30 * k * k + 28 * k + 6..taille).step_by(p).for_each(|n| {
-                test7.remove(n);
-            });
-            (30 * k * k + 30 * k + 6..taille).step_by(p).for_each(|n| {
-                test29.remove(n);
-            });
-            (30 * k * k + 34 * k + 8..taille).step_by(p).for_each(|n| {
-                test13.remove(n);
-            });
-            (30 * k * k + 40 * k + 10..taille).step_by(p).for_each(|n| {
-                test19.remove(n);
-            });
-            (30 * k * k + 42 * k + 11..taille).step_by(p).for_each(|n| {
-                test11.remove(n);
-            });
-            (30 * k * k + 48 * k + 13..taille).step_by(p).for_each(|n| {
-                test17.remove(n);
+            rayon::scope(|s| {
+                s.spawn(|_| {
+                    (30 * k * k + 22 * k + 4..taille).step_by(p).for_each(|n| {
+                        test1.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 24 * k + 4..taille).step_by(p).for_each(|n| {
+                        test23.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 28 * k + 6..taille).step_by(p).for_each(|n| {
+                        test7.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 30 * k + 6..taille).step_by(p).for_each(|n| {
+                        test29.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 34 * k + 8..taille).step_by(p).for_each(|n| {
+                        test13.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 40 * k + 10..taille).step_by(p).for_each(|n| {
+                        test19.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 42 * k + 11..taille).step_by(p).for_each(|n| {
+                        test11.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 48 * k + 13..taille).step_by(p).for_each(|n| {
+                        test17.remove(n);
+                    })
+                });
             });
         }
         if test13.contains(k) {
             let p = 30 * k + 13;
-
-            (30 * k * k + 26 * k + 5..taille).step_by(p).for_each(|n| {
-                test19.remove(n);
-            });
-            (30 * k * k + 30 * k + 7..taille).step_by(p).for_each(|n| {
-                test11.remove(n);
-            });
-            (30 * k * k + 32 * k + 8..taille).step_by(p).for_each(|n| {
-                test7.remove(n);
-            });
-            (30 * k * k + 36 * k + 9..taille).step_by(p).for_each(|n| {
-                test29.remove(n);
-            });
-            (30 * k * k + 42 * k + 12..taille).step_by(p).for_each(|n| {
-                test17.remove(n);
-            });
-            (30 * k * k + 44 * k + 13..taille).step_by(p).for_each(|n| {
-                test13.remove(n);
-            });
-            (30 * k * k + 50 * k + 16..taille).step_by(p).for_each(|n| {
-                test1.remove(n);
-            });
-            (30 * k * k + 54 * k + 17..taille).step_by(p).for_each(|n| {
-                test23.remove(n);
+            rayon::scope(|s| {
+                s.spawn(|_| {
+                    (30 * k * k + 26 * k + 5..taille).step_by(p).for_each(|n| {
+                        test19.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 30 * k + 7..taille).step_by(p).for_each(|n| {
+                        test11.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 32 * k + 8..taille).step_by(p).for_each(|n| {
+                        test7.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 36 * k + 9..taille).step_by(p).for_each(|n| {
+                        test29.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 42 * k + 12..taille).step_by(p).for_each(|n| {
+                        test17.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 44 * k + 13..taille).step_by(p).for_each(|n| {
+                        test13.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 50 * k + 16..taille).step_by(p).for_each(|n| {
+                        test1.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 54 * k + 17..taille).step_by(p).for_each(|n| {
+                        test23.remove(n);
+                    })
+                });
             });
         }
         if test17.contains(k) {
             let p = 30 * k + 17;
-
-            (30 * k * k + 34 * k + 9..taille).step_by(p).for_each(|n| {
-                test19.remove(n);
-            });
-            (30 * k * k + 36 * k + 10..taille).step_by(p).for_each(|n| {
-                test23.remove(n);
-            });
-            (30 * k * k + 40 * k + 13..taille).step_by(p).for_each(|n| {
-                test1.remove(n);
-            });
-            (30 * k * k + 46 * k + 16..taille).step_by(p).for_each(|n| {
-                test13.remove(n);
-            });
-            (30 * k * k + 48 * k + 17..taille).step_by(p).for_each(|n| {
-                test17.remove(n);
-            });
-            (30 * k * k + 54 * k + 20..taille).step_by(p).for_each(|n| {
-                test29.remove(n);
-            });
-            (30 * k * k + 58 * k + 23..taille).step_by(p).for_each(|n| {
-                test7.remove(n);
-            });
-            (30 * k * k + 60 * k + 24..taille).step_by(p).for_each(|n| {
-                test11.remove(n);
+            rayon::scope(|s| {
+                s.spawn(|_| {
+                    (30 * k * k + 34 * k + 9..taille).step_by(p).for_each(|n| {
+                        test19.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 36 * k + 10..taille).step_by(p).for_each(|n| {
+                        test23.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 40 * k + 13..taille).step_by(p).for_each(|n| {
+                        test1.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 46 * k + 16..taille).step_by(p).for_each(|n| {
+                        test13.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 48 * k + 17..taille).step_by(p).for_each(|n| {
+                        test17.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 54 * k + 20..taille).step_by(p).for_each(|n| {
+                        test29.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 58 * k + 23..taille).step_by(p).for_each(|n| {
+                        test7.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 60 * k + 24..taille).step_by(p).for_each(|n| {
+                        test11.remove(n);
+                    })
+                });
             });
         }
         if test19.contains(k) {
             let p = 30 * k + 19;
-
-            (30 * k * k + 38 * k + 12..taille).step_by(p).for_each(|n| {
-                test1.remove(n);
-            });
-            (30 * k * k + 42 * k + 14..taille).step_by(p).for_each(|n| {
-                test17.remove(n);
-            });
-            (30 * k * k + 48 * k + 18..taille).step_by(p).for_each(|n| {
-                test11.remove(n);
-            });
-            (30 * k * k + 50 * k + 19..taille).step_by(p).for_each(|n| {
-                test19.remove(n);
-            });
-            (30 * k * k + 56 * k + 23..taille).step_by(p).for_each(|n| {
-                test13.remove(n);
-            });
-            (30 * k * k + 60 * k + 25..taille).step_by(p).for_each(|n| {
-                test29.remove(n);
-            });
-            (30 * k * k + 62 * k + 27..taille).step_by(p).for_each(|n| {
-                test7.remove(n);
-            });
-            (30 * k * k + 66 * k + 29..taille).step_by(p).for_each(|n| {
-                test23.remove(n);
+            rayon::scope(|s| {
+                s.spawn(|_| {
+                    (30 * k * k + 38 * k + 12..taille).step_by(p).for_each(|n| {
+                        test1.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 42 * k + 14..taille).step_by(p).for_each(|n| {
+                        test17.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 48 * k + 18..taille).step_by(p).for_each(|n| {
+                        test11.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 50 * k + 19..taille).step_by(p).for_each(|n| {
+                        test19.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 56 * k + 23..taille).step_by(p).for_each(|n| {
+                        test13.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 60 * k + 25..taille).step_by(p).for_each(|n| {
+                        test29.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 62 * k + 27..taille).step_by(p).for_each(|n| {
+                        test7.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 66 * k + 29..taille).step_by(p).for_each(|n| {
+                        test23.remove(n);
+                    })
+                });
             });
         }
         if test23.contains(k) {
             let p = 30 * k + 23;
-
-            (30 * k * k + 46 * k + 17..taille).step_by(p).for_each(|n| {
-                test19.remove(n);
-            });
-            (30 * k * k + 52 * k + 22..taille).step_by(p).for_each(|n| {
-                test7.remove(n);
-            });
-            (30 * k * k + 54 * k + 23..taille).step_by(p).for_each(|n| {
-                test23.remove(n);
-            });
-            (30 * k * k + 60 * k + 28..taille).step_by(p).for_each(|n| {
-                test11.remove(n);
-            });
-            (30 * k * k + 64 * k + 31..taille).step_by(p).for_each(|n| {
-                test13.remove(n);
-            });
-            (30 * k * k + 66 * k + 32..taille).step_by(p).for_each(|n| {
-                test29.remove(n);
-            });
-            (30 * k * k + 70 * k + 36..taille).step_by(p).for_each(|n| {
-                test1.remove(n);
-            });
-            (30 * k * k + 72 * k + 37..taille).step_by(p).for_each(|n| {
-                test17.remove(n);
+            rayon::scope(|s| {
+                s.spawn(|_| {
+                    (30 * k * k + 46 * k + 17..taille).step_by(p).for_each(|n| {
+                        test19.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 52 * k + 22..taille).step_by(p).for_each(|n| {
+                        test7.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 54 * k + 23..taille).step_by(p).for_each(|n| {
+                        test23.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 60 * k + 28..taille).step_by(p).for_each(|n| {
+                        test11.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 64 * k + 31..taille).step_by(p).for_each(|n| {
+                        test13.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 66 * k + 32..taille).step_by(p).for_each(|n| {
+                        test29.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 70 * k + 36..taille).step_by(p).for_each(|n| {
+                        test1.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 72 * k + 37..taille).step_by(p).for_each(|n| {
+                        test17.remove(n);
+                    })
+                });
             });
         }
         if test29.contains(k) {
             let p = 30 * k + 29;
-
-            (30 * k * k + 58 * k + 28..taille).step_by(p).for_each(|n| {
-                test1.remove(n);
-            });
-            (30 * k * k + 60 * k + 29..taille).step_by(p).for_each(|n| {
-                test29.remove(n);
-            });
-            (30 * k * k + 66 * k + 35..taille).step_by(p).for_each(|n| {
-                test23.remove(n);
-            });
-            (30 * k * k + 70 * k + 39..taille).step_by(p).for_each(|n| {
-                test19.remove(n);
-            });
-            (30 * k * k + 72 * k + 41..taille).step_by(p).for_each(|n| {
-                test17.remove(n);
-            });
-            (30 * k * k + 76 * k + 45..taille).step_by(p).for_each(|n| {
-                test13.remove(n);
-            });
-            (30 * k * k + 78 * k + 47..taille).step_by(p).for_each(|n| {
-                test11.remove(n);
-            });
-            (30 * k * k + 82 * k + 51..taille).step_by(p).for_each(|n| {
-                test7.remove(n);
+            rayon::scope(|s| {
+                s.spawn(|_| {
+                    (30 * k * k + 58 * k + 28..taille).step_by(p).for_each(|n| {
+                        test1.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 60 * k + 29..taille).step_by(p).for_each(|n| {
+                        test29.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 66 * k + 35..taille).step_by(p).for_each(|n| {
+                        test23.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 70 * k + 39..taille).step_by(p).for_each(|n| {
+                        test19.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 72 * k + 41..taille).step_by(p).for_each(|n| {
+                        test17.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 76 * k + 45..taille).step_by(p).for_each(|n| {
+                        test13.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 78 * k + 47..taille).step_by(p).for_each(|n| {
+                        test11.remove(n);
+                    })
+                });
+                s.spawn(|_| {
+                    (30 * k * k + 82 * k + 51..taille).step_by(p).for_each(|n| {
+                        test7.remove(n);
+                    })
+                });
             });
             (30 * k * k + 88 * k + 57..taille).step_by(p).for_each(|n| {
                 test1.remove(n);

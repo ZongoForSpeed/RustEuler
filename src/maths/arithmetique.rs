@@ -125,6 +125,32 @@ where
     s
 }
 
+pub(crate) fn phi<'a, N, V>(mut _n: N, primes: V) -> N
+where
+    N: PrimInt + MulAssign + DivAssign + Copy + 'a,
+    V: IntoIterator<Item = &'a N>,
+{
+    let mut result = _n;
+    let mut n = _n;
+    for &p in primes {
+        if p * p > n {
+            break;
+        }
+        if (n % p).is_zero() {
+            result = result - result / p;
+            while (n % p).is_zero() {
+                n /= p;
+            }
+        }
+    }
+
+    let one = N::one();
+    if n > one {
+        result = result - result / n;
+    }
+    result
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -160,6 +186,16 @@ mod tests {
         assert_eq!(sum_of_divisors(456753, &primes), 664416);
         assert_eq!(sum_of_divisors(496, &primes), 992);
         assert_eq!(sum_of_divisors(3246999210u64, &primes), 11708928000);
+    }
+    #[test]
+    fn test_phi() {
+        let primes: Vec<u64> = vec![
+            2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
+            31, 37, 41, 43, 47, 53, 59, 61, 67,
+            71, 73, 79, 83, 89, 97
+        ];
+        assert_eq!(phi(3246999210, &primes), 640120320);
+        assert_eq!(phi(496, &primes), 240);
     }
     #[test]
     fn test_factorization() {

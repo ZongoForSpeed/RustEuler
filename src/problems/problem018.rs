@@ -1,9 +1,36 @@
-use num_traits::ToPrimitive;
 use crate::maths::timer::ScopeTimer;
 
-pub fn problem018() -> u64 {
-    let _timer = ScopeTimer::new("Problem 18 Number letter counts", false);
-    // By starting at the top of the triangle below and moving to adjacent numbers on the row below, 
+pub fn maximum_path_sum(triangle: Vec<Vec<u16>>) -> u16 {
+    let size = triangle.len();
+    let mut result: Vec<Vec<u16>> = Vec::new();
+    for i in 0..size {
+        let mut ligne: Vec<u16> = Vec::new();
+
+        if i == 0 {
+            ligne.push(triangle[i][i]);
+        } else {
+            for j in 0..=i {
+                if j == 0 {
+                    ligne.push(result[i - 1][j] + triangle[i][j]);
+                } else if i == j {
+                    ligne.push(result[i - 1][j - 1] + triangle[i][j]);
+                } else {
+                    ligne.push(
+                        std::cmp::max(result[i - 1][j - 1], result[i - 1][j]) + triangle[i][j]
+                    );
+                }
+            }
+        }
+
+        result.push(ligne);
+    }
+
+    result.last().unwrap().iter().cloned().max().unwrap()
+}
+
+pub fn problem018() -> u16 {
+    let _timer = ScopeTimer::new("Problem 18 Maximum path sum I", false);
+    // By starting at the top of the triangle below and moving to adjacent numbers on the row below,
     // the maximum total from top to bottom is 23.
     //                                             3
     //                                            7 4
@@ -12,7 +39,7 @@ pub fn problem018() -> u64 {
     // That is, 3 + 7 + 4 + 9 = 23.
     //
     // Find the maximum total from top to bottom of the triangle below:
-    // 
+    //
     let triangle = vec![
         vec![75],
         vec![95, 64],
@@ -28,32 +55,10 @@ pub fn problem018() -> u64 {
         vec![70, 11, 33, 28, 77, 73, 17, 78, 39, 68, 17, 57],
         vec![91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48],
         vec![63, 66, 4, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31],
-        vec![4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23]
+        vec![4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23],
     ];
-    // NOTE: As there are only 16384 routes, it is possible to solve this problem by 
-    // trying every route. However, Problem 67, is the same challenge with a triangle containing 
+    // NOTE: As there are only 16384 routes, it is possible to solve this problem by
+    // trying every route. However, Problem 67, is the same challenge with a triangle containing
     // one-hundred rows; it cannot be solved by brute force, and requires a clever method! ;o)
-    let taille = triangle.len();
-    let mut resultat: Vec<Vec<u64>> = Vec::new();
-    for i in 0..taille {
-        let mut ligne: Vec<u64> = Vec::new();
-
-        if i == 0 {
-            ligne.push(triangle[i][i]);
-        } else {
-            for j in 0..=i {
-                if j == 0 {
-                    ligne.push(resultat[i - 1][j] + triangle[i][j]);
-                } else if i == j {
-                    ligne.push(resultat[i - 1][j - 1] + triangle[i][j]);
-                } else {
-                    ligne.push(std::cmp::max(resultat[i - 1][j - 1], resultat[i - 1][j]) + triangle[i][j]);
-                }
-            }
-        }
-
-        resultat.push(ligne);
-    }
-
-    resultat.last().unwrap().iter().max().unwrap().to_u64().unwrap()
+    maximum_path_sum(triangle)
 }

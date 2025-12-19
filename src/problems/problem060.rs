@@ -16,9 +16,8 @@ fn next_group(g: &HashMap<Vec<u64>, Vec<u64>>, groupe: &HashMap<Vec<u64>, Vec<u6
     for (p, arete) in g {
         for q in arete {
             let mut v = vec![q.clone()];
-            let option = groupe.get(&v);
-            if option.is_some() {
-                let intersection = v_intersection(arete, option.unwrap());
+            if let Some(arete_q) = groupe.get(&v) {
+                let intersection = v_intersection(arete, arete_q);
                 if !intersection.is_empty() {
                     v.extend(p);
                     v.sort();
