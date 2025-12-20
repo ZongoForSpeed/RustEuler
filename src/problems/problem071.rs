@@ -1,8 +1,9 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use fraction::Fraction;
 
-pub fn problem071() -> u64 {
-    let _timer = ScopeTimer::new("Problem 71 Ordered fractions", false);
+register_problem!(71, "Ordered fractions", problem071);
+
+pub fn problem071() -> String {
     // Consider the fraction, n/d, where n and d are positive integers. If n<d and HCF(n,d)=1, it is called a reduced
     // proper fraction.
     //
@@ -28,5 +29,5 @@ pub fn problem071() -> u64 {
         }
     }
 
-    resultat.numer().unwrap().clone()
+    resultat.numer().unwrap().to_string()
 }

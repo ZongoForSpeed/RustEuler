@@ -1,7 +1,8 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
-pub fn problem011() -> u32 {
-    let _timer = ScopeTimer::new("Problem 11 Largest product in a grid", false);
+register_problem!(11, "Largest product in a grid", problem011);
+
+pub fn problem011() -> String {
     // In the 20×20 grid below, four numbers along a diagonal line have been marked in red.
     let matrice = vec![
         [8,  2,  22, 97, 38, 15, 0,  40, 0,  75, 4,  5,  7,  78, 52, 12, 50, 77, 91, 8],
@@ -52,5 +53,5 @@ pub fn problem011() -> u32 {
         }
     }
 
-    resultat
+    resultat.to_string()
 }

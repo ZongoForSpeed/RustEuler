@@ -1,8 +1,9 @@
 use crate::maths::digits::is_permutation;
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
-pub fn problem052() -> u64 {
-    let _timer = ScopeTimer::new("Problem 52 Permuted multiples", false);
+register_problem!(52, "Permuted multiples", problem052);
+
+pub fn problem052() -> String {
     // It can be seen that the number, 125874, and its double, 251748, contain exactly the same
     // digits, but in a different order.
     //
@@ -22,5 +23,5 @@ pub fn problem052() -> u64 {
         }
     }
 
-    result
+    result.to_string()
 }

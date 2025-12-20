@@ -1,13 +1,13 @@
 use crate::maths::primes;
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
-pub fn problem010(limite: usize) -> u64 {
-    let _timer = ScopeTimer::new("Problem 10 Summation of primes", false);
+register_problem!(10, "Summation of primes", problem010);
+
+pub fn problem010() -> String {
     // The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
     //
     // Find the sum of all the primes below two million.
     let mut solution: u64 = 0;
-    primes::crible2(limite, |p: u64| solution += p);
-    println!("Solution 010: {}", solution);
-    solution
+    primes::crible2(2000000, |p: u64| solution += p);
+    solution.to_string()
 }

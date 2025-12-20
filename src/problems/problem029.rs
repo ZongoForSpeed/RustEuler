@@ -1,9 +1,10 @@
-use crate::maths::timer::ScopeTimer;
 use crate::utils::mpz_number::MpzNumber;
 use std::collections::HashSet;
+use crate::register_problem;
 
-pub fn problem029() -> usize {
-    let _timer = ScopeTimer::new("Problem 29 Distinct powers", false);
+register_problem!(29, "Distinct powers", problem029);
+
+pub fn problem029() -> String {
     // Consider all integer combinations of ab for 2 ≤ a ≤ 5 and 2 ≤ b ≤ 5:
     //
     // 2^2=4, 2^3=8, 2^4=16, 2^5=32
@@ -24,5 +25,5 @@ pub fn problem029() -> usize {
         }
     }
 
-    result.len()
+    result.len().to_string()
 }

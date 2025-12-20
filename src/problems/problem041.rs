@@ -1,6 +1,6 @@
 use crate::maths::digits::extract_digits;
 use crate::maths::primes::crible235;
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
 fn is_permutation<T: Ord + Clone>(a: &[T], b: &[T]) -> bool {
     if a.len() != b.len() {
@@ -19,8 +19,9 @@ fn pandigital(n: u32, pandigits: &Vec<u32>) -> bool {
     is_permutation(&chiffres, &pandigits[0..chiffres.len()])
 }
 
-pub fn problem041() -> u32 {
-    let _timer = ScopeTimer::new("Problem 41 Pandigital prime", false);
+register_problem!(41, "Pandigital prime", problem041);
+
+pub fn problem041() -> String {
     // We shall say that an n-digit number is pandigital if it makes use of all the digits 1 to n exactly once.
     // For example, 2143 is a 4-digit pandigital and is also prime.
     //
@@ -34,5 +35,5 @@ pub fn problem041() -> u32 {
         .rev()
         .filter(|p| pandigital(*p, &pandigits))
         .next()
-        .unwrap()
+        .unwrap().to_string()
 }

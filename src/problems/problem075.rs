@@ -1,8 +1,9 @@
 use crate::maths::pythagorean::pythagorean_limit;
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
-pub fn problem075() -> usize {
-    let _timer = ScopeTimer::new("Problem 75 Singular integer right triangles", false);
+register_problem!(75, "Singular integer right triangles", problem075);
+
+pub fn problem075() -> String {
     // It turns out that 12 cm is the smallest length of wire that can be bent to form an integer
     // sided right angletriangle in exactly one way, but there are many more examples.
     //
@@ -34,5 +35,5 @@ pub fn problem075() -> usize {
         }
     }
 
-    solutions.into_iter().filter(|s| *s == 1).count()
+    solutions.into_iter().filter(|s| *s == 1).count().to_string()
 }

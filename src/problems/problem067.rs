@@ -1,9 +1,10 @@
-use crate::maths::timer::ScopeTimer;
-use std::path::Path;
 use crate::problems::problem018::maximum_path_sum;
+use crate::register_problem;
+use std::path::Path;
 
-pub fn problem067() -> u16 {
-    let _timer = ScopeTimer::new("Problem 67 Maximum path sum II", false);
+register_problem!(67, "Maximum path sum II", problem067);
+
+pub fn problem067() -> String {
     // By starting at the top of the triangle below and moving to adjacent numbers on the row below,
     // the maximum total from top to bottom is 23.
     //
@@ -22,15 +23,12 @@ pub fn problem067() -> u16 {
     // every second it would take over twenty billion years to check them all. There is an efficient
     // algorithm to solve it. ;o)
     let path = Path::new("data/p067_triangle.txt");
-    let lines: Vec<String> = std::fs::read_to_string(path)
+    let triangle:Vec<Vec<u16>> = std::fs::read_to_string(path)
         .unwrap()
         .lines()
         .map(String::from)
-        .collect();
-
-    let triangle:Vec<Vec<u16>> = lines.into_iter().map(|s| s.split_whitespace().map(str::parse).map(Result::unwrap).collect()).collect();
-
+        .map(|s| s.split_whitespace().map(str::parse).map(Result::unwrap).collect()).collect();
 
     println!("{:?}", triangle);
-    maximum_path_sum(triangle)
+    maximum_path_sum(triangle).to_string()
 }

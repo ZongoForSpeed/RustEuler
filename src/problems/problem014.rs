@@ -1,8 +1,9 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use std::collections::HashMap;
 
-pub fn problem014() -> u64 {
-    let _timer = ScopeTimer::new("Problem 14 Longest Collatz sequence", false);
+register_problem!(14, "Longest Collatz sequence", problem014);
+
+pub fn problem014() -> String {
     // The following iterative sequence is defined for the set of positive integers:
     //
     // n -> n/2 (n is even)
@@ -51,5 +52,5 @@ pub fn problem014() -> u64 {
         }
     }
 
-    max_nombre
+    max_nombre.to_string()
 }

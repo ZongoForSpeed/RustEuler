@@ -1,10 +1,11 @@
 use crate::maths::arithmetique;
 use crate::maths::primes::crible235;
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use std::collections::{BTreeSet, HashSet, VecDeque};
 
-pub fn problem047() -> u64 {
-    let _timer = ScopeTimer::new("Problem 47 Distinct primes factors", false);
+register_problem!(47, "Distinct primes factors", problem047);
+
+pub fn problem047() -> String {
     // The first two consecutive numbers to have two distinct prime factors are:
     //
     //              14 = 2 × 7
@@ -54,5 +55,5 @@ pub fn problem047() -> u64 {
             break;
         }
     }
-    result
+    result.to_string()
 }

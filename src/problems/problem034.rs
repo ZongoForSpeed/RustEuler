@@ -1,9 +1,10 @@
 use crate::maths::digits::loop_digits;
 use crate::maths::factorial;
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
-pub fn problem034() -> u64 {
-    let _timer = ScopeTimer::new("Problem 34 Digit factorials", false);
+register_problem!(34, "Digit factorials", problem034);
+
+pub fn problem034() -> String {
     // 145 is a curious number, as 1! + 4! + 5! = 1 + 24 + 120 = 145.
     //
     // Find the sum of all numbers which are equal to the sum of the factorial of their digits.
@@ -18,5 +19,5 @@ pub fn problem034() -> u64 {
             solution += n;
         }
     }
-    solution
+    solution.to_string()
 }

@@ -1,5 +1,5 @@
-use crate::maths::digits::{is_permutation, count_digits};
-use crate::maths::timer::ScopeTimer;
+use crate::maths::digits::{count_digits, is_permutation};
+use crate::register_problem;
 
 pub fn cubic_permutations() -> Vec<u64> {
     let mut cubes: Vec<u64> = Vec::new();
@@ -34,13 +34,14 @@ pub fn cubic_permutations() -> Vec<u64> {
     vec![]
 }
 
-pub fn problem062() -> u64 {
-    let _timer = ScopeTimer::new("Problem 62 Cubic permutations", false);
+register_problem!(62, "Cubic permutations", problem062);
+
+pub fn problem062() -> String {
     // The cube, 41063625 (345^3), can be permuted to produce two other cubes: 56623104 (384^3) and
     // 66430125 (405^3). In fact, 41063625 is the smallest cube which has exactly three permutations
     // of its digits which are also cube.
     //
     // Find the smallest cube for which exactly five permutations of its digits are cube.
     let result = cubic_permutations();
-    result.first().unwrap().clone()
+    result.first().unwrap().to_string()
 }

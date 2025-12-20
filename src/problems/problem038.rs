@@ -1,8 +1,7 @@
 use crate::maths::digits::loop_digits;
-use crate::maths::timer::ScopeTimer;
 use std::collections::HashMap;
 use std::ops::AddAssign;
-
+use crate::register_problem;
 
 pub(crate) fn pandigital(n: u64) -> bool
 {
@@ -37,8 +36,9 @@ fn algorithme(n: u64) -> u64 {
     }
     result
 }
-pub fn problem038() -> u64 {
-    let _timer = ScopeTimer::new("Problem 38 Pandigital multiples", false);
+register_problem!(38, "Pandigital multiples", problem038);
+
+pub fn problem038() -> String {
     // Take the number 192 and multiply it by each of 1, 2, and 3:
     //
     //    192 × 1 = 192
@@ -59,5 +59,5 @@ pub fn problem038() -> u64 {
             result = std::cmp::max(result, algorithme(i));
         }
     }
-    result
+    result.to_string()
 }

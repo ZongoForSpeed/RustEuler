@@ -1,7 +1,8 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
-pub fn problem063() -> u64 {
-    let _timer = ScopeTimer::new("Problem 63 Powerful digit counts", false);
+register_problem!(63, "Powerful digit counts", problem063);
+
+pub fn problem063() -> String {
     // The 5-digit number, 16807=7^5, is also a fifth power. Similarly, the 9-digit number,
     // 134217728=8^9,is a ninth power.
     //
@@ -13,5 +14,5 @@ pub fn problem063() -> u64 {
         let log_n = (n as f64).ln();
         result += (log_10 / (log_10 - log_n)).floor() as u64;
     }
-    result
+    result.to_string()
 }

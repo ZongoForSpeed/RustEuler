@@ -1,7 +1,7 @@
 use std::collections::HashSet;
 use num_traits::abs;
 use crate::maths::primes::crible235;
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
 fn prime_seq(primes: &HashSet<i64>, a: i64, b: i64) -> i64 {
     let mut compteur = 0;
@@ -15,8 +15,9 @@ fn prime_seq(primes: &HashSet<i64>, a: i64, b: i64) -> i64 {
     compteur
 }
 
-pub fn problem027() -> i64 {
-    let _timer = ScopeTimer::new("Problem 27 Quadratic primes", false);
+register_problem!(27, "Quadratic primes", problem027);
+
+pub fn problem027() -> String {
     // Euler discovered the remarkable quadratic formula:
     //
     //                                                n² + n + 41
@@ -58,5 +59,6 @@ pub fn problem027() -> i64 {
             }
         }
     }
-    a_max * b_max
+    let result = a_max * b_max;
+    result.to_string()
 }

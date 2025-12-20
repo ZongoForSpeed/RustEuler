@@ -1,8 +1,9 @@
 use crate::maths::pythagorean::pythagorean_limit;
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
-pub fn problem039() -> usize {
-    let _timer = ScopeTimer::new("Problem 39 Integer right triangles", false);
+register_problem!(39, "Integer right triangles", problem039);
+
+pub fn problem039() -> String {
     // If p is the perimeter of a right angle triangle with integral length sides, {a,b,c}, there
     // are exactly three solutions for p = 120.
     //
@@ -24,5 +25,5 @@ pub fn problem039() -> usize {
         .enumerate()
         .max_by(|(_, a), (_, b)| a.partial_cmp(b).unwrap())
         .map(|(index, _)| index);
-    index_of_max.unwrap()
+    index_of_max.unwrap().to_string()
 }

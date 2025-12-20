@@ -1,7 +1,8 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
-pub fn problem006(borne: u64) -> u64 {
-    let _timer = ScopeTimer::new("Problem 6 Sum square difference", false);
+register_problem!(6, "Sum square difference", problem006);
+
+pub fn problem006() -> String {
     // The sum of the squares of the first ten natural numbers is, 1² + 2² + ... + 10² = 385
     // The square of the sum of the first ten natural numbers is, (1 + 2 + ... + 10)² = 55² = 3025
     // Hence the difference between the sum of the squares of the first ten natural numbers and the
@@ -11,11 +12,10 @@ pub fn problem006(borne: u64) -> u64 {
     // and the square of the sum.
     let mut somme: u64 = 0;
     let mut somme_carre: u64 = 0;
-    for n in 1..=borne {
+    for n in 1..=100 {
         somme += n;
         somme_carre += n * n;
     }
     let solution = somme * somme - somme_carre;
-    println!("solution 006: {}", solution);
-    solution
+    solution.to_string()
 }

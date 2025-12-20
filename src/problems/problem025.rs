@@ -1,10 +1,10 @@
-use crate::maths::timer::ScopeTimer;
-
 use crate::maths::fibonacci::fibonacci;
+use crate::register_problem;
 use crate::utils::mpz_number::MpzNumber;
 
-pub fn problem025() -> usize {
-    let _timer = ScopeTimer::new("Problem 25 1000-digit Fibonacci number", false);
+register_problem!(25, "1000-digit Fibonacci number", problem025);
+
+pub fn problem025() -> String {
     // The Fibonacci sequence is defined by the recurrence relation:
     //
     // Fn = Fn−1 + Fn−2, where F1 = 1 and F2 = 1.
@@ -27,8 +27,8 @@ pub fn problem025() -> usize {
     // What is the index of the first term in the Fibonacci sequence to contain 1000 digits?
     for (n, f) in fibonacci::<MpzNumber>().enumerate() {
         if f.number_digits(10) >= 1000 {
-            return n;
+            return n.to_string();
         }
     }
-    0
+    "".to_string()
 }

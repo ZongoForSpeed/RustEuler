@@ -1,9 +1,10 @@
 use crate::maths::digits::loop_digits;
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use std::collections::HashSet;
 
-pub fn problem074() -> u64 {
-    let _timer = ScopeTimer::new("Problem 74 Digit factorial chains", false);
+register_problem!(74, "Digit factorial chains", problem074);
+
+pub fn problem074() -> String {
     // The number 145 is well known for the property that the sum of the factorial of its digits is
     // equal to 145:
     //
@@ -47,5 +48,6 @@ pub fn problem074() -> u64 {
             result += 1;
         }
     }
-    result
+    result.to_string()
 }
+

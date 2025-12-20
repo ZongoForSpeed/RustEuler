@@ -1,7 +1,8 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
-pub fn problem040() -> u32 {
-    let _timer = ScopeTimer::new("Problem 40 Champernowne's constant", false);
+register_problem!(40, "Champernowne's constant", problem040);
+
+pub fn problem040() -> String {
     // An irrational decimal fraction is created by concatenating the positive integers:
     //
     //                  0.123456789101112131415161718192021...
@@ -22,5 +23,5 @@ pub fn problem040() -> u32 {
         let pos: usize = 10usize.pow(p);
         result *= s.chars().nth(pos).unwrap().to_digit(10).unwrap();
     }
-    result
+    result.to_string()
 }

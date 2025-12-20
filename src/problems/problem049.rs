@@ -1,8 +1,8 @@
-use crate::maths::primes::crible235;
-use crate::maths::timer::ScopeTimer;
 use crate::maths::digits;
-use std::collections::VecDeque;
+use crate::maths::primes::crible235;
+use crate::register_problem;
 use digits::{conversion, extract_digits};
+use std::collections::VecDeque;
 
 fn is_permutation<T: Ord + Clone>(a: &VecDeque<T>, b: &VecDeque<T>) -> bool {
     if a.len() != b.len() {
@@ -19,8 +19,9 @@ fn is_permutation<T: Ord + Clone>(a: &VecDeque<T>, b: &VecDeque<T>) -> bool {
 }
 
 
-pub fn problem049() -> u64 {
-    let _timer = ScopeTimer::new("Problem 49 Prime permutations", false);
+register_problem!(49, "Prime permutations", problem049);
+
+pub fn problem049() -> String {
     // The arithmetic sequence, 1487, 4817, 8147, in which each of the terms increases by 3330,
     // is unusual in two ways: (i) each of the three terms are prime, and, (ii) each of the 4-digit
     // numbers are permutations of one another.
@@ -63,5 +64,5 @@ pub fn problem049() -> u64 {
     }
 
     println!("result: {:?}", result);
-    conversion(&result, 10000)
+    conversion(&result, 10000).to_string()
 }

@@ -1,9 +1,10 @@
 use crate::maths::digits::loop_digits;
 use crate::maths::power;
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
-pub fn problem030() -> u64 {
-    let _timer = ScopeTimer::new("Problem 30 Digit fifth powers", false);
+register_problem!(30, "Digit fifth powers", problem030);
+
+pub fn problem030() -> String {
     // Surprisingly there are only three numbers that can be written as the sum of fourth powers of their digits:
     //
     // 1634 = 1^4 + 6^4 + 3^4 + 4^4
@@ -23,5 +24,5 @@ pub fn problem030() -> u64 {
         }
     }
 
-    result
+    result.to_string()
 }

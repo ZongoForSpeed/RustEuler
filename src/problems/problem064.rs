@@ -1,8 +1,8 @@
-use crate::maths::timer::ScopeTimer;
 use crate::maths::{integer_root, polygonal};
-use Entry::{Occupied, Vacant};
-use std::collections::HashMap;
+use crate::register_problem;
 use std::collections::hash_map::Entry;
+use std::collections::HashMap;
+use Entry::{Occupied, Vacant};
 
 fn period(r: i32) -> Option<i32> {
     if polygonal::is_square(r) {
@@ -30,8 +30,9 @@ fn period(r: i32) -> Option<i32> {
 
     None
 }
-pub fn problem064() -> u64 {
-    let _timer = ScopeTimer::new("Problem 64 Odd period square roots", false);
+register_problem!(64, "Odd period square roots", problem064);
+
+pub fn problem064() -> String {
     // It can be seen that the sequence is repeating. For conciseness, we use the notation √23 = [4;(1,3,1,8)], to
     // indicate that the block (1,3,1,8) repeats indefinitely.
     //
@@ -57,5 +58,5 @@ pub fn problem064() -> u64 {
             result += 1;
         }
     }
-    result
+    result.to_string()
 }

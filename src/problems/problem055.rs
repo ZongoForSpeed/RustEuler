@@ -1,8 +1,9 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use crate::utils::mpz_number::MpzNumber;
 
-pub fn problem055() -> u64 {
-    let _timer = ScopeTimer::new("Problem 55 Lychrel numbers", false);
+register_problem!(55, "Lychrel numbers", problem055);
+
+pub fn problem055() -> String {
     // If we take 47, reverse and add, 47 + 74 = 121, which is palindromic.
     //
     // Not all numbers produce palindromes so quickly. For example,
@@ -43,5 +44,5 @@ pub fn problem055() -> u64 {
         }
     }
 
-    count
+    count.to_string()
 }

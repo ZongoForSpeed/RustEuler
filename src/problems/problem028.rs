@@ -1,7 +1,8 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
-pub fn problem028() -> i64 {
-    let _timer = ScopeTimer::new("Problem 28 Quadratic primes", false);
+register_problem!(28, "Quadratic primes", problem028);
+
+pub fn problem028() -> String {
     // Starting with the number 1 and moving to the right in a clockwise direction a 5 by 5 spiral is
     // formed as follows:
     //
@@ -23,5 +24,5 @@ pub fn problem028() -> i64 {
             somme += 2 * n * n - 4 * (n - 1);
         }
     }
-    somme
+    somme.to_string()
 }

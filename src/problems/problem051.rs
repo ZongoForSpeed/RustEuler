@@ -1,10 +1,11 @@
 use crate::maths::digits::{conversion, extract_digits};
 use crate::maths::primes::crible2;
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use std::collections::BTreeSet;
 
-pub fn problem051() -> u64 {
-    let _timer = ScopeTimer::new("Problem 51 Prime digit replacements", false);
+register_problem!(51, "Prime digit replacements", problem051);
+
+pub fn problem051() -> String {
     // By replacing the 1st digit of the 2-digit number *3, it turns out that six of the nine
     // possible values: 13, 23, 43, 53, 73, and 83, are all prime.
     //
@@ -59,5 +60,5 @@ pub fn problem051() -> u64 {
         }
     }
 
-    result
+    result.to_string()
 }

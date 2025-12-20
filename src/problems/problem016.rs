@@ -1,11 +1,12 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use crate::utils::mpz_number::MpzNumber;
 
-pub fn problem016() -> u64 {
-    let _timer = ScopeTimer::new("Problem 16 Power digit sum", false);
+register_problem!(16, "Power digit sum", problem016);
+
+pub fn problem016() -> String {
     // 2^15 = 32768 and the sum of its digits is 3 + 2 + 7 + 6 + 8 = 26.
     //
     // What is the sum of the digits of the number 2^1000?
     let result = MpzNumber::power_ui(2, 1000).sum_digits(10);
-    result
+    result.to_string()
 }

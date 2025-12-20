@@ -1,4 +1,4 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
 fn longueur_cycle(n: u64) -> usize {
     let mut restes: Vec<u64> = Vec::new();
@@ -13,8 +13,9 @@ fn longueur_cycle(n: u64) -> usize {
     restes.len()
 }
 
-pub fn problem026() -> u64 {
-    let _timer = ScopeTimer::new("Problem 26 Reciprocal cycles", false);
+register_problem!(26, "Reciprocal cycles", problem026);
+
+pub fn problem026() -> String {
     // A unit fraction contains 1 in the numerator. The decimal representation of the unit fractions with denominators
     // 2 to 10 are given:
     //
@@ -43,5 +44,5 @@ pub fn problem026() -> u64 {
             }
         }
     }
-    result
+    result.to_string()
 }

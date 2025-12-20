@@ -1,9 +1,10 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use std::collections::HashSet;
 use std::path::Path;
 
-pub fn problem059() -> u64 {
-    let _timer = ScopeTimer::new("Problem 59 XOR decryption", false);
+register_problem!(59, "XOR decryption", problem059);
+
+pub fn problem059() -> String {
     // Each character on a computer is assigned a unique code and the preferred standard is ASCII
     // (American Standard Code for Information Interchange). For example, uppercase A = 65, asterisk (*) = 42,
     // and lowercase k = 107.
@@ -74,5 +75,6 @@ pub fn problem059() -> u64 {
         }
     }
 
-    message.chars().into_iter().map(|c| c as u64).sum()
+    let result:u64 = message.chars().into_iter().map(|c| c as u64).sum();
+    result.to_string()
 }

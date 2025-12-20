@@ -1,7 +1,7 @@
-use std::collections::HashSet;
 use crate::maths::digits::{conversion, extract_digits};
 use crate::maths::primes::crible2;
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
+use std::collections::HashSet;
 
 fn rotation(n: u64) -> u64 {
     let mut chiffres = extract_digits(n, 10);
@@ -30,8 +30,9 @@ fn valide(primes: &HashSet<u64>, p: u64) -> bool {
     }
 }
 
-pub fn problem035() -> u64 {
-    let _timer = ScopeTimer::new("Problem 35 Circular primes", false);
+register_problem!(35, "Circular primes", problem035);
+
+pub fn problem035() -> String {
     // The number, 197, is called a circular prime because all rotations of the digits:
     // 197, 971, and 719, are themselves prime.
     //
@@ -49,5 +50,5 @@ pub fn problem035() -> u64 {
             result += 1;
         }
     }
-    result
+    result.to_string()
 }

@@ -1,8 +1,9 @@
 use crate::maths::digits::palindrome;
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
-pub fn problem036() -> u64 {
-    let _timer = ScopeTimer::new("Problem 36 Double-base palindromes", false);
+register_problem!(36, "Double-base palindromes", problem036);
+
+pub fn problem036() -> String {
     // The decimal number, 585 = 1001001001_2 (binary), is palindromic in both bases.
     //
     // Find the sum of all numbers, less than one million, which are palindromic in base 10 and base 2.
@@ -14,5 +15,5 @@ pub fn problem036() -> u64 {
             result += n;
         }
     }
-    result
+    result.to_string()
 }

@@ -1,9 +1,10 @@
 use crate::maths::primes::crible235;
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use std::collections::HashSet;
 
-pub fn problem050() -> u64 {
-    let _timer = ScopeTimer::new("Problem 50 Consecutive prime sum", false);
+register_problem!(50, "Consecutive prime sum", problem050);
+
+pub fn problem050() -> String {
     // The prime 41, can be written as the sum of six consecutive primes:
     //                                      41 = 2 + 3 + 5 + 7 + 11 + 13
     //
@@ -38,5 +39,5 @@ pub fn problem050() -> u64 {
         }
     }
 
-    result
+    result.to_string()
 }

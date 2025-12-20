@@ -1,4 +1,4 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use std::cmp::Ordering;
 use std::path::Path;
 
@@ -287,8 +287,9 @@ impl PartialOrd for Hand {
     }
 }
 
-pub fn problem054() -> u64 {
-    let _timer = ScopeTimer::new("Problem 54 Poker hands", false);
+register_problem!(54, "Poker hands", problem054);
+
+pub fn problem054() -> String {
     // In the card game poker, a hand consists of five cards and are ranked, from lowest to highest,
     // in the following way:
     //
@@ -355,5 +356,5 @@ pub fn problem054() -> u64 {
         }
     }
 
-    count
+    count.to_string()
 }

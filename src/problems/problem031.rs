@@ -1,7 +1,8 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
-pub fn problem031() -> u64 {
-    let _timer = ScopeTimer::new("Problem 31 Coin sums", false);
+register_problem!(31, "Coin sums", problem031);
+
+pub fn problem031() -> String {
     // In England the currency is made up of pound, £, and pence, p, and there are eight coins in general circulation:
     //
     // 1p, 2p, 5p, 10p, 20p, 50p, £1 (100p) and £2 (200p).
@@ -19,5 +20,5 @@ pub fn problem031() -> u64 {
         }
     }
 
-    dp[objectif]
+    dp[objectif].to_string()
 }

@@ -1,9 +1,10 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use num_traits::ToPrimitive;
 use std::ops::Mul;
 
-pub fn problem008() -> u128 {
-    let _timer = ScopeTimer::new("Problem 8 Largest product in a series", false);
+register_problem!(8, "Largest product in a series", problem008);
+
+pub fn problem008() -> String {
     // The four adjacent digits in the 1000-digit number that have the greatest
     // product are 9 × 9 × 8 × 9 = 5832.
     let big_number = "73167176531330624919225119674426574742355349194934".to_owned()
@@ -42,6 +43,5 @@ pub fn problem008() -> u128 {
             .unwrap();
         solution = u128::max(solution, i);
     }
-    println!("solution 008: {}", solution);
-    solution
+    solution.to_string()
 }

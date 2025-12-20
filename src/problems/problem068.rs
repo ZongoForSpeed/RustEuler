@@ -1,9 +1,10 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use permutohedron::LexicalPermutation;
 use string_builder::Builder;
 
-pub fn problem068() -> u64 {
-    let _timer = ScopeTimer::new("Problem 68 Magic 5-gon ring", false);
+register_problem!(68, "Magic 5-gon ring", problem068);
+
+pub fn problem068() -> String {
     // Consider the following "magic" 3-gon ring, filled with the numbers 1 to 6, and each line
     // adding to nine.
     //
@@ -72,5 +73,5 @@ pub fn problem068() -> u64 {
         }
     }
 
-    max_solution
+    max_solution.to_string()
 }

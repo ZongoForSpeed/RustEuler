@@ -1,11 +1,12 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
-pub fn problem003(borne: u64) -> u64 {
-    let _timer = ScopeTimer::new("Problem 3 Largest prime factor", false);
+register_problem!(3, "Even Fibonacci numbers", problem003);
+
+pub fn problem003() -> String {
     // The prime factors of 13195 are 5, 7, 13 and 29.
     //
     // What is the largest prime factor of the number 600851475143 ?
-    let mut n = borne; // 600851475143;
+    let mut n:u64 = 600851475143; // 600851475143;
     let mut count = 2;
     while n != 1 {
         if n % count == 0 {
@@ -14,6 +15,5 @@ pub fn problem003(borne: u64) -> u64 {
             count += 1;
         }
     }
-    println!("Solution 003: {}", count);
-    count
+    count.to_string()
 }

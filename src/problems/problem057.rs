@@ -1,8 +1,9 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use crate::utils::mpq_fraction::MpqFraction;
 
-pub fn problem057() -> u64 {
-    let _timer = ScopeTimer::new("Problem 57 Powerful digit sum", false);
+register_problem!(57, "Powerful digit sum", problem057);
+
+pub fn problem057() -> String {
     // It is possible to show that the square root of two can be expressed as an infinite continued fraction.
     //
     //                              √ 2 = 1 + 1/(2 + 1/(2 + 1/(2 + ... ))) = 1.414213...
@@ -27,5 +28,5 @@ pub fn problem057() -> u64 {
         }
     }
 
-    count
+    count.to_string()
 }

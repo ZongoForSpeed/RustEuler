@@ -1,7 +1,8 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
-pub fn problem017() -> u64 {
-    let _timer = ScopeTimer::new("Problem 17 Number letter counts", false);
+register_problem!(17, "Number letter counts", problem017);
+
+pub fn problem017() -> String {
     // If the numbers 1 to 5 are written out in words: one, two, three, four, five,
     // then there are 3 + 3 + 5 + 4 + 4 = 19 letters used in total.
     //
@@ -33,5 +34,5 @@ pub fn problem017() -> u64 {
             }
         }
     }
-    resultat
+    resultat.to_string()
 }

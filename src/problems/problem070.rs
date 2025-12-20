@@ -1,10 +1,11 @@
-use fraction::Fraction;
 use crate::maths::digits;
 use crate::maths::primes::crible23;
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
+use fraction::Fraction;
 
-pub fn problem070() -> u32 {
-    let _timer = ScopeTimer::new("Problem 70 Totient permutation", false);
+register_problem!(70, "Totient permutation", problem070);
+
+pub fn problem070() -> String {
     // Euler's Totient function, φ(n) [sometimes called the phi function], is used to determine the
     // number of positive numbers less than or equal to n which are relatively prime to n. For
     // example, as 1, 2, 4, 5, 7, and 8, are all less than nine and relatively prime to nine, φ(9)=6.
@@ -30,7 +31,7 @@ pub fn problem070() -> u32 {
             if n > 10000000 {
                 break;
             }
-            
+
             let phi = (p - 1) * (q - 1);
             let ratio = Fraction::new(n, phi);
             if ratio < min_ratio && digits::is_permutation(n, phi, 10) {
@@ -42,5 +43,5 @@ pub fn problem070() -> u32 {
 
     println!("min_ratio: {}, min_n: {}", min_ratio, min_n);
 
-    min_n
+    min_n.to_string()
 }

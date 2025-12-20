@@ -1,9 +1,10 @@
 use crate::maths::arithmetique::sum_of_divisors;
 use crate::maths::primes;
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
-pub fn problem021() -> u64 {
-    let _timer = ScopeTimer::new("Problem 21 Amicable numbers", false);
+register_problem!(21, "Amicable numbers", problem021);
+
+pub fn problem021() -> String {
     // Let d(n) be defined as the sum of proper divisors of n (numbers less than n which divide evenly into n).
     // If d(a) = b and d(b) = a, where a ≠ b, then a and b are an amicable pair and each of a and b are called amicable numbers.
     //
@@ -23,5 +24,5 @@ pub fn problem021() -> u64 {
             resultat += d + n;
         }
     }
-    resultat
+    resultat.to_string()
 }

@@ -1,8 +1,9 @@
 use crate::maths::arithmetique::pgcd;
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
-pub fn problem073() -> u64 {
-    let _timer = ScopeTimer::new("Problem 73 Counting fractions in a range", false);
+register_problem!(73, "Counting fractions in a range", problem073);
+
+pub fn problem073() -> String {
     // Consider the fraction, n/d, where n and d are positive integers. If n<d and HCF(n,d)=1, it is called a reduced
     // proper fraction.
     //
@@ -22,5 +23,5 @@ pub fn problem073() -> u64 {
             }
         }
     }
-    result
+    result.to_string()
 }

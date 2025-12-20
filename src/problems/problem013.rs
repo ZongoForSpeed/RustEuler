@@ -1,8 +1,9 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use crate::utils::mpz_number::MpzNumber;
 
+register_problem!(13, "Large Sum", problem013);
+
 pub fn problem013() -> String {
-    let _timer = ScopeTimer::new("Problem 13 Large Sum", false);
     // Work out the first ten digits of the sum of the following one-hundred 50-digit numbers.
     let input = r#"37107287533902102798797998220837590246510135740250
 46376937677490009712648124896970078050417018260538

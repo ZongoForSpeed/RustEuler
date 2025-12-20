@@ -1,8 +1,9 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use crate::utils::mpz_number::MpzNumber;
 
-pub fn problem056() -> u64 {
-    let _timer = ScopeTimer::new("Problem 56 Powerful digit sum", false);
+register_problem!(56, "Powerful digit sum", problem056);
+
+pub fn problem056() -> String {
     // A googol (10^100) is a massive number: one followed by one-hundred zeros; 100^100 is almost
     // unimaginably large: one followed by two-hundred zeros. Despite their size, the sum of the
     // digits in each number is only 1.
@@ -13,5 +14,5 @@ pub fn problem056() -> u64 {
         let sum = MpzNumber::power_ui(a, b).sum_digits(10);
         maximum = std::cmp::max(maximum, sum);
     }
-    maximum
+    maximum.to_string()
 }

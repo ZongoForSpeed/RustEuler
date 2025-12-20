@@ -1,4 +1,4 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
 pub fn maximum_path_sum(triangle: Vec<Vec<u16>>) -> u16 {
     let size = triangle.len();
@@ -16,7 +16,7 @@ pub fn maximum_path_sum(triangle: Vec<Vec<u16>>) -> u16 {
                     ligne.push(result[i - 1][j - 1] + triangle[i][j]);
                 } else {
                     ligne.push(
-                        std::cmp::max(result[i - 1][j - 1], result[i - 1][j]) + triangle[i][j]
+                        std::cmp::max(result[i - 1][j - 1], result[i - 1][j]) + triangle[i][j],
                     );
                 }
             }
@@ -28,8 +28,9 @@ pub fn maximum_path_sum(triangle: Vec<Vec<u16>>) -> u16 {
     result.last().unwrap().iter().cloned().max().unwrap()
 }
 
-pub fn problem018() -> u16 {
-    let _timer = ScopeTimer::new("Problem 18 Maximum path sum I", false);
+register_problem!(18, "Maximum path sum I", problem018);
+
+pub fn problem018() -> String {
     // By starting at the top of the triangle below and moving to adjacent numbers on the row below,
     // the maximum total from top to bottom is 23.
     //                                             3
@@ -60,5 +61,5 @@ pub fn problem018() -> u16 {
     // NOTE: As there are only 16384 routes, it is possible to solve this problem by
     // trying every route. However, Problem 67, is the same challenge with a triangle containing
     // one-hundred rows; it cannot be solved by brute force, and requires a clever method! ;o)
-    maximum_path_sum(triangle)
+    maximum_path_sum(triangle).to_string()
 }

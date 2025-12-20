@@ -1,6 +1,7 @@
-use crate::maths::timer::ScopeTimer;
 use std::collections::HashSet;
 use std::path::Path;
+use crate::register_problem;
+
 
 fn conversion(s: &String) -> usize {
     s.bytes().map(|c| {
@@ -13,8 +14,9 @@ fn conversion(s: &String) -> usize {
     }).sum()
 }
 
-pub fn problem042() -> usize {
-    let _timer = ScopeTimer::new("Problem 42 Coded triangle numbers", false);
+register_problem!(42, "Coded triangle numbers", problem042);
+
+pub fn problem042() -> String {
     // The nth term of the sequence of triangle numbers is given by, tn = ½n(n+1); so the first ten
     // triangle numbers are:
     //
@@ -30,10 +32,8 @@ pub fn problem042() -> usize {
     let path = Path::new("data/p042_words.txt");
     let words: Vec<String> = std::fs::read_to_string(path)
         .unwrap()
-        .lines()
+        .split(',')
         .map(String::from)
-        .map(|s| s.split(',').into_iter().map(String::from).collect::<Vec<String>>())
-        .flatten()
         .collect();
 
     let mut triangles= HashSet::new();
@@ -49,5 +49,5 @@ pub fn problem042() -> usize {
             total += 1;
         }
     }
-    total
+    total.to_string()
 }

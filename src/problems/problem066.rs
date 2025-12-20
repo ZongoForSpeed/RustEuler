@@ -1,5 +1,5 @@
 use crate::maths::polygonal;
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use crate::utils::mpz_number::MpzNumber;
 use num_integer::Roots;
 
@@ -41,8 +41,9 @@ fn pell(d: usize) -> MpzNumber {
     a
 }
 
-pub fn problem066() -> usize {
-    let _timer = ScopeTimer::new("Problem 66 Diophantine equation", false);
+register_problem!(66, "Diophantine equation", problem066);
+
+pub fn problem066() -> String {
     // Consider quadratic Diophantine equations of the form:
     //
     //                                      x² – Dy² = 1
@@ -74,5 +75,5 @@ pub fn problem066() -> usize {
             }
         }
     }
-    result
+    result.to_string()
 }

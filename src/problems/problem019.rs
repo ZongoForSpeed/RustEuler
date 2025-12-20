@@ -1,8 +1,9 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use chrono::{Datelike, Months, NaiveDate, Weekday};
 
-pub fn problem019() -> u64 {
-    let _timer = ScopeTimer::new("Problem 19 Counting Sundays", false);
+register_problem!(19, "Counting Sundays", problem019);
+
+pub fn problem019() -> String {
     // You are given the following information, but you may prefer to do some research for yourself.
     //
     // 1 Jan 1900 was a Monday.
@@ -25,5 +26,5 @@ pub fn problem019() -> u64 {
         }
         start = start.checked_add_months(months).unwrap()
     }
-    result
+    result.to_string()
 }

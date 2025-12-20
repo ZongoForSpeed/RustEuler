@@ -1,10 +1,10 @@
-use crate::maths::timer::ScopeTimer;
-
 use crate::maths::digits::conversion;
+use crate::register_problem;
 use permutohedron::LexicalPermutation;
 
-pub fn problem024() -> u64 {
-    let _timer = ScopeTimer::new("Problem 24 Lexicographic permutations", false);
+register_problem!(24, "Lexicographic permutations", problem024);
+
+pub fn problem024() -> String {
     // A permutation is an ordered arrangement of objects. For example, 3124 is one possible permutation of the digits
     // 1, 2, 3 and 4. If all of the permutations are listed numerically or alphabetically, we call it lexicographic
     // order. The lexicographic permutations of 0, 1 and 2 are:
@@ -19,5 +19,5 @@ pub fn problem024() -> u64 {
 
     println!("v = {:?}", v);
 
-    conversion(&v, 10)
+    conversion(&v, 10).to_string()
 }

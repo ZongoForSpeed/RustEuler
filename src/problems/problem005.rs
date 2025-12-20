@@ -1,16 +1,17 @@
-use crate::maths;
+use crate::{maths, register_problem};
 use maths::arithmetique;
-use crate::maths::timer::ScopeTimer;
 
-pub fn problem005(borne: u64) -> u64 {
-    let _timer = ScopeTimer::new("Problem 5 Smallest multiple", false);
-    // 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+register_problem!(5, "Smallest multiple", problem005);
+
+pub fn problem005() -> String {
+    // 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without
+    // any remainder.
     //
-    // What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
-    let mut solution = 2;
-    for d in 3..=borne {
+    // What is the smallest positive number that is evenly divisible by all of the numbers from 1
+    // to 20?
+    let mut solution:u64 = 2;
+    for d in 3..=20 {
         solution = arithmetique::ppcm(solution, d);
     }
-    println!("solution 005: {}", solution);
-    solution
+    solution.to_string()
 }

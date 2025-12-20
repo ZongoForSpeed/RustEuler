@@ -1,9 +1,10 @@
-use crate::maths::timer::ScopeTimer;
 use crate::maths::{arithmetique, primes};
 use bit_set::BitSet;
+use crate::register_problem;
 
-pub fn problem023() -> usize {
-    let _timer = ScopeTimer::new("Problem 23 Non-abundant sums", false);
+register_problem!(23, "Non-abundant sums", problem023);
+
+pub fn problem023() -> String {
     // A perfect number is a number for which the sum of its proper divisors is exactly equal to the number.
     // For example, the sum of the proper divisors of 28 would be 1 + 2 + 4 + 7 + 14 = 28, which means that 28 is a
     // perfect number.
@@ -44,5 +45,6 @@ pub fn problem023() -> usize {
         }
     }
 
-    test.iter().sum()
+    let result: usize = test.iter().sum();
+    result.to_string()
 }

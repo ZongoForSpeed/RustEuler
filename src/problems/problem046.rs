@@ -1,9 +1,10 @@
 use crate::maths::primes::crible235;
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use std::collections::HashSet;
 
-pub fn problem046() -> i64 {
-    let _timer = ScopeTimer::new("Problem 46 Goldbach's other conjecture", false);
+register_problem!(46, "Goldbach's other conjecture", problem046);
+
+pub fn problem046() -> String {
     // It was proposed by Christian Goldbach that every odd composite number can be written as the
     // sum of a prime and twice a square.
     //
@@ -35,9 +36,9 @@ pub fn problem046() -> i64 {
                 }
             }
             if !success {
-                return n;
+                return n.to_string();
             }
         }
     }
-    i64::MAX
+    "".to_string()
 }

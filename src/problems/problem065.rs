@@ -1,8 +1,9 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use crate::utils::mpq_fraction::MpqFraction;
 
-pub fn problem065() -> u64 {
-    let _timer = ScopeTimer::new("Problem 65 Convergents of e", false);
+register_problem!(65, "Convergents of e", problem065);
+
+pub fn problem065() -> String {
     // The square root of 2 can be written as an infinite continued fraction.
     //
     // The infinite continued fraction can be written, √2 = [1;(2)], (2) indicates that 2 repeats
@@ -38,5 +39,5 @@ pub fn problem065() -> u64 {
 
     println!("Fraction : {}", f);
     println!("Fraction : {}", f.get_f());
-    f.numerator().sum_digits(10)
+    f.numerator().sum_digits(10).to_string()
 }

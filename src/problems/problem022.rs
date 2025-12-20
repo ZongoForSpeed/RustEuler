@@ -1,4 +1,4 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use std::path::Path;
 
 fn to_usize(c: u8) -> usize {
@@ -14,8 +14,9 @@ fn conversion(s: &String) -> usize {
     s.bytes().map(to_usize).sum()
 }
 
-pub fn problem022() -> usize {
-    let _timer = ScopeTimer::new("Problem 22 Names scores", false);
+register_problem!(22, "Names scores", problem022);
+
+pub fn problem022() -> String {
     // Using names.txt (right click and 'Save Link/Target As...'), a 46K text file containing
     // over five-thousand first names, begin by sorting it into alphabetical order.
     // Then working out the alphabetical value for each name, multiply this value by its alphabetical
@@ -29,21 +30,14 @@ pub fn problem022() -> usize {
     let path = Path::new("data/p022_names.txt");
     let mut lines: Vec<String> = std::fs::read_to_string(path)
         .unwrap()
-        .lines()
+        .split(',')
         .map(String::from)
-        .map(|s| {
-            s.split(',')
-                .into_iter()
-                .map(String::from)
-                .collect::<Vec<String>>()
-        })
-        .flatten()
-        .collect();
+        .collect::<Vec<String>>();
 
     lines.sort();
     let mut total = 0;
     for (n, word) in lines.iter().enumerate() {
         total += (n + 1) * conversion(&word);
     }
-    total
+    total.to_string()
 }

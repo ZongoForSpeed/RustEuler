@@ -1,9 +1,10 @@
 use crate::maths::digits::conversion;
-use crate::maths::timer::ScopeTimer;
 use permutohedron::LexicalPermutation;
+use crate::register_problem;
 
-pub fn problem043() -> usize {
-    let _timer = ScopeTimer::new("Problem 43 Sub-string divisibility", false);
+register_problem!(43, "Sub-string divisibility", problem043);
+
+pub fn problem043() -> String {
     // The number, 1406357289, is a 0 to 9 pandigital number because it is made up of each of the
     // digits 0 to 9 in some order,
     // but it also has a rather interesting sub-string divisibility property.
@@ -21,7 +22,7 @@ pub fn problem043() -> usize {
     // Find the sum of all 0 to 9 pandigital numbers with this property.
     let mut pandigital = vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-    let mut result = 0;
+    let mut result: usize = 0;
     loop {
         let conversion = conversion(&pandigital, 10);
         if pandigital[3] % 2 == 0
@@ -38,5 +39,5 @@ pub fn problem043() -> usize {
             break;
         }
     }
-    result
+    result.to_string()
 }

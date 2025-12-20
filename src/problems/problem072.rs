@@ -1,9 +1,10 @@
 use crate::maths::arithmetique::phi;
 use crate::maths::primes::crible23;
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 
-pub fn problem072() -> u64 {
-    let _timer = ScopeTimer::new("Problem 72 Counting fractions", false);
+register_problem!(72, "Counting fractions", problem072);
+
+pub fn problem072() -> String {
     // Consider the fraction, n/d, where n and d are positive integers. If n<d and HCF(n,d)=1, it
     // is called a reduced proper fraction.
     //
@@ -14,9 +15,10 @@ pub fn problem072() -> u64 {
     // It can be seen that there are 21 elements in this set.
     //
     // How many elements would be contained in the set of reduced proper fractions for d ≤ 1,000,000?
-    let limite:u64 = 1000000;
+    let limite: u64 = 1000000;
     let mut prime: Vec<u64> = Vec::new();
     crible23(limite as usize, |p| prime.push(p));
 
-    (2..=limite).into_iter().map(|n|phi(n, &prime)).sum()
+    let result: u64 = (2..=limite).into_iter().map(|n| phi(n, &prime)).sum();
+    result.to_string()
 }

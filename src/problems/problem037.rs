@@ -1,9 +1,10 @@
 use crate::maths::primes::crible2;
-use crate::maths::timer::ScopeTimer;
 use std::collections::HashSet;
+use crate::register_problem;
 
-pub fn problem037() -> u64 {
-    let _timer = ScopeTimer::new("Problem 37 Truncatable primes", false);
+register_problem!(37, "Truncatable primes", problem037);
+
+pub fn problem037() -> String {
     // The number 3797 has an interesting property. Being prime itself, it is possible to continuously
     // remove digits from left to right, and remain prime at each stage: 3797, 797, 97, and 7.
     // Similarly we can work from right to left: 3797, 379, 37, and 3.
@@ -34,5 +35,5 @@ pub fn problem037() -> u64 {
         }
     }
 
-    resultat
+    resultat.to_string()
 }

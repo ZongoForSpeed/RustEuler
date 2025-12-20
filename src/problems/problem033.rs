@@ -1,8 +1,9 @@
-use crate::maths::timer::ScopeTimer;
 use fraction::Fraction;
+use crate::register_problem;
 
-pub fn problem033() -> u64 {
-    let _timer = ScopeTimer::new("Problem 33 Digit cancelling fractions", false);
+register_problem!(33, "Digit cancelling fractions", problem033);
+
+pub fn problem033() -> String {
     // The fraction 49/98 is a curious fraction, as an inexperienced mathematician in attempting to simplify it may
     // incorrectly believe that 49/98 = 4/8, which is correct, is obtained by cancelling the 9s.
     //
@@ -25,5 +26,5 @@ pub fn problem033() -> u64 {
             }
         }
     }
-    result.denom().unwrap().clone()
+    result.denom().unwrap().to_string()
 }

@@ -1,8 +1,9 @@
-use crate::maths::timer::ScopeTimer;
+use crate::register_problem;
 use crate::utils::mpz_number::MpzNumber;
 
-pub fn problem053() -> u64 {
-    let _timer = ScopeTimer::new("Problem 53 Combinatoric selections", false);
+register_problem!(53, "Combinatoric selections", problem053);
+
+pub fn problem053() -> String {
     // There are exactly ten ways of selecting three from five, 12345:
     //
     // 123, 124, 125, 134, 135, 145, 234, 235, 245, and 345
@@ -25,5 +26,5 @@ pub fn problem053() -> u64 {
         }
     }
 
-    count
+    count.to_string()
 }
