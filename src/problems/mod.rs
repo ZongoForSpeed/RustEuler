@@ -85,4 +85,8 @@ mod problem083;
 mod problem084;
 mod problem085;
 mod problem086;
+mod problem087;
+mod problem088;
+mod problem089;
+mod problem090;
 pub mod problems;
