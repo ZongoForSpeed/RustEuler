@@ -75,6 +75,17 @@ mod tests {
     use crate::problems::problem073::problem073;
     use crate::problems::problem074::problem074;
     use crate::problems::problem075::problem075;
+    use crate::problems::problem076::problem076;
+    use crate::problems::problem077::problem077;
+    use crate::problems::problem078::problem078;
+    use crate::problems::problem079::problem079;
+    use crate::problems::problem080::problem080;
+    use crate::problems::problem081::problem081;
+    use crate::problems::problem082::problem082;
+    use crate::problems::problem083::problem083;
+    use crate::problems::problem084::problem084;
+    use crate::problems::problem085::problem085;
+    use crate::problems::problem086::problem086;
 
     #[test]
     fn test_problem001() {
@@ -526,4 +537,70 @@ mod tests {
         assert_eq!(result, "161667");
     }
 
+    #[test]
+    fn test_problem076() {
+        let result = problem076();
+        assert_eq!(result, "190569291");
+    }
+
+    #[test]
+    fn test_problem077() {
+        let result = problem077();
+        assert_eq!(result, "71");
+    }
+
+    #[test]
+    fn test_problem078() {
+        let result = problem078();
+        assert_eq!(result, "55374");
+    }
+
+    #[test]
+    fn test_problem079() {
+        let result = problem079();
+        assert_eq!(result, "73162890");
+    }
+
+    #[test]
+    fn test_problem080() {
+        let result = problem080();
+        assert_eq!(result, "40886");
+    }
+
+    #[test]
+    fn test_problem081() {
+        let result = problem081();
+        assert_eq!(result, "427337");
+    }
+
+    #[test]
+    fn test_problem082() {
+        let result = problem082();
+        assert_eq!(result, "260324");
+    }
+
+    #[test]
+    fn test_problem083() {
+        let result = problem083();
+        assert_eq!(result, "425185");
+    }
+
+    #[test]
+    fn test_problem084() {
+        let result = problem084();
+        assert_eq!(result, "101524");
+    }
+
+    #[test]
+    fn test_problem085() {
+        let result = problem085();
+        assert_eq!(result, "2772");
+    }
+
+    #[test]
+    fn test_problem086() {
+        let result = problem086();
+        assert_eq!(result, "1818");
+    }
+    
 }

@@ -343,6 +343,14 @@ impl MpzNumber {
         res
     }
 
+    pub(crate) fn sqrt(&self) -> MpzNumber {
+        let mut res = MpzNumber::new();
+        unsafe {
+            gmp::mpz_sqrt(&mut res.data, &self.data);
+        }
+        res
+    }
+    
     fn hash<H: Hasher>(&self, state: &mut H) {
         // TODO implement better hash method
         self.to_string().hash(state);

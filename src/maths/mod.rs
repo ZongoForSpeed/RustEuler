@@ -8,3 +8,4 @@ pub mod factorial;
 pub mod pythagorean;
 pub mod polygonal;
 pub mod integer_root;
+pub mod graph;

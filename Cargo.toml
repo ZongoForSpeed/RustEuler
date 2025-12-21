@@ -1,5 +1,5 @@
 [package]
-name = "RustEuler"
+name = "rust_euler"
 version = "0.1.0"    # thecurrent version, obeying semver
 edition = '2024'
 include = ["src"]
@@ -17,3 +17,5 @@ itertools = "0.14.0"
 rayon = "1.11.0"
 inventory = "0.3.21"
 colored = "3.0.0"
+priority-queue = "2.7.0"
+rand = "0.10.0-rc.5"
