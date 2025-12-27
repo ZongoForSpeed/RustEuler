@@ -1,10 +1,10 @@
-use crate::maths::digits::{conversion, extract_digits};
+use crate::maths::digits::{conversion, Digits};
 use crate::maths::primes::crible2;
 use crate::register_problem;
 use std::collections::HashSet;
 
 fn rotation(n: u64) -> u64 {
-    let mut chiffres = extract_digits(n, 10);
+    let mut chiffres = n.extract_digits( 10);
 
     let front = chiffres.pop_front().unwrap();
     chiffres.push_back(front);
@@ -13,7 +13,7 @@ fn rotation(n: u64) -> u64 {
 }
 
 fn valide(primes: &HashSet<u64>, p: u64) -> bool {
-    let chiffres = extract_digits(p, 10);
+    let chiffres = p.extract_digits(10);
     if chiffres.contains(&0) {
         return false;
     }

@@ -1,4 +1,4 @@
-use crate::maths::arithmetique::phi;
+use crate::maths::arithmetic::Arithmetic;
 use crate::maths::primes::crible23;
 use crate::register_problem;
 
@@ -19,6 +19,6 @@ pub fn problem072() -> String {
     let mut prime: Vec<u64> = Vec::new();
     crible23(limite as usize, |p| prime.push(p));
 
-    let result: u64 = (2..=limite).into_iter().map(|n| phi(n, &prime)).sum();
+    let result: u64 = (2..=limite).into_iter().map(|n| n.phi(&prime)).sum();
     result.to_string()
 }

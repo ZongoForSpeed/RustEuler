@@ -1,4 +1,4 @@
-use crate::maths::arithmetique::sum_of_divisors;
+use crate::maths::arithmetic::Arithmetic;
 use crate::maths::primes::crible23;
 use crate::register_problem;
 use std::collections::HashSet;
@@ -26,7 +26,7 @@ pub fn problem095() -> String {
 
     let mut sum_divisors = vec![0; limit];
     for n in 2..limit {
-        sum_divisors[n] = sum_of_divisors(n, &primes) - n;
+        sum_divisors[n] = n.sum_of_divisors(&primes) - n;
     }
 
     let mut maximum = 0;

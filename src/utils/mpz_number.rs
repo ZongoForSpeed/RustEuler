@@ -8,7 +8,9 @@ use std::ffi::{CStr, CString, c_char, c_int, c_long, c_ulong, c_void};
 use std::fmt::{Display, Formatter};
 use std::hash::{Hash, Hasher};
 use std::mem::MaybeUninit;
-use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Rem, RemAssign, Sub, SubAssign};
+use std::ops::{
+    Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Rem, RemAssign, Sub, SubAssign,
+};
 use std::ptr::null_mut;
 use std::str::FromStr;
 
@@ -78,11 +80,31 @@ impl MpzNumber {
                 &mut self.data,
                 1,
                 -1,
-                128 / 8,
+                16, // 128 / 8
                 0,
                 0,
                 my_num_ptr as *const c_void,
             );
+        }
+    }
+
+    pub fn set_i128(&mut self, n: i128) {
+        let negative = n < 0;
+        let op = if negative { -n } else { n };
+        unsafe {
+            let my_num_ptr: *const i128 = &op;
+            gmp::mpz_import(
+                &mut self.data,
+                1,
+                -1,
+                16, // 128 / 8
+                0,
+                0,
+                my_num_ptr as *const c_void,
+            );
+            if negative {
+                gmp::mpz_neg(&mut self.data, &self.data);
+            }
         }
     }
 
@@ -111,6 +133,23 @@ impl MpzNumber {
             );
         }
         res
+    }
+
+    pub fn get_i128(&self) -> i128 {
+        let mut res = 0;
+        unsafe {
+            let my_num_ptr: *mut i128 = &mut res;
+            gmp::mpz_export(
+                my_num_ptr as *mut c_void,
+                0 as *mut usize,
+                -1,
+                128 / 8,
+                0,
+                0,
+                &self.data,
+            );
+        }
+        self.sign() as i128 * res
     }
 
     pub fn get_si(&self) -> c_long {
@@ -350,8 +389,8 @@ impl MpzNumber {
         }
         res
     }
-    
-    fn hash<H: Hasher>(&self, state: &mut H) {
+
+    fn internal_hash<H: Hasher>(&self, state: &mut H) {
         // TODO implement better hash method
         self.to_string().hash(state);
     }
@@ -413,8 +452,20 @@ impl Eq for MpzNumber {}
 
 impl Hash for MpzNumber {
     fn hash<H: Hasher>(&self, state: &mut H) {
-        self.hash(state);
+        self.internal_hash(state);
         // self.hash(state);
+    }
+}
+
+impl Neg for MpzNumber {
+    type Output = MpzNumber;
+
+    fn neg(self) -> Self::Output {
+        let mut res = MpzNumber::new();
+        unsafe {
+            gmp::mpz_neg(&mut res.data, &self.data);
+        }
+        res
     }
 }
 
@@ -456,85 +507,6 @@ macro_rules! impl_from_unsigned {
                     MpzNumber::from_u64(value as u64)
                 }
             }
-
-            impl Add<&MpzNumber> for $t {
-                type Output = MpzNumber;
-
-                fn add(self, rhs: &MpzNumber) -> MpzNumber {
-                    MpzNumber::internal_add_ui(&rhs, self as u64)
-                }
-            }
-
-            impl Mul<&MpzNumber> for $t {
-                type Output = MpzNumber;
-
-                fn mul(self, rhs: &MpzNumber) -> MpzNumber {
-                    MpzNumber::internal_mul_ui(&rhs, self as u64)
-                }
-            }
-
-            impl Sub<&MpzNumber> for $t {
-                type Output = MpzNumber;
-
-                fn sub(self, rhs: &MpzNumber) -> MpzNumber {
-                    MpzNumber::internal_ui_sub(self as u64, &rhs)
-                }
-            }
-
-            impl Div<&MpzNumber> for $t {
-                type Output = MpzNumber;
-
-                fn div(self, rhs: &MpzNumber) -> MpzNumber {
-                    MpzNumber::internal_div(&MpzNumber::from_u64(self as u64), &rhs)
-                }
-            }
-
-            impl Rem<&MpzNumber> for $t {
-                type Output = MpzNumber;
-
-                fn rem(self, rhs: &MpzNumber) -> MpzNumber {
-                    MpzNumber::internal_mod(&MpzNumber::from_u64(self as u64), &rhs)
-                }
-            }
-            impl Add<MpzNumber> for $t {
-                type Output = MpzNumber;
-
-                fn add(self, rhs: MpzNumber) -> MpzNumber {
-                    MpzNumber::internal_add_ui(&rhs, self as u64)
-                }
-            }
-
-            impl Mul<MpzNumber> for $t {
-                type Output = MpzNumber;
-
-                fn mul(self, rhs: MpzNumber) -> MpzNumber {
-                    MpzNumber::internal_mul_ui(&rhs, self as u64)
-                }
-            }
-
-            impl Sub<MpzNumber> for $t {
-                type Output = MpzNumber;
-
-                fn sub(self, rhs: MpzNumber) -> MpzNumber {
-                    MpzNumber::internal_ui_sub(self as u64, &rhs)
-                }
-            }
-
-            impl Div<MpzNumber> for $t {
-                type Output = MpzNumber;
-
-                fn div(self, rhs: MpzNumber) -> MpzNumber {
-                    MpzNumber::internal_div(&MpzNumber::from_u64(self as u64), &rhs)
-                }
-            }
-
-            impl Rem<MpzNumber> for $t {
-                type Output = MpzNumber;
-
-                fn rem(self, rhs: MpzNumber) -> MpzNumber {
-                    MpzNumber::internal_mod(&MpzNumber::from_u64(self as u64), &rhs)
-                }
-            }
         )*
     }
 }
@@ -549,91 +521,27 @@ macro_rules! impl_from_signed {
                     MpzNumber::from_i64(value as i64)
                 }
             }
-
-            impl Add<&MpzNumber> for $t {
-                type Output = MpzNumber;
-
-                fn add(self, rhs: &MpzNumber) -> MpzNumber {
-                    MpzNumber::internal_add(&MpzNumber::from_i64(self as i64), &rhs)
-                }
-            }
-
-            impl Mul<&MpzNumber> for $t {
-                type Output = MpzNumber;
-
-                fn mul(self, rhs: &MpzNumber) -> MpzNumber {
-                    MpzNumber::internal_mul_si(&rhs, self as i64)
-                }
-            }
-
-            impl Sub<&MpzNumber> for $t {
-                type Output = MpzNumber;
-
-                fn sub(self, rhs: &MpzNumber) -> MpzNumber {
-                    MpzNumber::internal_sub(&MpzNumber::from_i64(self as i64), &rhs)
-                }
-            }
-
-            impl Div<&MpzNumber> for $t {
-                type Output = MpzNumber;
-
-                fn div(self, rhs: &MpzNumber) -> MpzNumber {
-                    MpzNumber::internal_div(&MpzNumber::from_i64(self as i64), &rhs)
-                }
-            }
-
-            impl Rem<&MpzNumber> for $t {
-                type Output = MpzNumber;
-
-                fn rem(self, rhs: &MpzNumber) -> MpzNumber {
-                    MpzNumber::internal_mod(&MpzNumber::from_i64(self as i64), &rhs)
-                }
-            }
-
-            impl Add<MpzNumber> for $t {
-                type Output = MpzNumber;
-
-                fn add(self, rhs: MpzNumber) -> MpzNumber {
-                    MpzNumber::internal_add(&MpzNumber::from_i64(self as i64), &rhs)
-                }
-            }
-
-            impl Mul<MpzNumber> for $t {
-                type Output = MpzNumber;
-
-                fn mul(self, rhs: MpzNumber) -> MpzNumber {
-                    MpzNumber::internal_mul_si(&rhs, self as i64)
-                }
-            }
-
-            impl Sub<MpzNumber> for $t {
-                type Output = MpzNumber;
-
-                fn sub(self, rhs: MpzNumber) -> MpzNumber {
-                    MpzNumber::internal_sub(&MpzNumber::from_i64(self as i64), &rhs)
-                }
-            }
-
-            impl Div<MpzNumber> for $t {
-                type Output = MpzNumber;
-
-                fn div(self, rhs: MpzNumber) -> MpzNumber {
-                    MpzNumber::internal_div(&MpzNumber::from_i64(self as i64), &rhs)
-                }
-            }
-
-            impl Rem<MpzNumber> for $t {
-                type Output = MpzNumber;
-
-                fn rem(self, rhs: MpzNumber) -> MpzNumber {
-                    MpzNumber::internal_mod(&MpzNumber::from_i64(self as i64), &rhs)
-                }
-            }
         )*
     }
 }
 
 impl_from_signed!(i8, i16, i32, i64, isize);
+
+impl From<u128> for MpzNumber {
+    fn from(value: u128) -> MpzNumber {
+        let mut z = MpzNumber::new();
+        z.set_u128(value);
+        z
+    }
+}
+
+impl From<i128> for MpzNumber {
+    fn from(value: i128) -> MpzNumber {
+        let mut z = MpzNumber::new();
+        z.set_i128(value);
+        z
+    }
+}
 // endregion
 
 // region Addition
@@ -679,6 +587,57 @@ where
         self.internal_add_assign(&rhs.into());
     }
 }
+
+macro_rules! impl_add_unsigned {
+    ($($t:ty),*) => {
+        $(
+
+            impl Add<&MpzNumber> for $t {
+                type Output = MpzNumber;
+
+                fn add(self, rhs: &MpzNumber) -> MpzNumber {
+                    MpzNumber::internal_add_ui(&rhs, self as u64)
+                }
+            }
+
+            impl Add<MpzNumber> for $t {
+                type Output = MpzNumber;
+
+                fn add(self, rhs: MpzNumber) -> MpzNumber {
+                    MpzNumber::internal_add_ui(&rhs, self as u64)
+                }
+            }
+        )*
+    }
+}
+
+impl_add_unsigned!(u8, u16, u32, u64, usize);
+
+macro_rules! impl_add {
+    ($($t:ty),*) => {
+        $(
+
+            impl Add<&MpzNumber> for $t {
+                type Output = MpzNumber;
+
+                fn add(self, rhs: &MpzNumber) -> MpzNumber {
+                    MpzNumber::internal_add(&MpzNumber::from(self), &rhs)
+                }
+            }
+
+            impl Add<MpzNumber> for $t {
+                type Output = MpzNumber;
+
+                fn add(self, rhs: MpzNumber) -> MpzNumber {
+                    MpzNumber::internal_add(&MpzNumber::from(self), &rhs)
+                }
+            }
+
+        )*
+    }
+}
+
+impl_add!(i8, i16, i32, i64, isize, i128, u128);
 // endregion
 
 // region Multiplication
@@ -724,6 +683,80 @@ where
         self.internal_mul_assign(&rhs.into());
     }
 }
+
+macro_rules! impl_mul_unsigned {
+    ($($t:ty),*) => {
+        $(
+
+            impl Mul<&MpzNumber> for $t {
+                type Output = MpzNumber;
+
+                fn mul(self, rhs: &MpzNumber) -> MpzNumber {
+                    MpzNumber::internal_mul_ui(&rhs, self as u64)
+                }
+            }
+
+            impl Mul<MpzNumber> for $t {
+                type Output = MpzNumber;
+
+                fn mul(self, rhs: MpzNumber) -> MpzNumber {
+                    MpzNumber::internal_mul_ui(&rhs, self as u64)
+                }
+            }
+
+        )*
+    }
+}
+
+impl_mul_unsigned!(u8, u16, u32, u64, usize);
+
+macro_rules! impl_mul_signed {
+    ($($t:ty),*) => {
+        $(
+            impl Mul<&MpzNumber> for $t {
+                type Output = MpzNumber;
+
+                fn mul(self, rhs: &MpzNumber) -> MpzNumber {
+                    MpzNumber::internal_mul_si(&rhs, self as i64)
+                }
+            }
+
+            impl Mul<MpzNumber> for $t {
+                type Output = MpzNumber;
+
+                fn mul(self, rhs: MpzNumber) -> MpzNumber {
+                    MpzNumber::internal_mul_si(&rhs, self as i64)
+                }
+            }
+        )*
+    }
+}
+
+impl_mul_signed!(i8, i16, i32, i64, isize);
+
+macro_rules! impl_mul {
+    ($($t:ty),*) => {
+        $(
+            impl Mul<&MpzNumber> for $t {
+                type Output = MpzNumber;
+
+                fn mul(self, rhs: &MpzNumber) -> MpzNumber {
+                    MpzNumber::internal_mul(&MpzNumber::from(self), &rhs)
+                }
+            }
+
+            impl Mul<MpzNumber> for $t {
+                type Output = MpzNumber;
+
+                fn mul(self, rhs: MpzNumber) -> MpzNumber {
+                    MpzNumber::internal_mul(&MpzNumber::from(self), &rhs)
+                }
+            }
+        )*
+    }
+}
+
+impl_mul!(i128, u128);
 // endregion
 
 // region Substraction
@@ -769,6 +802,54 @@ where
         self.internal_sub_assign(&rhs.into());
     }
 }
+
+macro_rules! impl_sub_unsigned {
+    ($($t:ty),*) => {
+        $(
+            impl Sub<&MpzNumber> for $t {
+                type Output = MpzNumber;
+
+                fn sub(self, rhs: &MpzNumber) -> MpzNumber {
+                    MpzNumber::internal_ui_sub(self as u64, &rhs)
+                }
+            }
+
+            impl Sub<MpzNumber> for $t {
+                type Output = MpzNumber;
+
+                fn sub(self, rhs: MpzNumber) -> MpzNumber {
+                    MpzNumber::internal_ui_sub(self as u64, &rhs)
+                }
+            }
+        )*
+    }
+}
+
+impl_sub_unsigned!(u8, u16, u32, u64, usize);
+
+macro_rules! impl_sub {
+    ($($t:ty),*) => {
+        $(
+            impl Sub<&MpzNumber> for $t {
+                type Output = MpzNumber;
+
+                fn sub(self, rhs: &MpzNumber) -> MpzNumber {
+                    MpzNumber::internal_sub(&MpzNumber::from(self), &rhs)
+                }
+            }
+
+            impl Sub<MpzNumber> for $t {
+                type Output = MpzNumber;
+
+                fn sub(self, rhs: MpzNumber) -> MpzNumber {
+                    MpzNumber::internal_sub(&MpzNumber::from(self), &rhs)
+                }
+            }
+        )*
+    }
+}
+
+impl_sub!(i8, i16, i32, i64, isize, i128, u128);
 // endregion
 
 // region Division
@@ -814,6 +895,31 @@ where
         self.internal_div_assign(&rhs.into());
     }
 }
+
+macro_rules! impl_div {
+    ($($t:ty),*) => {
+        $(
+            impl Div<&MpzNumber> for $t {
+                type Output = MpzNumber;
+
+                fn div(self, rhs: &MpzNumber) -> MpzNumber {
+                    MpzNumber::internal_div(&MpzNumber::from(self), &rhs)
+                }
+            }
+
+            impl Div<MpzNumber> for $t {
+                type Output = MpzNumber;
+
+                fn div(self, rhs: MpzNumber) -> MpzNumber {
+                    MpzNumber::internal_div(&MpzNumber::from(self), &rhs)
+                }
+            }
+
+        )*
+    }
+}
+
+impl_div!(i8, i16, i32, i64, isize, u8, u16, u32, u64, usize, i128, u128);
 // endregion
 
 // region Modulo
@@ -859,6 +965,30 @@ where
         self.internal_mod_assign(&rhs.into());
     }
 }
+
+macro_rules! impl_rem {
+    ($($t:ty),*) => {
+        $(
+            impl Rem<&MpzNumber> for $t {
+                type Output = MpzNumber;
+
+                fn rem(self, rhs: &MpzNumber) -> MpzNumber {
+                    MpzNumber::internal_mod(&MpzNumber::from(self), &rhs)
+                }
+            }
+
+            impl Rem<MpzNumber> for $t {
+                type Output = MpzNumber;
+
+                fn rem(self, rhs: MpzNumber) -> MpzNumber {
+                    MpzNumber::internal_mod(&MpzNumber::from(self), &rhs)
+                }
+            }
+        )*
+    }
+}
+
+impl_rem!(i8, i16, i32, i64, isize, u8, u16, u32, u64, usize, i128, u128);
 // endregion
 
 #[cfg(test)]
@@ -925,6 +1055,16 @@ mod tests {
         let mut mpz: MpzNumber = MpzNumber::new();
         mpz.set_u128(123456789098760000066600005432123456789);
         assert_eq!(mpz.get_u128(), 123456789098760000066600005432123456789);
+    }
+
+    #[test]
+    fn test_init_i128() {
+        let mut mpz: MpzNumber = MpzNumber::new();
+        mpz.set_i128(-123456789098760000066600005432123456789);
+        assert_eq!(mpz.get_i128(), -123456789098760000066600005432123456789);
+
+        mpz.set_i128(123456789098760000066600005432123456789);
+        assert_eq!(mpz.get_i128(), 123456789098760000066600005432123456789);
     }
 
     #[test]

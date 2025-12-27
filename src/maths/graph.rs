@@ -1,8 +1,9 @@
-use std::cmp::Reverse;
-use priority_queue::PriorityQueue;
-use std::collections::{HashMap, HashSet};
-use std::hash::Hash;
+use itertools::Itertools;
 use num_traits::PrimInt;
+use priority_queue::PriorityQueue;
+use std::cmp::Reverse;
+use std::collections::{BTreeSet, HashMap, HashSet};
+use std::hash::Hash;
 
 pub fn a_star<T, V, G, D, H>(start: T, end: T, graph: G, distance: D, heuristic: H) -> V
 where
@@ -13,7 +14,7 @@ where
     H: Fn(&T, &T) -> V,
 {
     let mut closed_list: HashSet<T> = HashSet::new();
-    let mut queue:PriorityQueue<(T, V), Reverse<V>> = PriorityQueue::new();
+    let mut queue: PriorityQueue<(T, V), Reverse<V>> = PriorityQueue::new();
 
     queue.push((start, V::zero()), Reverse(V::zero()));
 
@@ -83,4 +84,38 @@ impl Dijkstra {
 
         paths[self.end]
     }
+}
+
+pub type Edge = (usize, usize, u64);
+
+pub fn kruskal(graph: &Vec<Edge>) -> Vec<Edge> {
+    let graph_copy: Vec<Edge> = graph
+        .into_iter()
+        .copied()
+        .sorted_by(|a, b| a.2.cmp(&b.2))
+        .collect();
+
+    let mut vertice_set = BTreeSet::new();
+    for (a, b, _) in graph {
+        vertice_set.insert(*a);
+        vertice_set.insert(*b);
+    }
+
+    let mut group = Vec::from_iter(vertice_set);
+
+    let mut result = Vec::new();
+    for (i, j, k) in graph_copy {
+        let group_i = group[i];
+        let group_j = group[j];
+        if group_i != group_j {
+            for value in group.iter_mut() {
+                if *value == group_j {
+                    *value = group_i;
+                }
+            }
+            result.push((i, j, k));
+        }
+    }
+
+    result
 }

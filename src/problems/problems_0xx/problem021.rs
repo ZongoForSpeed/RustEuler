@@ -1,4 +1,4 @@
-use crate::maths::arithmetique::sum_of_divisors;
+use crate::maths::arithmetic::Arithmetic;
 use crate::maths::primes;
 use crate::register_problem;
 
@@ -18,7 +18,7 @@ pub fn problem021() -> String {
     diviseurs.push(0);
     let mut resultat:u64 = 0;
     for n in 1..10000 {
-        let d = sum_of_divisors(n, &primes) - n;
+        let d = n.sum_of_divisors(&primes) - n;
         diviseurs.push(d);
         if d < n && diviseurs[d as usize] == n {
             resultat += d + n;

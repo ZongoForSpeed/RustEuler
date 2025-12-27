@@ -1,7 +1,7 @@
-use crate::maths::arithmetique;
 use crate::maths::primes::crible235;
 use crate::register_problem;
 use std::collections::{BTreeSet, HashSet, VecDeque};
+use crate::maths::arithmetic::Arithmetic;
 
 register_problem!(47, "Distinct primes factors", problem047);
 
@@ -31,7 +31,7 @@ pub fn problem047() -> String {
     for n in 2.. {
         {
             let mut f: Vec<u64> = Vec::new();
-            arithmetique::factorization(n, &primes, |p, c| {
+            n.factorization(&primes, |p, c| {
                 f.push(p.pow(c as u32));
             });
             decomposition.push_back(f);

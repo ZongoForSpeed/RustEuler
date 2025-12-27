@@ -14,7 +14,7 @@ type Node = (usize, usize);
 pub fn problem083() -> String {
     // The minimal path sum in the 5 by 5 matrix below, by starting in any cell in the left column and finishing in any
     // cell in the right column, and only moving up, down, and right, is indicated in red and bold; the sum is equal to
-    // 994.
+    // 994.Path::new("../../../
     //
     // Find the minimal path sum, in matrix.txt (right click and "Save Link/Target As..."), a 31K text file containing
     // a 80 by 80 matrix, from the left column to the right column.

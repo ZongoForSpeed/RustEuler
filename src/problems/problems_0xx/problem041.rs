@@ -1,4 +1,4 @@
-use crate::maths::digits::extract_digits;
+use crate::maths::digits::Digits;
 use crate::maths::primes::crible235;
 use crate::register_problem;
 
@@ -15,7 +15,7 @@ fn is_permutation<T: Ord + Clone>(a: &[T], b: &[T]) -> bool {
 }
 
 fn pandigital(n: u32, pandigits: &Vec<u32>) -> bool {
-    let chiffres = Vec::from_iter(extract_digits(n, 10));
+    let chiffres = Vec::from_iter(n.extract_digits(10));
     is_permutation(&chiffres, &pandigits[0..chiffres.len()])
 }
 

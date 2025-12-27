@@ -1,4 +1,5 @@
-use crate::maths::{arithmetique, primes};
+use crate::maths::arithmetic::Arithmetic;
+use crate::maths::primes;
 use crate::register_problem;
 
 register_problem!(12, "Highly divisible triangular number", problem012);
@@ -26,7 +27,7 @@ pub fn problem012() -> String {
 
     let mut triangle = 1;
     let mut n = 1;
-    while arithmetique::number_of_divisors(triangle, &primes) < 500 {
+    while triangle.number_of_divisors(&primes) < 500 {
         n += 1;
         triangle += n;
     }

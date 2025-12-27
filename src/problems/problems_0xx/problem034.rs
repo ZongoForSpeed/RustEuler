@@ -1,4 +1,4 @@
-use crate::maths::digits::loop_digits;
+use crate::maths::digits::Digits;
 use crate::maths::factorial;
 use crate::register_problem;
 
@@ -14,7 +14,7 @@ pub fn problem034() -> String {
     let mut solution: u64 = 0;
     for n in 10..borne {
         let mut s = 0;
-        loop_digits::<u64, _>(n, 10, |d| s += factorial::factorial(d));
+        n.loop_digits( 10, |d| s += factorial::factorial(d));
         if s == n {
             solution += n;
         }

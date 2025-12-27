@@ -1,4 +1,4 @@
-use crate::maths::digits::loop_digits;
+use crate::maths::digits::Digits;
 use crate::maths::power;
 use crate::register_problem;
 
@@ -18,7 +18,7 @@ pub fn problem030() -> String {
     let mut result = 0;
     for n in 2..200000 {
         let mut s = 0;
-        loop_digits(n, 10, |d| s += power::power(d, 5));
+        n.loop_digits(10, |d| s += power::power(d, 5));
         if s == n {
             result += n;
         }

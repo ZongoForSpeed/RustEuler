@@ -1,4 +1,4 @@
-use crate::maths::digits::palindrome;
+use crate::maths::digits::Digits;
 use crate::register_problem;
 
 register_problem!(36, "Double-base palindromes", problem036);
@@ -11,7 +11,7 @@ pub fn problem036() -> String {
     // (Please note that the palindromic number, in either base, may not include leading zeros.)
     let mut result = 0;
     for n in 1..1000000 {
-        if palindrome(n, 10) && palindrome(n, 2) {
+        if n.palindrome(10) && n.palindrome(2) {
             result += n;
         }
     }

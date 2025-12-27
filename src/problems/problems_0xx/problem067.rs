@@ -1,4 +1,4 @@
-use crate::problems::problem018::maximum_path_sum;
+use crate::problems::problems_0xx::problem018::maximum_path_sum;
 use crate::register_problem;
 use std::path::Path;
 

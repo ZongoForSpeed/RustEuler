@@ -1,4 +1,4 @@
-use crate::maths::digits::{conversion, extract_digits};
+use crate::maths::digits::{Digits, conversion};
 use crate::maths::primes::crible2;
 use crate::register_problem;
 use std::collections::BTreeSet;
@@ -18,7 +18,7 @@ pub fn problem051() -> String {
     // with the same digit, is part of an eight prime value family.
     let limite = 1000000;
 
-    let mut primes = BTreeSet::new();
+    let mut primes: BTreeSet<u64> = BTreeSet::new();
     crible2(limite, |p| {
         primes.insert(p);
     });
@@ -27,7 +27,7 @@ pub fn problem051() -> String {
     let mut found = false;
 
     for p in &primes {
-        let chiffres = extract_digits(*p, 10);
+        let chiffres = p.extract_digits(10);
         let unique = chiffres.iter().cloned().collect::<BTreeSet<_>>();
         for c in unique {
             if c != 0 {

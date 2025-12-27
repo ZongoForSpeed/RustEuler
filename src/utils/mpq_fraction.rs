@@ -3,11 +3,11 @@ use gmp_mpfr_sys::gmp;
 use gmp_mpfr_sys::mpc;
 use num_traits::{One, Zero};
 use std::cmp::Ordering;
-use std::ffi::{c_char, c_int, CStr, CString};
+use std::ffi::{CStr, CString, c_char, c_int};
 use std::fmt::{Display, Formatter};
 use std::hash::{Hash, Hasher};
 use std::mem::MaybeUninit;
-use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign};
+use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign};
 use std::ptr::null_mut;
 use std::str::FromStr;
 
@@ -191,18 +191,13 @@ impl MpqFraction {
             gmp::mpq_canonicalize(&mut self.data);
         }
     }
-
     // endregion
 
     pub(crate) fn sign(&self) -> c_int {
         unsafe { gmp::mpq_sgn(&self.data) }
     }
 
-    pub(crate) fn is_zero(&self) -> bool {
-        self.sign() == 0
-    }
-
-    fn hash<H: Hasher>(&self, state: &mut H) {
+    fn internal_hash<H: Hasher>(&self, state: &mut H) {
         // TODO implement better hash method
         self.to_string().hash(state);
     }
@@ -240,7 +235,7 @@ impl Zero for MpqFraction {
     }
 
     fn is_zero(&self) -> bool {
-        self.is_zero()
+        self.sign() == 0
     }
 }
 
@@ -264,8 +259,19 @@ impl Eq for MpqFraction {}
 
 impl Hash for MpqFraction {
     fn hash<H: Hasher>(&self, state: &mut H) {
-        self.hash(state);
-        // self.hash(state);
+        self.internal_hash(state);
+    }
+}
+
+impl Neg for MpqFraction {
+    type Output = MpqFraction;
+
+    fn neg(self) -> Self::Output {
+        let mut res = MpqFraction::new();
+        unsafe {
+            gmp::mpq_neg(&mut res.data, &self.data);
+        }
+        res
     }
 }
 
@@ -374,84 +380,19 @@ impl Div<MpqFraction> for MpzNumber {
         MpqFraction::internal_div(&MpqFraction::from_z(&self), &rhs)
     }
 }
-
 // endregion
 
 // region From
 macro_rules! impl_from_unsigned {
-    ($($t:ty),*) => {
+    ($($t:ty),* $(,)?) => {
         $(
             impl From<$t> for MpqFraction {
                 fn from(value: $t) -> MpqFraction {
                     MpqFraction::from_u64(value as u64, 1)
                 }
             }
-
-            impl Add<&MpqFraction> for $t {
-                type Output = MpqFraction;
-
-                fn add(self, rhs: &MpqFraction) -> MpqFraction {
-                    MpqFraction::internal_add(&rhs, &MpqFraction::from_u64(self as u64, 1))
-                }
-            }
-
-            impl Add<MpqFraction> for $t {
-                type Output = MpqFraction;
-
-                fn add(self, rhs: MpqFraction) -> MpqFraction {
-                    MpqFraction::internal_add(&rhs, &MpqFraction::from_u64(self as u64, 1))
-                }
-            }
-
-            impl Mul<&MpqFraction> for $t {
-                type Output = MpqFraction;
-
-                fn mul(self, rhs: &MpqFraction) -> MpqFraction {
-                    MpqFraction::internal_mul(&rhs, &MpqFraction::from_u64(self as u64, 1))
-                }
-            }
-
-            impl Mul<MpqFraction> for $t {
-                type Output = MpqFraction;
-
-                fn mul(self, rhs: MpqFraction) -> MpqFraction {
-                    MpqFraction::internal_mul(&rhs, &MpqFraction::from_u64(self as u64, 1))
-                }
-            }
-
-            impl Sub<&MpqFraction> for $t {
-                type Output = MpqFraction;
-
-                fn sub(self, rhs: &MpqFraction) -> MpqFraction {
-                    MpqFraction::internal_sub(&MpqFraction::from_u64(self as u64, 1), &rhs)
-                }
-            }
-
-            impl Sub<MpqFraction> for $t {
-                type Output = MpqFraction;
-
-                fn sub(self, rhs: MpqFraction) -> MpqFraction {
-                    MpqFraction::internal_sub(&MpqFraction::from_u64(self as u64, 1), &rhs)
-                }
-            }
-
-            impl Div<&MpqFraction> for $t {
-                type Output = MpqFraction;
-
-                fn div(self, rhs: &MpqFraction) -> MpqFraction {
-                    MpqFraction::internal_div(&MpqFraction::from_u64(self as u64, 1), &rhs)
-                }
-            }
-
-            impl Div<MpqFraction> for $t {
-                type Output = MpqFraction;
-
-                fn div(self, rhs: MpqFraction) -> MpqFraction {
-                    MpqFraction::internal_div(&MpqFraction::from_u64(self as u64, 1), &rhs)
-                }
-            }
         )*
-    }
+    };
 }
 
 impl_from_unsigned!(u8, u16, u32, u64, usize);
@@ -464,12 +405,22 @@ macro_rules! impl_from_signed {
                     MpqFraction::from_i64(value as i64, 1)
                 }
             }
+        )*
+    }
+}
 
+impl_from_signed!(i8, i16, i32, i64, isize);
+// endregion
+
+// region Op for signed & unsigned
+macro_rules! impl_op {
+    ($($t:ty),*) => {
+        $(
             impl Add<&MpqFraction> for $t {
                 type Output = MpqFraction;
 
                 fn add(self, rhs: &MpqFraction) -> MpqFraction {
-                    MpqFraction::internal_add(&MpqFraction::from_i64(self as i64, 1), &rhs)
+                    MpqFraction::internal_add(&MpqFraction::from(self), &rhs)
                 }
             }
 
@@ -477,7 +428,7 @@ macro_rules! impl_from_signed {
                 type Output = MpqFraction;
 
                 fn add(self, rhs: MpqFraction) -> MpqFraction {
-                    MpqFraction::internal_add(&MpqFraction::from_i64(self as i64, 1), &rhs)
+                    MpqFraction::internal_add(&MpqFraction::from(self), &rhs)
                 }
             }
 
@@ -485,7 +436,7 @@ macro_rules! impl_from_signed {
                 type Output = MpqFraction;
 
                 fn mul(self, rhs: &MpqFraction) -> MpqFraction {
-                    MpqFraction::internal_mul(&rhs, &MpqFraction::from_i64(self as i64, 1))
+                    MpqFraction::internal_mul(&rhs, &MpqFraction::from(self))
                 }
             }
 
@@ -493,7 +444,7 @@ macro_rules! impl_from_signed {
                 type Output = MpqFraction;
 
                 fn mul(self, rhs: MpqFraction) -> MpqFraction {
-                    MpqFraction::internal_mul(&rhs, &MpqFraction::from_i64(self as i64, 1))
+                    MpqFraction::internal_mul(&rhs, &MpqFraction::from(self))
                 }
             }
 
@@ -501,7 +452,7 @@ macro_rules! impl_from_signed {
                 type Output = MpqFraction;
 
                 fn sub(self, rhs: &MpqFraction) -> MpqFraction {
-                    MpqFraction::internal_sub(&MpqFraction::from_i64(self as i64, 1), &rhs)
+                    MpqFraction::internal_sub(&MpqFraction::from(self), &rhs)
                 }
             }
 
@@ -509,7 +460,7 @@ macro_rules! impl_from_signed {
                 type Output = MpqFraction;
 
                 fn sub(self, rhs: MpqFraction) -> MpqFraction {
-                    MpqFraction::internal_sub(&MpqFraction::from_i64(self as i64, 1), &rhs)
+                    MpqFraction::internal_sub(&MpqFraction::from(self), &rhs)
                 }
             }
 
@@ -517,7 +468,7 @@ macro_rules! impl_from_signed {
                 type Output = MpqFraction;
 
                 fn div(self, rhs: &MpqFraction) -> MpqFraction {
-                    MpqFraction::internal_div(&MpqFraction::from_i64(self as i64, 1), &rhs)
+                    MpqFraction::internal_div(&MpqFraction::from(self), &rhs)
                 }
             }
 
@@ -525,14 +476,14 @@ macro_rules! impl_from_signed {
                 type Output = MpqFraction;
 
                 fn div(self, rhs: MpqFraction) -> Self::Output {
-                    MpqFraction::internal_div(&MpqFraction::from_i64(self as i64, 1), &rhs)
+                    MpqFraction::internal_div(&MpqFraction::from(self), &rhs)
                 }
             }
         )*
     }
 }
 
-impl_from_signed!(i8, i16, i32, i64, isize);
+impl_op!(i8, i16, i32, i64, isize, u8, u16, u32, u64, usize);
 // endregion
 
 // region Addition
@@ -726,22 +677,6 @@ mod tests {
         assert_eq!(mpz.get_str(), "0");
     }
 
-    /*
-    #[test]
-    fn test_set() {
-        let mut mpz: MpqFraction = MpqFraction::new();
-        mpz.set_ui(15);
-        assert_eq!(mpz.get_ui(), 15);
-        assert_eq!(mpz.get_str(), "15");
-
-        mpz.set_si(-42);
-        assert_eq!(mpz.get_si(), -42);
-
-        let z = MpqFraction::from_z(&mpz);
-        assert_eq!(z, mpz);
-    }
-    */
-
     #[test]
     fn test_init_ui() {
         let mpz: MpqFraction = MpqFraction::from_u64(165, 49);
@@ -760,7 +695,6 @@ mod tests {
         assert_eq!(f.get_f(), 41469547152.52921);
         assert_eq!(f.get_str(), "3370857116638995647473/81285120000")
     }
-
 
     #[test]
     fn test_init_zz() {

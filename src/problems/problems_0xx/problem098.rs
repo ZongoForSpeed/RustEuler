@@ -56,12 +56,12 @@ pub fn problem098() -> String {
                 let permuation = digits[..i].to_vec();
                 let n = conversion(&permuation, 10);
                 if polygonal::is_square(n) {
-                    anagrams.entry(permuation.len()).or_insert(HashSet::new()).insert(permuation);
+                    anagrams.entry(permuation.len()).or_insert_with(HashSet::new).insert(permuation);
                 }
             }
             let n = conversion(&digits, 10);
             if polygonal::is_square(n) {
-                anagrams.entry(digits.len()).or_insert(HashSet::new()).insert(digits.clone());
+                anagrams.entry(digits.len()).or_insert_with(HashSet::new).insert(digits.clone());
             }
         }
         if !digits.next_permutation() {

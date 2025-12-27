@@ -1,4 +1,4 @@
-use crate::maths::digits::loop_digits;
+use crate::maths::digits::Digits;
 use crate::register_problem;
 use std::collections::HashSet;
 
@@ -38,7 +38,7 @@ pub fn problem074() -> String {
         let mut m = n;
         while chain.insert(m) {
             let mut s = 0;
-            loop_digits(m, 10, |d| {
+            m.loop_digits(10, |d| {
                 s += factorial[d as usize];
             });
             m = s;
@@ -50,4 +50,3 @@ pub fn problem074() -> String {
     }
     result.to_string()
 }
-

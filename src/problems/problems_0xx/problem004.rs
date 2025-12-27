@@ -1,5 +1,5 @@
-use crate::{maths, register_problem};
-use maths::digits;
+use crate::maths::digits::Digits;
+use crate::register_problem;
 
 register_problem!(4, "Largest palindrome product", problem004);
 
@@ -12,7 +12,7 @@ pub fn problem004() -> String {
     for a in 100..1000 {
         for b in 100..a {
             let ab = a * b;
-            if digits::palindrome(ab, 10) {
+            if ab.palindrome(10) {
                 solution = u64::max(solution, ab);
             }
         }

@@ -1,4 +1,4 @@
-use crate::problems::problems::Problem;
+use crate::problems::euler::Problem;
 use colored::Colorize;
 use itertools::Itertools;
 use std::collections::BTreeMap;

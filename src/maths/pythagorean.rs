@@ -1,11 +1,11 @@
-use std::iter::successors;
-use crate::maths::arithmetique::pgcd;
+use crate::maths::arithmetic::Arithmetic;
 use num_traits::PrimInt;
+use std::iter::successors;
 use std::ops::{AddAssign, DivAssign, Rem};
 
 pub(crate) fn pythagorean<N>() -> impl Iterator<Item = (N, N, N)>
 where
-    N: PrimInt + AddAssign + DivAssign,
+    N: PrimInt + AddAssign + DivAssign + Arithmetic,
 {
     successors(Some((N::one() + N::one(), N::one())), next_pythagorean)
     .map(|(p, q)| build_triplet(p, q))
@@ -13,7 +13,7 @@ where
 
 fn next_pythagorean<N>(t: &(N, N)) -> Option<(N, N)>
 where
-    N: PrimInt + AddAssign + DivAssign,
+    N: PrimInt + AddAssign + DivAssign + Arithmetic,
 {
     let mut p = t.0;
     let mut q = t.1;
@@ -24,7 +24,7 @@ where
             p += N::one();
             q = p % two + N::one();
         }
-        if pgcd(p, q) == N::one() {
+        if N::gcd(p, q) == N::one() {
             break;
         }
     }
@@ -33,7 +33,7 @@ where
 
 fn next_pythagorean_limit<N>(t: &(N, N, N)) -> Option<(N, N, N)>
 where
-    N: PrimInt + AddAssign + DivAssign,
+    N: PrimInt + AddAssign + DivAssign + Arithmetic,
 {
     let mut p = t.0;
     let mut q = t.1;
@@ -48,7 +48,7 @@ where
                 return None;
             }
         }
-        if pgcd(p, q) == N::one() {
+        if N::gcd(p, q) == N::one() {
             break;
         }
     }
@@ -68,7 +68,7 @@ where
 
 pub(crate) fn pythagorean_limit<N>(limite: N) -> impl Iterator<Item = (N, N, N)>
 where
-    N: PrimInt + AddAssign + DivAssign + 'static,
+    N: PrimInt + AddAssign + DivAssign + 'static + Arithmetic,
 {
     successors(Some((N::one() + N::one(), N::one(), limite)), next_pythagorean_limit)
     .map(|(p, q, _)| build_triplet(p, q))

@@ -1,52 +1,99 @@
 use num_traits::PrimInt;
-use std::collections::VecDeque;
+use std::collections::{HashMap, VecDeque};
 use std::ops::{AddAssign, Div, DivAssign, Mul, MulAssign};
 
-pub(crate) fn loop_digits<Nombre, F>(mut n: Nombre, base: Nombre, mut op: F)
-where
-    Nombre: PrimInt + DivAssign,
-    F: FnMut(Nombre),
-{
-    let zero = Nombre::zero();
-    while n != zero {
-        op(n % base);
-        n /= base;
+pub trait Digits: Sized + AddAssign + Div + DivAssign + Mul + MulAssign {
+    fn loop_digits<F: FnMut(Self)>(self, base: Self, op: F);
+
+    fn extract_digits(self, base: Self) -> VecDeque<Self>;
+
+    fn count_digits(self, base: Self) -> usize;
+
+    fn sum_digits(self, base: Self) -> Self;
+
+    fn palindrome(self, base: Self) -> bool;
+
+    fn ones(self) -> Vec<usize>;
+
+    fn pandigital(self, base: Self) -> bool;
+}
+
+macro_rules! impl_digits {
+    ($($t:ty),*) => {
+        $(
+            impl Digits for $t {
+                fn loop_digits<F: FnMut(Self)>(self, base: Self, mut op: F) {
+                    let mut n = self;
+                    while n != 0 {
+                        op(n % base);
+                        n /= base;
+                    }
+                }
+
+                fn extract_digits(self, base: Self) -> VecDeque<Self> {
+                    let mut v: VecDeque<Self> = VecDeque::new();
+                    self.loop_digits(base, |digit| v.push_front(digit));
+                    v
+                }
+
+                fn count_digits(self, base: Self) -> usize {
+                    let mut result = 0;
+                    self.loop_digits(base, |_| {
+                        result += 1;
+                    });
+                    result
+                }
+
+                fn sum_digits(self, base: Self) -> Self {
+                    let mut result = 0;
+                    self.loop_digits(base, |digit| {
+                        result += digit;
+                    });
+                    result
+                }
+
+                fn palindrome(self, base: Self) -> bool
+                {
+                    let digits = self.extract_digits(base);
+                    digits.iter().eq(digits.iter().rev())
+                }
+
+                fn ones(self) -> Vec<usize> {
+                    let mut n = self;
+                    let mut res = Vec::<usize>::new();
+                    for i in 0.. {
+                        if n % 2 != 0 {
+                            res.push(i);
+                        }
+                        n = n >> 1;
+                        if n == 0 {
+                            break;
+                        }
+                    }
+                    res
+                }
+
+                fn pandigital(self, base: Self) -> bool {
+                    let mut digits: HashMap<Self, usize> = HashMap::new();
+                    self.loop_digits(base, |digit| {
+                        digits.entry(digit).or_insert(0).add_assign(1);
+                    });
+
+                    if digits.contains_key(&0) {
+                        return false;
+                    }
+
+                    digits.values().all(|digit| *digit < 2)
+                }
+
+            }
+        )*
     }
 }
 
-pub(crate) fn extract_digits<T>(n: T, base: T) -> VecDeque<T>
-where
-    T: PrimInt + DivAssign,
-{
-    let mut v: VecDeque<T> = VecDeque::new();
-    loop_digits(n, base, |digit| v.push_front(digit));
-    v
-}
-
-pub(crate) fn count_digits<T: PrimInt + DivAssign + AddAssign>(n: T, base: T) -> T {
-    let mut result = T::zero();
-    let one = T::one();
-    loop_digits(n, base, |_| {
-        result += one;
-    });
-    result
-}
-
-pub(crate) fn sum_digits<T: PrimInt + DivAssign + AddAssign>(n: T, base: T) -> T {
-    let mut result = T::zero();
-    loop_digits(n, base, |digit| {
-        result += digit;
-    });
-    result
-}
-
-pub(crate) fn palindrome<T>(n: T, base: T) -> bool
-where
-    T: PrimInt + DivAssign,
-{
-    let digits = extract_digits(n, base);
-    digits.iter().eq(digits.iter().rev())
-}
+impl_digits!(
+    u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize
+);
 
 fn addmul<'a, N>(a: N, b: N, base: N) -> N
 where
@@ -66,18 +113,18 @@ where
         .unwrap()
 }
 
-pub(crate) fn is_permutation<N: PrimInt + AddAssign + DivAssign + Copy>(
+pub(crate) fn is_permutation<N: PrimInt + AddAssign + DivAssign + Copy+ Digits>(
     a: N,
     b: N,
     base: N,
 ) -> bool {
     let i_base = base.to_usize().unwrap();
     let mut digits_a: Vec<N> = vec![N::zero(); i_base];
-    loop_digits(a, base, |digit| {
+    a.loop_digits(base, |digit| {
         digits_a[digit.to_usize().unwrap()] += N::one();
     });
     let mut digits_b: Vec<N> = vec![N::zero(); i_base];
-    loop_digits(b, base, |digit| {
+    b.loop_digits(base, |digit| {
         digits_b[digit.to_usize().unwrap()] += N::one();
     });
     //chiffres_a.iter().eq(chiffres_b.iter())
@@ -102,10 +149,10 @@ mod tests {
 
     #[test]
     fn test_extract_digits() {
-        let chiffres = extract_digits(1234567890, 10);
-        println!("chiffres = {:?}", chiffres);
         let expected = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-        assert_eq!(chiffres, expected);
+
+        let digits = 1234567890.extract_digits(10);
+        assert_eq!(digits, expected);
     }
 
     #[test]
@@ -117,8 +164,8 @@ mod tests {
 
     #[test]
     fn test_palindrome() {
-        assert_eq!(palindrome(1234567890, 10), false);
-        assert_eq!(palindrome(1234567890987654321u64, 10), true);
+        assert_eq!(1234567890.palindrome(10), false);
+        assert_eq!(1234567890987654321u64.palindrome(10), true);
     }
 
     #[test]
@@ -145,12 +192,30 @@ mod tests {
 
     #[test]
     fn test_count_digits() {
-        assert_eq!(count_digits(1234567890, 10), 10);
-        assert_eq!(count_digits(12345678901237890456u128, 10), 20);
+        assert_eq!(1234567890.count_digits(10), 10);
+        assert_eq!(12345678901237890456u128.count_digits(10), 20);
     }
+
     #[test]
     fn test_sum_digits() {
-        assert_eq!(sum_digits(1234567890, 10), 45);
-        assert_eq!(sum_digits(12345678901237890456u64, 10), 90);
+        assert_eq!(1234567890.sum_digits(10), 45);
+        assert_eq!(12345678901237890456u64.sum_digits(10), 90);
+    }
+
+    #[test]
+    fn test_ones() {
+        assert_eq!(1234567890.count_ones(), 12);
+        assert_eq!(
+            1234567890.ones(),
+            vec![1, 4, 6, 7, 9, 17, 18, 20, 23, 24, 27, 30]
+        );
+        assert_eq!(12345678901237890456u64.count_ones(), 33);
+        assert_eq!(
+            12345678901237890456u64.ones(),
+            vec![
+                3, 4, 7, 8, 10, 11, 12, 13, 15, 16, 20, 22, 24, 25, 27, 29, 30, 31, 34, 35, 39, 40,
+                43, 45, 47, 50, 52, 54, 56, 57, 59, 61, 63
+            ]
+        );
     }
 }

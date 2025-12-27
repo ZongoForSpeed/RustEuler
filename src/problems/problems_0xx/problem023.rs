@@ -1,6 +1,7 @@
-use crate::maths::{arithmetique, primes};
-use bit_set::BitSet;
+use crate::maths::arithmetic::Arithmetic;
+use crate::maths::primes;
 use crate::register_problem;
+use bit_set::BitSet;
 
 register_problem!(23, "Non-abundant sums", problem023);
 
@@ -25,7 +26,7 @@ pub fn problem023() -> String {
 
     let mut abundant: Vec<usize> = Vec::new();
     for n in 12..limite {
-        if arithmetique::sum_of_divisors(n, &primes) > 2 * n {
+        if n.sum_of_divisors(&primes) > 2 * n {
             abundant.push(n);
         }
     }

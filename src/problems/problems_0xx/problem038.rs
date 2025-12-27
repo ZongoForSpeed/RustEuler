@@ -1,23 +1,8 @@
-use crate::maths::digits::loop_digits;
-use std::collections::HashMap;
-use std::ops::AddAssign;
+use crate::maths::digits::Digits;
 use crate::register_problem;
 
-pub(crate) fn pandigital(n: u64) -> bool
-{
-    let mut chiffres: HashMap<u64, usize> = HashMap::new();
-    loop_digits(n, 10, |digit| {
-        chiffres.entry(digit).or_insert(0).add_assign(1);
-    });
-
-    if chiffres.contains_key(&0) {
-        return false;
-    }
-
-    chiffres.values().all(|digit| *digit < 2)
-}
 fn algorithme(n: u64) -> u64 {
-    if !pandigital(n) {
+    if !n.pandigital(10) {
         return 0;
     }
 
@@ -28,7 +13,7 @@ fn algorithme(n: u64) -> u64 {
         let mn = m * n;
         ss.push_str(mn.to_string().as_str());
         let r: u64 = ss.parse().unwrap();
-        if !pandigital(r) {
+        if !r.pandigital(10) {
             return result;
         } else {
             result = r;

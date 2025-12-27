@@ -1,11 +1,11 @@
-use crate::maths::digits::loop_digits;
+use crate::maths::digits::Digits;
 use crate::register_problem;
 
 register_problem!(92, "Square digit chains", problem092);
 
 fn square_digits(n: u32) -> u32 {
     let mut s = 0;
-    loop_digits(n, 10, |d| s += d * d);
+    n.loop_digits(10, |d| s += d * d);
     s
 }
 

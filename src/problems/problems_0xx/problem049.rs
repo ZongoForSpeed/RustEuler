@@ -1,7 +1,8 @@
 use crate::maths::digits;
+use crate::maths::digits::Digits;
 use crate::maths::primes::crible235;
 use crate::register_problem;
-use digits::{conversion, extract_digits};
+use digits::conversion;
 use std::collections::VecDeque;
 
 fn is_permutation<T: Ord + Clone>(a: &VecDeque<T>, b: &VecDeque<T>) -> bool {
@@ -17,7 +18,6 @@ fn is_permutation<T: Ord + Clone>(a: &VecDeque<T>, b: &VecDeque<T>) -> bool {
 
     a_sorted == b_sorted
 }
-
 
 register_problem!(49, "Prime permutations", problem049);
 
@@ -41,10 +41,10 @@ pub fn problem049() -> String {
         let p = primes[i];
         if p > 1000 {
             let mut suite: Vec<u64> = vec![p];
-            let chiffres = extract_digits(p, 10);
-            for j in i+1..size {
+            let chiffres = p.extract_digits(10);
+            for j in i + 1..size {
                 let q = primes[j];
-                if is_permutation(&chiffres, &extract_digits(q, 10)) {
+                if is_permutation(&chiffres, &q.extract_digits(10)) {
                     suite.push(q);
                 }
             }

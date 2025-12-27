@@ -1,5 +1,5 @@
-use crate::{maths, register_problem};
-use maths::arithmetique;
+use crate::maths::arithmetic::Arithmetic;
+use crate::register_problem;
 
 register_problem!(5, "Smallest multiple", problem005);
 
@@ -11,7 +11,7 @@ pub fn problem005() -> String {
     // to 20?
     let mut solution:u64 = 2;
     for d in 3..=20 {
-        solution = arithmetique::ppcm(solution, d);
+        solution = u64::lcm(solution, d);
     }
     solution.to_string()
 }

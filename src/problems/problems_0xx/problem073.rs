@@ -1,4 +1,4 @@
-use crate::maths::arithmetique::pgcd;
+use crate::maths::arithmetic::Arithmetic;
 use crate::register_problem;
 
 register_problem!(73, "Counting fractions in a range", problem073);
@@ -18,7 +18,7 @@ pub fn problem073() -> String {
     let limit: u64 = 12000;
     for n in 5..=limit {
         for k in n / 3 + 1..=(n - 1) / 2 {
-            if pgcd(k, n) == 1 {
+            if u64::gcd(k, n) == 1 {
                 result += 1;
             }
         }
