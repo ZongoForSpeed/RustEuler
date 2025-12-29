@@ -9,4 +9,3 @@ pub mod polynomial;
 pub mod power;
 pub mod primes;
 pub mod pythagorean;
-pub mod timer;

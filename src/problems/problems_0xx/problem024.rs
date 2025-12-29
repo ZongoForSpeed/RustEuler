@@ -1,6 +1,6 @@
 use crate::maths::digits::conversion;
 use crate::register_problem;
-use permutohedron::LexicalPermutation;
+use crate::utils::permutations::permutations;
 
 register_problem!(24, "Lexicographic permutations", problem024);
 
@@ -12,12 +12,9 @@ pub fn problem024() -> String {
     //                                    012   021   102   120   201   210
     //
     // What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?
-    let mut v: Vec<u64> = Vec::from_iter(0..10);
-    for _n in 1..1000000 {
-        v.next_permutation();
-    }
+    let v: Vec<u64> = Vec::from_iter(0..10);
+    let option = permutations(v).nth(999999);
 
-    println!("v = {:?}", v);
-
-    conversion(&v, 10).to_string()
+    println!("v = {:?}", option);
+    conversion(&option.unwrap(), 10).to_string()
 }

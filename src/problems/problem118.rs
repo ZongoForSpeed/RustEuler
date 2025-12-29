@@ -1,7 +1,7 @@
 use crate::maths::digits::conversion;
 use crate::maths::primes::Primes;
 use crate::register_problem;
-use permutohedron::LexicalPermutation;
+use crate::utils::permutations::permutations;
 use std::collections::HashSet;
 
 register_problem!(118, "Pandigital prime sets", problem118);
@@ -39,13 +39,10 @@ pub fn problem118() -> String {
     // only prime elements?
     let mut result = HashSet::new();
 
-    let mut digits = vec![1, 2, 3, 4, 5, 6, 7, 8, 9];
-    loop {
-        let s = test(&digits);
+    let digits = vec![1, 2, 3, 4, 5, 6, 7, 8, 9];
+    for p in permutations(digits) {
+        let s = test(&p);
         result.extend(s);
-        if !digits.next_permutation() {
-            break;
-        }
     }
 
     result.len().to_string()

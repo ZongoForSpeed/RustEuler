@@ -1,4 +1,4 @@
-use crate::maths::timer::ScopeTimer;
+use crate::utils::timer::ScopeTimer;
 use colored::Colorize;
 use inventory;
 

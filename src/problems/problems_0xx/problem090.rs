@@ -1,7 +1,7 @@
 use crate::register_problem;
-use permutohedron::LexicalPermutation;
-use std::collections::HashSet;
+use crate::utils::permutations::permutations;
 use bit_set::BitSet;
+use std::collections::HashSet;
 
 register_problem!(90, "Cube digit pairs", problem090);
 
@@ -38,13 +38,10 @@ pub fn problem090() -> String {
     //
     // How many distinct arrangements of the two cubes allow for all of the square numbers to be
     // displayed?
-    let mut faces = vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    let faces = vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
     let mut cubes: HashSet<BitSet<u8>> = HashSet::new();
-    loop {
-        cubes.insert(BitSet::from_iter(faces[0..6].iter().cloned()));
-        if !faces.next_permutation() {
-            break;
-        }
+    for permute in permutations(faces) {
+        cubes.insert(BitSet::from_iter(permute[0..6].iter().cloned()));
     }
 
     let dices = Vec::from_iter(cubes.iter().cloned());

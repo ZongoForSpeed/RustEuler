@@ -1,6 +1,6 @@
 use crate::maths::digits::conversion;
-use permutohedron::LexicalPermutation;
 use crate::register_problem;
+use crate::utils::permutations::permutations;
 
 register_problem!(43, "Sub-string divisibility", problem043);
 
@@ -20,23 +20,20 @@ pub fn problem043() -> String {
     //    d8d9d10=289 is divisible by 17
     //
     // Find the sum of all 0 to 9 pandigital numbers with this property.
-    let mut pandigital = vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    let pandigital = vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     let mut result: usize = 0;
-    loop {
-        let conversion = conversion(&pandigital, 10);
-        if pandigital[3] % 2 == 0
-            && (pandigital[2] + pandigital[3] + pandigital[4]) % 3 == 0
-            && pandigital[5] % 5 == 0
+    for permute in permutations(pandigital) {
+        let conversion = conversion(&permute, 10);
+        if permute[3] % 2 == 0
+            && (permute[2] + permute[3] + permute[4]) % 3 == 0
+            && permute[5] % 5 == 0
             && ((conversion % 1000000) / 1000) % 7 == 0
             && ((conversion % 100000) / 100) % 11 == 0
             && ((conversion % 10000) / 10) % 13 == 0
             && (conversion % 1000) % 17 == 0
         {
             result += conversion;
-        }
-        if !pandigital.next_permutation() {
-            break;
         }
     }
     result.to_string()

@@ -1,6 +1,6 @@
 use crate::maths::digits::conversion;
 use crate::register_problem;
-use permutohedron::LexicalPermutation;
+use crate::utils::permutations::permutations;
 use std::collections::HashSet;
 
 register_problem!(32, "Coin sums", problem032);
@@ -16,22 +16,19 @@ pub fn problem032() -> String {
     // pandigital.
     //
     // HINT: Some products can be obtained in more than one way so be sure to only include it once in your sum.
-    let mut v: Vec<u64> = vec![1, 2, 3, 4, 5, 6, 7, 8, 9];
+    let v: Vec<u64> = vec![1, 2, 3, 4, 5, 6, 7, 8, 9];
     let mut result: HashSet<u64> = HashSet::new();
-    loop {
+    for permute in permutations(v) {
         for i in 1..8 {
-            let a = conversion(&v[0..i], 10);
+            let a = conversion(&permute[0..i], 10);
             for j in i + 1..9 {
-                let b = conversion(&v[i..j], 10);
-                let c = conversion(&v[j..], 10);
+                let b = conversion(&permute[i..j], 10);
+                let c = conversion(&permute[j..], 10);
                 if a * b == c {
                     println!("{} * {} = {}", a, b, c);
                     result.insert(c);
                 }
             }
-        }
-        if !v.next_permutation() {
-            break;
         }
     }
     let result: u64 = result.iter().sum();

@@ -1,5 +1,5 @@
 use crate::maths::power::Power;
-use crate::maths::timer::ScopeTimer;
+use crate::utils::timer::ScopeTimer;
 use bit_set::BitSet;
 use num_traits::PrimInt;
 use rayon::join;

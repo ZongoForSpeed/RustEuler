@@ -18,6 +18,10 @@ pub(crate) trait Arithmetic: Sized + AddAssign + Div + DivAssign + Mul + MulAssi
     where
         Self: 'a;
 
+    fn radical<'a, V: IntoIterator<Item = &'a Self>>(self, primes: V) -> Self
+    where
+        Self: 'a;
+
     fn factorization<'a, V, F>(self, primes: V, output: F)
     where
         V: IntoIterator<Item = &'a Self>,
@@ -27,6 +31,8 @@ pub(crate) trait Arithmetic: Sized + AddAssign + Div + DivAssign + Mul + MulAssi
     fn divisors<'a, V: IntoIterator<Item = &'a Self>>(self, primes: V) -> Vec<Self>
     where
         Self: 'a;
+
+    fn repunit_a(self, base: Self) -> Self;
 }
 
 macro_rules! impl_arithmetic {
@@ -126,6 +132,27 @@ macro_rules! impl_arithmetic {
                     result
                 }
 
+                fn radical<'a, V: IntoIterator<Item = &'a Self>>(self, primes: V) -> Self where Self: 'a {
+                    let mut result = 1;
+                    let mut n = self;
+                    for &p in primes {
+                        if p * p > n {
+                            break;
+                        }
+                        if (n % p) == 0 {
+                            while (n % p) == 0 {
+                                n /= p;
+                            }
+                            result *= p;
+                        }
+                    }
+
+                    if n > 1 {
+                        result *= n;
+                    }
+                    result
+                }
+
                 fn factorization<'a, V, F>(self, primes: V, mut output: F)
                 where
                     V: IntoIterator<Item = &'a Self>,
@@ -174,6 +201,20 @@ macro_rules! impl_arithmetic {
                     result.sort();
                     result
                 }
+
+                fn repunit_a(self, base: Self) -> Self {
+                    let q = (base - 1) * self;
+                    let mut p = base % q;
+                    for k in 1.. {
+                        if p % q == 1 {
+                            return k;
+                        }
+                        p = (base * p) % q;
+                    }
+
+                    panic!()
+                }
+
             }
         )*
     }
@@ -219,6 +260,7 @@ mod tests {
         assert_eq!(496.sum_of_divisors(&primes), 992);
         assert_eq!(3246999210u64.sum_of_divisors(&primes), 11708928000);
     }
+
     #[test]
     fn test_phi() {
         let primes: Vec<u64> = vec![
@@ -228,6 +270,18 @@ mod tests {
         assert_eq!(3246999210.phi(&primes), 640120320);
         assert_eq!(496.phi(&primes), 240);
     }
+
+    #[test]
+    fn test_radical() {
+        let primes: Vec<u64> = vec![
+            2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83,
+            89, 97,
+        ];
+        assert_eq!(456753.radical(&primes), 456753);
+        assert_eq!(496.radical(&primes), 62);
+        assert_eq!(3246999210u64.radical(&primes), 2454270);
+    }
+
     #[test]
     fn test_factorization() {
         let primes: Vec<u64> = vec![
@@ -258,5 +312,12 @@ mod tests {
             1082070, 1623105, 3246210,
         ];
         assert_eq!(d, expected);
+    }
+
+    #[test]
+    fn test_repunit() {
+        assert_eq!(11.repunit_a(10), 2);
+        assert_eq!(3.repunit_a(10), 3);
+        assert_eq!(7.repunit_a(10), 6);
     }
 }

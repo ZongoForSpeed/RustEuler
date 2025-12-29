@@ -1,7 +1,7 @@
 use crate::maths::digits::conversion;
 use crate::maths::polygonal;
 use crate::register_problem;
-use permutohedron::LexicalPermutation;
+use crate::utils::permutations::permutations;
 use std::collections::{HashMap, HashSet};
 use std::ops::AddAssign;
 use std::path::Path;
@@ -48,24 +48,22 @@ pub fn problem098() -> String {
     //
     // NOTE: All anagrams formed must be contained in the given text file.
     let mut anagrams: HashMap<usize, HashSet<Vec<usize>>> = HashMap::new();
-    let mut digits = vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    let digits = vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-    loop {
-        if digits[0] != 0 {
+    for permute in permutations(digits) {
+        
+        if permute[0] != 0 {
             for i in 1..10 {
-                let permuation = digits[..i].to_vec();
+                let permuation = permute[..i].to_vec();
                 let n = conversion(&permuation, 10);
                 if polygonal::is_square(n) {
                     anagrams.entry(permuation.len()).or_insert_with(HashSet::new).insert(permuation);
                 }
             }
-            let n = conversion(&digits, 10);
+            let n = conversion(&permute, 10);
             if polygonal::is_square(n) {
-                anagrams.entry(digits.len()).or_insert_with(HashSet::new).insert(digits.clone());
+                anagrams.entry(permute.len()).or_insert_with(HashSet::new).insert(permute.clone());
             }
-        }
-        if !digits.next_permutation() {
-            break;
         }
     }
 
