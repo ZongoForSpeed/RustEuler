@@ -1,4 +1,4 @@
-use crate::maths::power::power_mod;
+use crate::maths::power::Power;
 use crate::register_problem;
 
 register_problem!(97, "Large non-Mersenne prime", problem097);
@@ -13,8 +13,8 @@ pub fn problem097() -> String {
     // digits: 28433×2^7830457+1.
     //
     // Find the last ten digits of this prime number.
-    let mask:u128 = 10u128.pow(10);
-    let mut mersenne:u128 = power_mod(2, 7830457, mask);
+    let mask: u128 = 10u128.pow(10);
+    let mut mersenne = u128::power_mod(2, 7830457, mask);
     mersenne = (mersenne * 28433 + 1) % mask;
     mersenne.to_string()
 }

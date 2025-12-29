@@ -1,12 +1,11 @@
-use crate::maths::power;
+use crate::maths::power::Power;
 use crate::register_problem;
-use power::power_mod;
 
 fn serie(limit: u128) -> u128 {
     let modulo: u128 = 10_000_000_000;
     let mut result: u128 = 0;
     for n in 1..=limit {
-        result += power_mod(n, n, modulo);
+        result += u128::power_mod(n, n, modulo);
         result %= modulo;
     }
     result

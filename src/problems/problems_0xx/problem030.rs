@@ -1,5 +1,5 @@
 use crate::maths::digits::Digits;
-use crate::maths::power;
+use crate::maths::power::Power;
 use crate::register_problem;
 
 register_problem!(30, "Digit fifth powers", problem030);
@@ -18,7 +18,7 @@ pub fn problem030() -> String {
     let mut result = 0;
     for n in 2..200000 {
         let mut s = 0;
-        n.loop_digits(10, |d| s += power::power(d, 5));
+        n.loop_digits(10, |d| s += u32::power(d, 5));
         if s == n {
             result += n;
         }
