@@ -1,4 +1,4 @@
-use crate::maths::polygonal;
+use crate::maths::polygonal::Polygonal;
 use crate::register_problem;
 
 register_problem!(85, "Counting rectangles", problem085);
@@ -17,7 +17,7 @@ pub fn problem085() -> String {
 
     for i in 1..=limit {
         for j in 1..=i{
-            let triangle_ij = polygonal::triangular(i) * polygonal::triangular(j);
+            let triangle_ij = i.triangular() * j.triangular();
             let value:i32 = borne - triangle_ij;
             if value.abs() < minimum {
                 minimum = value.abs();

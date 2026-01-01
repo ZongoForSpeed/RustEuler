@@ -1,7 +1,7 @@
-use crate::maths::polygonal;
 use crate::register_problem;
 use crate::utils::mpz_number::MpzNumber;
 use string_builder::Builder;
+use crate::maths::polygonal::Polygonal;
 
 register_problem!(80, "Square root digital expansion", problem080);
 
@@ -19,7 +19,7 @@ pub fn problem080() -> String {
 
     let mut builder = Builder::default();
     for n in 1..100 {
-        if !polygonal::is_square(n) {
+        if !n.is_square() {
             let square = &gogol * &gogol * n;
             let sqrt = square.sqrt();
             builder.append(&sqrt.to_string()[0..100]);

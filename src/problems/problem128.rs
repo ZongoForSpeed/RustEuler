@@ -1,7 +1,7 @@
-use crate::maths::polygonal::triangular;
 use crate::maths::primes::crible235;
 use crate::register_problem;
 use std::collections::HashSet;
+use crate::maths::polygonal::Polygonal;
 
 register_problem!(128, "Hexagonal tile differences", problem128);
 
@@ -42,7 +42,8 @@ pub fn problem128() -> String {
         {
             count += 1;
             if count == objective {
-                return (2 + 6 * triangular(n - 1)).to_string();
+                let n1 = n - 1;
+                return (2 + 6 * n1.triangular()).to_string();
             }
         }
 
@@ -52,7 +53,7 @@ pub fn problem128() -> String {
         {
             count += 1;
             if count == objective {
-                return (1 + 6 * triangular(n)).to_string();
+                return (1 + 6 * n.triangular()).to_string();
             }
         }
     }

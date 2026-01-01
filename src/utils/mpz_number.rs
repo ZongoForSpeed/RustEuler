@@ -4,7 +4,7 @@ use gmp_mpfr_sys::mpc::free_str;
 use num_traits::{One, Zero};
 use std::cmp::Ordering;
 use std::collections::VecDeque;
-use std::ffi::{CStr, CString, c_char, c_int, c_long, c_ulong, c_void};
+use std::ffi::{c_char, c_int, c_long, c_ulong, c_void, CStr, CString};
 use std::fmt::{Display, Formatter};
 use std::hash::{Hash, Hasher};
 use std::mem::MaybeUninit;

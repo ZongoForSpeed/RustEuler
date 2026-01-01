@@ -1,7 +1,7 @@
 use crate::register_problem;
 use crate::utils::permutations::permutations;
 use fraction::Fraction;
-use num_traits::{One, Zero};
+use num_traits::{ConstOne, ConstZero};
 
 register_problem!(121, "Disc game prize fund", problem121);
 
@@ -22,22 +22,22 @@ pub fn problem121() -> String {
     // Find the maximum prize fund that should be allocated to a single game in which fifteen turns are
     // played.
     let limit = 15;
-    let mut probabilities:Vec<Fraction> = Vec::new();
+    let mut probabilities: Vec<Fraction> = Vec::new();
     for n in 1..=limit {
         probabilities.push(Fraction::new(1u64, (n + 1) as u64));
     }
 
-    let mut probability = Fraction::zero();
+    let mut probability = Fraction::ZERO;
     for blue in limit / 2 + 1..limit + 1 {
-        let mut possibilities = vec![false;limit - blue];
-        possibilities.extend(vec![true;blue]);
+        let mut possibilities = vec![false; limit - blue];
+        possibilities.extend(vec![true; blue]);
         for permute in permutations(possibilities) {
-            let mut p= Fraction::one();
+            let mut p = Fraction::ONE;
             for n in 0..limit {
                 if permute[n] {
                     p *= probabilities[n];
                 } else {
-                    p *= Fraction::one() - probabilities[n];
+                    p *= Fraction::ONE - probabilities[n];
                 }
             }
             probability += p;

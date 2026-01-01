@@ -1,10 +1,10 @@
 use crate::maths::digits::conversion;
-use crate::maths::polygonal;
 use crate::register_problem;
 use crate::utils::permutations::permutations;
 use std::collections::{HashMap, HashSet};
 use std::ops::AddAssign;
 use std::path::Path;
+use crate::maths::polygonal::Polygonal;
 
 fn are_anagrams(a: &String, b: &String) -> bool {
     if a.len() != b.len() {
@@ -56,12 +56,12 @@ pub fn problem098() -> String {
             for i in 1..10 {
                 let permuation = permute[..i].to_vec();
                 let n = conversion(&permuation, 10);
-                if polygonal::is_square(n) {
+                if n.is_square() {
                     anagrams.entry(permuation.len()).or_insert_with(HashSet::new).insert(permuation);
                 }
             }
             let n = conversion(&permute, 10);
-            if polygonal::is_square(n) {
+            if n.is_square() {
                 anagrams.entry(permute.len()).or_insert_with(HashSet::new).insert(permute.clone());
             }
         }
@@ -98,7 +98,7 @@ pub fn problem098() -> String {
                         if v[0] != 0 {
                             let n1 = conversion(&v, 10);
                             let n2 = conversion(anagrame, 10);
-                            if polygonal::is_square(n1) {
+                            if n1.is_square() {
                                 println!("({word1}, {word2}) ==> {n1} {n2}");
                                 result = std::cmp::max(result, n1);
                                 result = std::cmp::max(result, n2);

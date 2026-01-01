@@ -1,11 +1,12 @@
-use crate::maths::{integer_root, polygonal};
+use crate::maths::integer_root;
 use crate::register_problem;
 use std::collections::hash_map::Entry;
 use std::collections::HashMap;
 use Entry::{Occupied, Vacant};
+use crate::maths::polygonal::Polygonal;
 
 fn period(r: i32) -> Option<i32> {
-    if polygonal::is_square(r) {
+    if r.is_square() {
         return None;
     }
 

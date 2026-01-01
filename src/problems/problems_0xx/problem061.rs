@@ -1,23 +1,22 @@
-use crate::maths::polygonal;
+use crate::maths::polygonal::Polygonal;
 use crate::register_problem;
 use crate::utils::permutations::permutations;
-use polygonal::is_polygonal;
 
 fn find_cyclical() -> Option<Vec<u32>> {
     let t_polygonal = vec![3, 4, 5, 6, 7, 8];
     for permut in permutations(t_polygonal) {
         for n1 in 1010..10000 {
-            if n1 % 100 > 9 && is_polygonal(n1, permut[0]) {
+            if n1 % 100 > 9 && u32::is_polygonal(n1, permut[0]) {
                 for n2 in 10..100 {
-                    if is_polygonal(n1 % 100 * 100 + n2, permut[1]) {
+                    if u32::is_polygonal(n1 % 100 * 100 + n2, permut[1]) {
                         for n3 in 10..100 {
-                            if is_polygonal(n2 % 100 * 100 + n3, permut[2]) {
+                            if u32::is_polygonal(n2 % 100 * 100 + n3, permut[2]) {
                                 for n4 in 10..100 {
-                                    if is_polygonal(n3 % 100 * 100 + n4, permut[3]) {
+                                    if u32::is_polygonal(n3 % 100 * 100 + n4, permut[3]) {
                                         for n5 in 10..100 {
-                                            if is_polygonal(n4 % 100 * 100 + n5, permut[4]) {
+                                            if u32::is_polygonal(n4 % 100 * 100 + n5, permut[4]) {
                                                 let n6 = n1 / 100;
-                                                if is_polygonal(n5 % 100 * 100 + n6, permut[5])
+                                                if u32::is_polygonal(n5 % 100 * 100 + n6, permut[5])
                                                 {
                                                     let mut s = vec![
                                                         n1,

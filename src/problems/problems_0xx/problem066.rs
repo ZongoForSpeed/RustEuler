@@ -1,7 +1,7 @@
-use crate::maths::polygonal;
 use crate::register_problem;
 use crate::utils::mpz_number::MpzNumber;
 use num_integer::Roots;
+use crate::maths::polygonal::Polygonal;
 
 fn continous_fraction(d: usize) -> Vec<usize> {
     let mut result = Vec::new();
@@ -66,7 +66,7 @@ pub fn problem066() -> String {
     let mut maximum: MpzNumber = 0.into();
     let mut result = 0;
     for d in 2..=1000 {
-        if !polygonal::is_square(d) {
+        if !d.is_square() {
             let x = pell(d);
             if x > maximum
             {

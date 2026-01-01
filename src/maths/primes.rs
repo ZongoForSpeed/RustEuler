@@ -17,6 +17,8 @@ pub trait Primes {
     fn miller_rabin(self, reps: u16) -> bool;
 
     fn next_prime(self, reps: u16) -> Self;
+
+    // fn crible2(taille: usize) -> impl Iterator<Item = Self>;
 }
 
 trait InternalPrimes: Power {
@@ -164,6 +166,32 @@ macro_rules! impl_primes {
 
                     panic!()
                 }
+
+                /*
+                fn crible2(taille: usize) -> impl Iterator<Item = Self> {
+                    let label = format!("Crible 2 with taille = {}", taille);
+                    let _timer = ScopeTimer::new(label.as_str(), false);
+
+                    let taille_crible = taille / 2;
+                    let mut test: BitSet = BitSet::from_iter(1..taille_crible);
+                    let mut p = 1;
+                    while p * p < taille_crible / 2 {
+                        if test.contains(p) {
+                            ((2 * (p * p + p))..taille_crible)
+                                .step_by(2 * p + 1)
+                                .for_each(|n| {
+                                    test.remove(n);
+                                });
+                        }
+
+                        p += 1;
+                    }
+
+                    let iter = test.into_iter().map(|p| p as Self).map(|p| 2 * p + 1);
+
+                    std::iter::once(2).chain(iter)
+                }
+                */
             }
         )*
     }

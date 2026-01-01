@@ -1,5 +1,5 @@
 use itertools::Itertools;
-use num_traits::PrimInt;
+use num_traits::{ConstZero, PrimInt};
 use priority_queue::PriorityQueue;
 use std::cmp::Reverse;
 use std::collections::{BTreeSet, HashMap, HashSet};
@@ -8,7 +8,7 @@ use std::hash::Hash;
 pub fn a_star<T, V, G, D, H>(start: T, end: T, graph: G, distance: D, heuristic: H) -> V
 where
     T: Hash + Eq + Clone,
-    V: PrimInt + Hash + Eq,
+    V: PrimInt + Hash + Eq + ConstZero,
     G: Fn(&T) -> Vec<T>,
     D: Fn(&T, &T) -> V,
     H: Fn(&T, &T) -> V,
@@ -16,7 +16,7 @@ where
     let mut closed_list: HashSet<T> = HashSet::new();
     let mut queue: PriorityQueue<(T, V), Reverse<V>> = PriorityQueue::new();
 
-    queue.push((start, V::zero()), Reverse(V::zero()));
+    queue.push((start, V::ZERO), Reverse(V::ZERO));
 
     while !queue.is_empty() {
         if let Some(((node, cost), _)) = queue.pop() {
@@ -38,7 +38,7 @@ where
         }
     }
 
-    V::zero()
+    V::ZERO
 }
 
 pub struct Dijkstra {

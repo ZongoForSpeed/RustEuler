@@ -1,18 +1,36 @@
-use num_traits::Signed;
+use num_traits::{ConstOne, ConstZero, Signed};
 use std::fmt::{Debug, Display, Formatter};
 use std::ops::{Add, AddAssign, Mul, MulAssign, Sub, SubAssign};
 use string_builder::Builder;
 
 pub(crate) struct Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd,
+    T: Clone
+        + MulAssign
+        + AddAssign
+        + Copy
+        + SubAssign
+        + ToString
+        + Signed
+        + PartialOrd
+        + ConstOne
+        + ConstZero,
 {
     _poly: Vec<T>,
 }
 
 impl<T> Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd,
+    T: Clone
+        + MulAssign
+        + AddAssign
+        + Copy
+        + SubAssign
+        + ToString
+        + Signed
+        + PartialOrd
+        + ConstOne
+        + ConstZero,
 {
     pub fn new() -> Polynomial<T> {
         Polynomial { _poly: Vec::new() }
@@ -31,8 +49,8 @@ where
     }
 
     pub fn value(&self, x: T) -> T {
-        let mut result = T::zero();
-        let mut px = T::one();
+        let mut result = T::ZERO;
+        let mut px = T::ONE;
         for p in &self._poly {
             result += px * *p;
             px *= x;
@@ -48,13 +66,13 @@ where
         }
 
         if len < self._poly.len() {
-            self._poly.resize(len, T::zero());
+            self._poly.resize(len, T::ZERO);
         }
     }
 
     fn _internal_add(&mut self, p: &Polynomial<T>) {
         if p._poly.len() > self._poly.len() {
-            self._poly.resize(p._poly.len(), T::zero());
+            self._poly.resize(p._poly.len(), T::ZERO);
         }
         for i in 0..p._poly.len() {
             self._poly[i] += p._poly[i];
@@ -64,7 +82,7 @@ where
 
     fn _internal_sub(&mut self, p: &Polynomial<T>) {
         if p._poly.len() > self._poly.len() {
-            self._poly.resize(p._poly.len(), T::zero());
+            self._poly.resize(p._poly.len(), T::ZERO);
         }
         for i in 0..p._poly.len() {
             self._poly[i] -= p._poly[i];
@@ -78,7 +96,7 @@ where
             return;
         }
 
-        let mut poly = vec![T::zero(); self._poly.len() + p._poly.len()];
+        let mut poly = vec![T::ZERO; self._poly.len() + p._poly.len()];
         for (i, pi) in self._poly.iter().enumerate() {
             for (j, pj) in p._poly.iter().enumerate() {
                 poly[i + j] += *pi * *pj;
@@ -90,17 +108,16 @@ where
 
     fn to_string(&self) -> String {
         let mut result = Builder::default();
-        let one = T::one();
         for (n, c) in self._poly.iter().enumerate().rev() {
             if !c.is_zero() {
-                let sign = *c > T::zero();
+                let sign = *c > T::ZERO;
                 let first = result.len() == 0;
                 if !first {
                     result.append(if sign { " + " } else { " - " });
                 } else if !sign {
                     result.append("-");
                 }
-                if (c.ne(&one)) || n == 0 {
+                if (c.ne(&T::ONE)) || n == 0 {
                     result.append(c.abs().to_string());
                 }
                 match n {
@@ -119,7 +136,7 @@ where
 
 impl<T> PartialEq<Self> for Polynomial<T>
 where
-    T: AddAssign + Clone + Copy + MulAssign + SubAssign + ToString + Signed + PartialOrd,
+    T: AddAssign + Clone + Copy + MulAssign + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
 {
     fn eq(&self, other: &Self) -> bool {
         self._poly == other._poly
@@ -128,7 +145,7 @@ where
 
 impl<T> PartialEq<Polynomial<T>> for &Polynomial<T>
 where
-    T: AddAssign + Clone + Copy + MulAssign + SubAssign + ToString + Signed + PartialOrd,
+    T: AddAssign + Clone + Copy + MulAssign + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
 {
     fn eq(&self, other: &Polynomial<T>) -> bool {
         self._poly == other._poly
@@ -136,13 +153,13 @@ where
 }
 
 impl<T> Eq for Polynomial<T> where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd
+    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero
 {
 }
 
 impl<T> Clone for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd,
+    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
 {
     fn clone(&self) -> Self {
         Polynomial::from(&self._poly)
@@ -151,7 +168,7 @@ where
 
 impl<T> Debug for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd,
+    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
 {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.to_string())
@@ -160,7 +177,7 @@ where
 
 impl<T> Display for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd,
+    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
 {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.to_string())
@@ -169,7 +186,7 @@ where
 
 impl<T> AddAssign<Polynomial<T>> for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd,
+    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
 {
     fn add_assign(&mut self, rhs: Polynomial<T>) {
         self._internal_add(&rhs);
@@ -178,7 +195,7 @@ where
 
 impl<T> AddAssign<&Polynomial<T>> for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd,
+    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
 {
     fn add_assign(&mut self, rhs: &Polynomial<T>) {
         self._internal_add(rhs);
@@ -187,7 +204,7 @@ where
 
 impl<T> Add<&Polynomial<T>> for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd,
+    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
 {
     type Output = Polynomial<T>;
 
@@ -200,7 +217,7 @@ where
 
 impl<T> Add<&Polynomial<T>> for &Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd,
+    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
 {
     type Output = Polynomial<T>;
 
@@ -213,7 +230,7 @@ where
 
 impl<T> MulAssign<Polynomial<T>> for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd,
+    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
 {
     fn mul_assign(&mut self, rhs: Polynomial<T>) {
         self._internal_mul(&rhs);
@@ -222,7 +239,7 @@ where
 
 impl<T> MulAssign<&Polynomial<T>> for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd,
+    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
 {
     fn mul_assign(&mut self, rhs: &Polynomial<T>) {
         self._internal_mul(&rhs);
@@ -231,7 +248,7 @@ where
 
 impl<T> Mul<&Polynomial<T>> for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd,
+    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
 {
     type Output = Polynomial<T>;
 
@@ -244,7 +261,7 @@ where
 
 impl<T> Mul<&Polynomial<T>> for &Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd,
+    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
 {
     type Output = Polynomial<T>;
 
@@ -257,7 +274,7 @@ where
 
 impl<T> SubAssign<Polynomial<T>> for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd,
+    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
 {
     fn sub_assign(&mut self, rhs: Polynomial<T>) {
         self._internal_sub(&rhs);
@@ -266,7 +283,7 @@ where
 
 impl<T> SubAssign<&Polynomial<T>> for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd,
+    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
 {
     fn sub_assign(&mut self, rhs: &Polynomial<T>) {
         self._internal_sub(&rhs);
@@ -275,7 +292,7 @@ where
 
 impl<T> Sub<&Polynomial<T>> for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd,
+    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
 {
     type Output = Polynomial<T>;
 
@@ -288,7 +305,7 @@ where
 
 impl<T> Sub<&Polynomial<T>> for &Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd,
+    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
 {
     type Output = Polynomial<T>;
 

@@ -1,4 +1,4 @@
-use crate::maths::polygonal::{is_pentagonal, pentagonal};
+use crate::maths::polygonal::Polygonal;
 use crate::register_problem;
 
 register_problem!(44, "Pentagon numbers", problem044);
@@ -13,11 +13,11 @@ pub fn problem044() -> String {
     // Find the pair of pentagonal numbers, Pj and Pk, for which their sum and difference are pentagonal and
     // D = |Pk − Pj| is minimised; what is the value of D?
     for i in 1..3000 {
-        let pentagonal_i = pentagonal(i);
+        let pentagonal_i = i.pentagonal();
         for j in i + 1..3000 {
-            let pentagonal_j = pentagonal(j);
-            if is_pentagonal(pentagonal_j - pentagonal_i)
-                && is_pentagonal(pentagonal_j + pentagonal_i)
+            let pentagonal_j = j.pentagonal();
+            if u32::is_pentagonal(pentagonal_j - pentagonal_i)
+                && u32::is_pentagonal(pentagonal_j + pentagonal_i)
             {
                 return (pentagonal_j - pentagonal_i).to_string();
             }

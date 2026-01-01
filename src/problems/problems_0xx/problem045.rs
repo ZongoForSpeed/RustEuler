@@ -1,4 +1,4 @@
-use crate::maths::polygonal::{is_hexagonal, is_pentagonal, triangular};
+use crate::maths::polygonal::Polygonal;
 use crate::register_problem;
 
 register_problem!(45, "Triangular, pentagonal, and hexagonal", problem045);
@@ -12,10 +12,10 @@ pub fn problem045() -> String {
     // It can be verified that T285 = P165 = H143 = 40755.
     //
     // Find the next triangle number that is also pentagonal and hexagonal.
-    let mut result:usize = 0;
+    let mut result = 0;
     for n in 286.. {
-        let tn = triangular(n);
-        if is_hexagonal(tn) && is_pentagonal(tn) {
+        let tn = u64::triangular(n);
+        if u64::is_hexagonal(tn) && u64::is_pentagonal(tn) {
             result = tn;
             break;
         }

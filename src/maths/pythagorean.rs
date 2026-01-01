@@ -1,30 +1,29 @@
 use crate::maths::arithmetic::Arithmetic;
-use num_traits::PrimInt;
+use num_traits::{ConstOne, PrimInt};
 use std::iter::successors;
 use std::ops::{AddAssign, DivAssign, Rem};
 
 pub(crate) fn pythagorean<N>() -> impl Iterator<Item = (N, N, N)>
 where
-    N: PrimInt + AddAssign + DivAssign + Arithmetic,
+    N: PrimInt + AddAssign + DivAssign + Arithmetic + ConstOne,
 {
-    successors(Some((N::one() + N::one(), N::one())), next_pythagorean)
-    .map(|(p, q)| build_triplet(p, q))
+    successors(Some((N::ONE + N::ONE, N::ONE)), next_pythagorean).map(|(p, q)| build_triplet(p, q))
 }
 
 fn next_pythagorean<N>(t: &(N, N)) -> Option<(N, N)>
 where
-    N: PrimInt + AddAssign + DivAssign + Arithmetic,
+    N: PrimInt + AddAssign + DivAssign + Arithmetic + ConstOne,
 {
     let mut p = t.0;
     let mut q = t.1;
-    let two = N::one() + N::one();
+    let two = N::ONE + N::ONE;
     loop {
         q += two;
         if q > p {
-            p += N::one();
-            q = p % two + N::one();
+            p += N::ONE;
+            q = p % two + N::ONE;
         }
-        if N::gcd(p, q) == N::one() {
+        if N::gcd(p, q) == N::ONE {
             break;
         }
     }
@@ -33,22 +32,22 @@ where
 
 fn next_pythagorean_limit<N>(t: &(N, N, N)) -> Option<(N, N, N)>
 where
-    N: PrimInt + AddAssign + DivAssign + Arithmetic,
+    N: PrimInt + AddAssign + DivAssign + Arithmetic + ConstOne,
 {
     let mut p = t.0;
     let mut q = t.1;
     let limit = t.2;
-    let two = N::one() + N::one();
+    let two = N::ONE + N::ONE;
     loop {
         q += two;
         if q > p || p * p + q * q >= limit {
-            p += N::one();
-            q = p % two + N::one();
+            p += N::ONE;
+            q = p % two + N::ONE;
             if p * p >= limit {
                 return None;
             }
         }
-        if N::gcd(p, q) == N::one() {
+        if N::gcd(p, q) == N::ONE {
             break;
         }
     }
@@ -57,9 +56,9 @@ where
 
 fn build_triplet<N>(p: N, q: N) -> (N, N, N)
 where
-    N: PrimInt + AddAssign + Rem + DivAssign,
+    N: PrimInt + AddAssign + Rem + DivAssign + ConstOne,
 {
-    let two = N::one() + N::one();
+    let two = N::ONE + N::ONE;
     let a = p * p - q * q;
     let b = two * p * q;
     let c = p * p + q * q;
@@ -68,9 +67,12 @@ where
 
 pub(crate) fn pythagorean_limit<N>(limite: N) -> impl Iterator<Item = (N, N, N)>
 where
-    N: PrimInt + AddAssign + DivAssign + 'static + Arithmetic,
+    N: PrimInt + AddAssign + DivAssign + 'static + Arithmetic + ConstOne,
 {
-    successors(Some((N::one() + N::one(), N::one(), limite)), next_pythagorean_limit)
+    successors(
+        Some((N::ONE + N::ONE, N::ONE, limite)),
+        next_pythagorean_limit,
+    )
     .map(|(p, q, _)| build_triplet(p, q))
 }
 

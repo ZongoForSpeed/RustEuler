@@ -1,4 +1,4 @@
-use crate::maths::polygonal;
+use crate::maths::polygonal::Polygonal;
 use crate::register_problem;
 
 register_problem!(86, "Cuboid route", problem086);
@@ -22,7 +22,8 @@ pub fn problem086() -> String {
     let mut count:u32 = 0;
     for a in 1.. {
         for s in 2..=2*a {
-            if polygonal::is_square(a * a + s * s) {
+            let n = a * a + s * s;
+            if n.is_square() {
                 count += if s > a + 1 {a + 1 - (s + 1) / 2} else {s / 2};
             }
         }

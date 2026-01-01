@@ -1,15 +1,15 @@
-use num_traits::PrimInt;
+use num_traits::{ConstOne, ConstZero, PrimInt};
 use std::ops::{MulAssign, SubAssign};
 
 pub(crate) fn factorial<Nombre>(_n: Nombre) -> Nombre
 where
-    Nombre: PrimInt + MulAssign + SubAssign
+    Nombre: PrimInt + MulAssign + SubAssign + ConstOne + ConstZero
 {
-    let zero = Nombre::zero();
-    let one = Nombre::one();
+    let zero = Nombre::ZERO;
+    let one = Nombre::ONE;
 
     //     (1..n + 1).fold(1, |a, b| a * b)
-    let mut result = Nombre::one();
+    let mut result = Nombre::ONE;
     let mut n = _n;
     while n > zero {
         result *= n;

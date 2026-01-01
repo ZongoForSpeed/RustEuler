@@ -1,4 +1,4 @@
-use crate::maths::polygonal;
+use crate::maths::polygonal::Polygonal;
 use crate::register_problem;
 
 register_problem!(94, "Almost equilateral triangles", problem094);
@@ -15,11 +15,13 @@ pub fn problem094() -> String {
     let limit:u64 = 1000000000;
     let mut result = 0;
     for k in 1..(limit - 2) / 6 {
-        if polygonal::is_square(3 * k * k + 2 * k) {
+        let n = 3 * k * k + 2 * k;
+        if n.is_square() {
             result += 6 * k + 4;
         }
 
-        if polygonal::is_square(3 * k * k + 4 * k + 1) {
+        let n = 3 * k * k + 4 * k + 1;
+        if n.is_square() {
             result += 6 * k + 2;
         }
     }

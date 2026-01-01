@@ -1,4 +1,4 @@
-use num_traits::PrimInt;
+use num_traits::{ConstOne, ConstZero, PrimInt};
 use std::collections::{HashMap, VecDeque};
 use std::ops::{AddAssign, Div, DivAssign, Mul, MulAssign};
 
@@ -16,6 +16,8 @@ pub trait Digits: Sized + AddAssign + Div + DivAssign + Mul + MulAssign {
     fn ones(self) -> Vec<usize>;
 
     fn pandigital(self, base: Self) -> bool;
+
+    fn reverse(self, base: Self) -> Self;
 }
 
 macro_rules! impl_digits {
@@ -86,6 +88,12 @@ macro_rules! impl_digits {
                     digits.values().all(|digit| *digit < 2)
                 }
 
+                fn reverse(self, base: Self) -> Self {
+                    let mut result = 0;
+                    self.loop_digits(base, |d| result = base * result + d);
+                    result
+                }
+
             }
         )*
     }
@@ -113,29 +121,35 @@ where
         .unwrap()
 }
 
-pub(crate) fn is_permutation<N: PrimInt + AddAssign + DivAssign + Copy+ Digits>(
+pub(crate) fn is_permutation<
+    N: PrimInt + AddAssign + DivAssign + Copy + Digits + ConstOne + ConstZero,
+>(
     a: N,
     b: N,
     base: N,
 ) -> bool {
     let i_base = base.to_usize().unwrap();
-    let mut digits_a: Vec<N> = vec![N::zero(); i_base];
+    let mut digits_a: Vec<N> = vec![N::ZERO; i_base];
     a.loop_digits(base, |digit| {
-        digits_a[digit.to_usize().unwrap()] += N::one();
+        digits_a[digit.to_usize().unwrap()] += N::ONE;
     });
-    let mut digits_b: Vec<N> = vec![N::zero(); i_base];
+    let mut digits_b: Vec<N> = vec![N::ZERO; i_base];
     b.loop_digits(base, |digit| {
-        digits_b[digit.to_usize().unwrap()] += N::one();
+        digits_b[digit.to_usize().unwrap()] += N::ONE;
     });
     //chiffres_a.iter().eq(chiffres_b.iter())
     digits_a == digits_b
 }
 
-pub(crate) fn concat_numbers<T: PrimInt + Div + DivAssign + MulAssign>(a: T, b: T, base: T) -> T {
-    let mut multiplier = T::one();
+pub(crate) fn concat_numbers<T: PrimInt + Div + DivAssign + MulAssign + ConstOne + ConstZero>(
+    a: T,
+    b: T,
+    base: T,
+) -> T {
+    let mut multiplier = T::ONE;
     let mut temp = b;
 
-    while temp > T::zero() {
+    while temp > T::ZERO {
         multiplier *= base;
         temp /= base;
     }
@@ -166,6 +180,12 @@ mod tests {
     fn test_palindrome() {
         assert_eq!(1234567890.palindrome(10), false);
         assert_eq!(1234567890987654321u64.palindrome(10), true);
+    }
+
+    #[test]
+    fn test_reverse() {
+        assert_eq!(1234567890.reverse(10), 987654321);
+        assert_eq!(1234567890987654321u64.reverse(10), 1234567890987654321);
     }
 
     #[test]
