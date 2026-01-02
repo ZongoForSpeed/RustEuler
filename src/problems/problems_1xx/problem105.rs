@@ -1,7 +1,7 @@
 use std::path::Path;
 use crate::register_problem;
 use itertools::Itertools;
-use crate::problems::problem103::verify;
+use crate::problems::problems_1xx::problem103::verify;
 
 register_problem!(105, "Special subset sums: testing", problem105);
 

@@ -1,66 +1,75 @@
-
 #[cfg(test)]
 mod tests {
-    use crate::problems::problem101::problem101;
-    use crate::problems::problem102::problem102;
-    use crate::problems::problem103::problem103;
-    use crate::problems::problem104::problem104;
-    use crate::problems::problem105::problem105;
-    use crate::problems::problem106::problem106;
-    use crate::problems::problem107::problem107;
-    use crate::problems::problem108::problem108;
-    use crate::problems::problem109::problem109;
-    use crate::problems::problem110::problem110;
-    use crate::problems::problem111::problem111;
-    use crate::problems::problem112::problem112;
-    use crate::problems::problem113::problem113;
-    use crate::problems::problem114::problem114;
-    use crate::problems::problem115::problem115;
-    use crate::problems::problem116::problem116;
-    use crate::problems::problem117::problem117;
-    use crate::problems::problem118::problem118;
-    use crate::problems::problem119::problem119;
-    use crate::problems::problem120::problem120;
-    use crate::problems::problem121::problem121;
-    use crate::problems::problem122::problem122;
-    use crate::problems::problem123::problem123;
-    use crate::problems::problem124::problem124;
-    use crate::problems::problem125::problem125;
-    use crate::problems::problem126::problem126;
-    use crate::problems::problem127::problem127;
-    use crate::problems::problem128::problem128;
-    use crate::problems::problem129::problem129;
-    use crate::problems::problem130::problem130;
-    use crate::problems::problem131::problem131;
-    use crate::problems::problem132::problem132;
-    use crate::problems::problem133::problem133;
-    use crate::problems::problem134::problem134;
-    use crate::problems::problem135::problem135;
-    use crate::problems::problem136::problem136;
-    use crate::problems::problem137::problem137;
-    use crate::problems::problem138::problem138;
-    use crate::problems::problem139::problem139;
-    use crate::problems::problem140::problem140;
-    use crate::problems::problem141::problem141;
-    use crate::problems::problem142::problem142;
-    use crate::problems::problem143::problem143;
-    use crate::problems::problem144::problem144;
-    use crate::problems::problem145::problem145;
-    use crate::problems::problem146::problem146;
-    use crate::problems::problem147::problem147;
-    use crate::problems::problem148::problem148;
-    use crate::problems::problem149::problem149;
-    use crate::problems::problem150::problem150;
-    use crate::problems::problem151::problem151;
-    use crate::problems::problem152::problem152;
-    use crate::problems::problem153::problem153;
-    use crate::problems::problem154::problem154;
-    use crate::problems::problem155::problem155;
-    use crate::problems::problem156::problem156;
-    use crate::problems::problem157::problem157;
-    use crate::problems::problem158::problem158;
-    use crate::problems::problem159::problem159;
-    use crate::problems::problem160::problem160;
+    use crate::problems::problems_1xx::problem101::problem101;
+    use crate::problems::problems_1xx::problem102::problem102;
+    use crate::problems::problems_1xx::problem103::problem103;
+    use crate::problems::problems_1xx::problem104::problem104;
+    use crate::problems::problems_1xx::problem105::problem105;
+    use crate::problems::problems_1xx::problem106::problem106;
+    use crate::problems::problems_1xx::problem107::problem107;
+    use crate::problems::problems_1xx::problem108::problem108;
+    use crate::problems::problems_1xx::problem109::problem109;
+    use crate::problems::problems_1xx::problem110::problem110;
+    use crate::problems::problems_1xx::problem111::problem111;
+    use crate::problems::problems_1xx::problem112::problem112;
+    use crate::problems::problems_1xx::problem113::problem113;
+    use crate::problems::problems_1xx::problem114::problem114;
+    use crate::problems::problems_1xx::problem115::problem115;
+    use crate::problems::problems_1xx::problem116::problem116;
+    use crate::problems::problems_1xx::problem117::problem117;
+    use crate::problems::problems_1xx::problem118::problem118;
+    use crate::problems::problems_1xx::problem119::problem119;
+    use crate::problems::problems_1xx::problem120::problem120;
+    use crate::problems::problems_1xx::problem121::problem121;
+    use crate::problems::problems_1xx::problem122::problem122;
+    use crate::problems::problems_1xx::problem123::problem123;
+    use crate::problems::problems_1xx::problem124::problem124;
+    use crate::problems::problems_1xx::problem125::problem125;
+    use crate::problems::problems_1xx::problem126::problem126;
+    use crate::problems::problems_1xx::problem127::problem127;
+    use crate::problems::problems_1xx::problem128::problem128;
+    use crate::problems::problems_1xx::problem129::problem129;
+    use crate::problems::problems_1xx::problem130::problem130;
+    use crate::problems::problems_1xx::problem131::problem131;
+    use crate::problems::problems_1xx::problem132::problem132;
+    use crate::problems::problems_1xx::problem133::problem133;
+    use crate::problems::problems_1xx::problem134::problem134;
+    use crate::problems::problems_1xx::problem135::problem135;
+    use crate::problems::problems_1xx::problem136::problem136;
+    use crate::problems::problems_1xx::problem137::problem137;
+    use crate::problems::problems_1xx::problem138::problem138;
+    use crate::problems::problems_1xx::problem139::problem139;
+    use crate::problems::problems_1xx::problem140::problem140;
+    use crate::problems::problems_1xx::problem141::problem141;
+    use crate::problems::problems_1xx::problem142::problem142;
+    use crate::problems::problems_1xx::problem143::problem143;
+    use crate::problems::problems_1xx::problem144::problem144;
+    use crate::problems::problems_1xx::problem145::problem145;
+    use crate::problems::problems_1xx::problem146::problem146;
+    use crate::problems::problems_1xx::problem147::problem147;
+    use crate::problems::problems_1xx::problem148::problem148;
+    use crate::problems::problems_1xx::problem149::problem149;
+    use crate::problems::problems_1xx::problem150::problem150;
+    use crate::problems::problems_1xx::problem151::problem151;
+    use crate::problems::problems_1xx::problem152::problem152;
+    use crate::problems::problems_1xx::problem153::problem153;
+    use crate::problems::problems_1xx::problem154::problem154;
+    use crate::problems::problems_1xx::problem155::problem155;
+    use crate::problems::problems_1xx::problem156::problem156;
+    use crate::problems::problems_1xx::problem157::problem157;
+    use crate::problems::problems_1xx::problem158::problem158;
+    use crate::problems::problems_1xx::problem159::problem159;
+    use crate::problems::problems_1xx::problem160::problem160;
+    use crate::problems::problems_1xx::problem161::problem161;
+    use crate::problems::problems_1xx::problem162::problem162;
+    use crate::problems::problems_1xx::problem163::problem163;
+    use crate::problems::problems_1xx::problem164::problem164;
+    use crate::problems::problems_1xx::problem165::problem165;
+    use crate::problems::problems_1xx::problem166::problem166;
+    use crate::problems::problems_1xx::problem167::problem167;
+    use crate::problems::problems_1xx::problem168::problem168;
+    use crate::problems::problems_1xx::problem169::problem169;
+    use crate::problems::problems_1xx::problem170::problem170;
 
     #[test]
     fn test_problem101() {
@@ -420,5 +429,65 @@ mod tests {
     fn test_problem160() {
         let result = problem160();
         assert_eq!(result, "16576");
+    }
+
+    #[test]
+    fn test_problem161() {
+        let result = problem161();
+        assert_eq!(result, "20574308184277971");
+    }
+
+    #[test]
+    fn test_problem162() {
+        let result = problem162();
+        assert_eq!(result, "3D58725572C62302");
+    }
+
+    #[test]
+    fn test_problem163() {
+        let result = problem163();
+        assert_eq!(result, "343047");
+    }
+
+    #[test]
+    fn test_problem164() {
+        let result = problem164();
+        assert_eq!(result, "378158756814587");
+    }
+
+    #[test]
+    fn test_problem165() {
+        let result = problem165();
+        assert_eq!(result, "2868868");
+    }
+
+    #[test]
+    fn test_problem166() {
+        let result = problem166();
+        assert_eq!(result, "7130034");
+    }
+
+    #[test]
+    fn test_problem167() {
+        let result = problem167();
+        assert_eq!(result, "3916160068885");
+    }
+
+    #[test]
+    fn test_problem168() {
+        let result = problem168();
+        assert_eq!(result, "59206");
+    }
+
+    #[test]
+    fn test_problem169() {
+        let result = problem169();
+        assert_eq!(result, "178653872807");
+    }
+    
+    #[test]
+    fn test_problem170() {
+        let result = problem170();
+        assert_eq!(result, "9857164023");
     }
 }
