@@ -16,11 +16,11 @@ where
     Some((t.1.clone(), ab))
 }
 
-pub(crate) fn fibonacci_limit<N>(limite: N) -> impl Iterator<Item = N>
+pub(crate) fn fibonacci_limit<N>(limit: N) -> impl Iterator<Item = N>
 where
     N: Zero + One + DivAssign + 'static + PartialOrd + Clone,
 {
-    fibonacci::<N>().take_while(move |a| *a < limite)
+    fibonacci::<N>().take_while(move |a| *a < limit)
 }
 
 #[cfg(test)]

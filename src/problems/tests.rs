@@ -51,6 +51,16 @@ mod tests {
     use crate::problems::problem148::problem148;
     use crate::problems::problem149::problem149;
     use crate::problems::problem150::problem150;
+    use crate::problems::problem151::problem151;
+    use crate::problems::problem152::problem152;
+    use crate::problems::problem153::problem153;
+    use crate::problems::problem154::problem154;
+    use crate::problems::problem155::problem155;
+    use crate::problems::problem156::problem156;
+    use crate::problems::problem157::problem157;
+    use crate::problems::problem158::problem158;
+    use crate::problems::problem159::problem159;
+    use crate::problems::problem160::problem160;
 
     #[test]
     fn test_problem101() {
@@ -350,5 +360,65 @@ mod tests {
     fn test_problem150() {
         let result = problem150();
         assert_eq!(result, "-271248680");
+    }
+
+    #[test]
+    fn test_problem151() {
+        let result = problem151();
+        assert_eq!(result, "0.464399");
+    }
+
+    #[test]
+    fn test_problem152() {
+        let result = problem152();
+        assert_eq!(result, "301");
+    }
+
+    #[test]
+    fn test_problem153() {
+        let result = problem153();
+        assert_eq!(result, "17971254122360635");
+    }
+
+    #[test]
+    fn test_problem154() {
+        let result = problem154();
+        assert_eq!(result, "479742450");
+    }
+
+    #[test]
+    fn test_problem155() {
+        let result = problem155();
+        assert_eq!(result, "3857447");
+    }
+
+    #[test]
+    fn test_problem156() {
+        let result = problem156();
+        assert_eq!(result, "21295121502550");
+    }
+
+    #[test]
+    fn test_problem157() {
+        let result = problem157();
+        assert_eq!(result, "53490");
+    }
+
+    #[test]
+    fn test_problem158() {
+        let result = problem158();
+        assert_eq!(result, "409511334375");
+    }
+
+    #[test]
+    fn test_problem159() {
+        let result = problem159();
+        assert_eq!(result, "14489159");
+    }
+
+    #[test]
+    fn test_problem160() {
+        let result = problem160();
+        assert_eq!(result, "16576");
     }
 }

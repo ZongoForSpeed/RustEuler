@@ -33,6 +33,8 @@ pub(crate) trait Arithmetic: Sized + AddAssign + Div + DivAssign + Mul + MulAssi
         Self: 'a;
 
     fn repunit_a(self, base: Self) -> Self;
+
+    fn count_factor(self, d: Self) -> usize;
 }
 
 macro_rules! impl_arithmetic {
@@ -213,6 +215,16 @@ macro_rules! impl_arithmetic {
                     }
 
                     panic!()
+                }
+
+                fn count_factor(self, d: Self) -> usize {
+                    let mut n = self;
+                    let mut count = 0;
+                    while n % d == 0 {
+                        n/= d;
+                        count += 1;
+                    }
+                    count
                 }
 
             }

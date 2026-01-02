@@ -18,6 +18,9 @@ pub trait Digits: Sized + AddAssign + Div + DivAssign + Mul + MulAssign {
     fn pandigital(self, base: Self) -> bool;
 
     fn reverse(self, base: Self) -> Self;
+
+    fn count_digit(self, d: Self, base: Self) -> usize;
+
 }
 
 macro_rules! impl_digits {
@@ -92,6 +95,12 @@ macro_rules! impl_digits {
                     let mut result = 0;
                     self.loop_digits(base, |d| result = base * result + d);
                     result
+                }
+
+                fn count_digit(self, d: Self, base: Self) -> usize {
+                    let mut count = 0;
+                    self.loop_digits(base, |digit| if digit == d { count += 1; });
+                    count
                 }
 
             }

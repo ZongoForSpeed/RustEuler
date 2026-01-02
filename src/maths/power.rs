@@ -1,7 +1,5 @@
-
 trait ModArith: Sized + Copy {
     fn mod_mul(self, rhs: Self, m: Self) -> Self;
-    fn mod_pow(self, exp: Self, m: Self) -> Self;
 }
 
 macro_rules! impl_modmul_widen {
@@ -10,21 +8,6 @@ macro_rules! impl_modmul_widen {
             #[inline]
             fn mod_mul(self, rhs: Self, m: Self) -> Self {
                 (((self as $w) * (rhs as $w)) % (m as $w)) as $t
-            }
-
-            #[inline]
-            fn mod_pow(self, mut exp: Self, m: Self) -> Self {
-                let mut base = self % m;
-                let mut res: Self = 1;
-
-                while exp > 0 {
-                    if exp & 1 == 1 {
-                        res = res.mod_mul(base, m);
-                    }
-                    base = base.mod_mul(base, m);
-                    exp >>= 1;
-                }
-                res
             }
         }
     };
@@ -58,29 +41,12 @@ impl ModArith for u128 {
         }
         res
     }
-
-    #[inline]
-    fn mod_pow(self, mut exp: Self, m: Self) -> Self {
-        let mut base = self % m;
-        let mut res = 1;
-
-        while exp > 0 {
-            if exp & 1 == 1 {
-                res = res.mod_mul(base, m);
-            }
-            base = base.mod_mul(base, m);
-            exp >>= 1;
-        }
-        res
-    }
 }
 
-
 pub trait Power {
-    fn power(base: Self, exponent: Self) -> Self;
+    fn power(self, exponent: Self) -> Self;
 
-    fn power_mod(base: Self, exponent: Self, modulo: Self) -> Self;
-
+    fn power_mod(self, exponent: Self, modulo: Self) -> Self;
 }
 
 macro_rules! impl_power {
@@ -88,9 +54,10 @@ macro_rules! impl_power {
         $(
             impl Power for $t {
                 #[inline]
-                fn power(mut base: Self, mut exponent: Self) -> Self {
+                fn power(self: Self, mut exponent: Self) -> Self {
                     // TODO replace with pow(...)
                     // return _base.pow(_exposant as u32);
+                    let mut base = self;
 
                     let mut result = 1;
                     while exponent > 0 {
@@ -104,11 +71,20 @@ macro_rules! impl_power {
                 }
 
                 #[inline]
-                fn power_mod(base: Self, exponent: Self, modulo: Self) -> Self {
-                    base.mod_pow(exponent, modulo)
+                fn power_mod(self, mut exponent: Self, modulo: Self) -> Self {
+                    let mut base = self % modulo;
+                    let mut result: Self = 1;
+
+                    while exponent > 0 {
+                        if exponent & 1 == 1 {
+                            result = result.mod_mul(base, modulo);
+                        }
+                        base = base.mod_mul(base, modulo);
+                        exponent >>= 1;
+                    }
+                    result
                 }
             }
-
         )*
     }
 }
@@ -129,5 +105,4 @@ mod tests {
         assert_eq!(u32::power_mod(2, 10, 25), 24);
         assert_eq!(u64::power_mod(2, 10, 25), 24);
     }
-
 }
