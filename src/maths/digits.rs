@@ -124,10 +124,11 @@ where
     N: PrimInt + DivAssign + Copy + 'a,
     V: IntoIterator<Item = &'a N>,
 {
-    list.into_iter()
-        .map(N::clone)
-        .reduce(|a, b| addmul(a, b, base))
-        .unwrap()
+    let mut result = N::zero();
+    for &d in list {
+        result = addmul(result, d, base);
+    }
+    result
 }
 
 pub(crate) fn is_permutation<

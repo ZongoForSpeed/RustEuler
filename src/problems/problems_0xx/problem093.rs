@@ -10,16 +10,17 @@ fn test(n: &Vec<Fraction>, mut p: &mut HashSet<u64>) {
     let len = n.len();
     if len == 1 {
         let front = n[0];
-        let numer = front.numer().unwrap();
-        let denom = front.denom().unwrap();
-        if numer % denom == 0 {
+        if let Some(numer) = front.numer()
+            && let Some(denom) = front.denom()
+            && numer % denom == 0
+        {
             p.insert(numer / denom);
         }
         return;
     }
 
     for i in 0..len {
-        for j in i+1..len {
+        for j in i + 1..len {
             let a = n[i];
             let b = n[j];
             let mut m = n.clone();
@@ -46,7 +47,6 @@ fn test(n: &Vec<Fraction>, mut p: &mut HashSet<u64>) {
             }
         }
     }
-
 }
 
 pub fn problem093() -> String {
@@ -69,12 +69,17 @@ pub fn problem093() -> String {
     // 1 to n, can be obtained, giving your answer as a string: abcd.
     let iteration = HashSet::from_iter(1..10000);
     let mut result = Vec::new();
-    let mut maximum:u64 = 0;
+    let mut maximum: u64 = 0;
     for a in 0..10 {
-        for b in a+1..10 {
-            for c in b+1..10 {
-                for d in c+1..10 {
-                    let v:Vec<Fraction> = vec![Fraction::from(a), Fraction::from(b), Fraction::from(c), Fraction::from(d)];
+        for b in a + 1..10 {
+            for c in b + 1..10 {
+                for d in c + 1..10 {
+                    let v: Vec<Fraction> = vec![
+                        Fraction::from(a),
+                        Fraction::from(b),
+                        Fraction::from(c),
+                        Fraction::from(d),
+                    ];
                     let mut e = HashSet::new();
 
                     test(&v, &mut e);

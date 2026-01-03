@@ -372,6 +372,14 @@ impl MpzNumber {
         res
     }
 
+    pub(crate) fn gcd(a: &MpzNumber, b: &MpzNumber) -> MpzNumber {
+        let mut res = MpzNumber::new();
+        unsafe {
+            gmp::mpz_gcd(&mut res.data, &a.data, &b.data);
+        }
+        res
+    }
+
     pub(crate) fn power_mod_ui(base: u64, exponent: u64, modulo: u64) -> MpzNumber {
         let mut res = MpzNumber::new();
         let z_base = MpzNumber::from_u64(base);

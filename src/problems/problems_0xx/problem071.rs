@@ -1,5 +1,6 @@
 use crate::register_problem;
 use fraction::Fraction;
+use num_traits::ConstZero;
 
 register_problem!(71, "Ordered fractions", problem071);
 
@@ -23,7 +24,7 @@ pub fn problem071() -> String {
     for d in 2..=1000000 {
         let n = objectif.numer().unwrap() * d / objectif.denom().unwrap();
         let ratio = objectif - Fraction::new(n, d);
-        if ratio > 0.into() && ratio < ratio_min {
+        if ratio > Fraction::ZERO && ratio < ratio_min {
             ratio_min = ratio;
             resultat = Fraction::new(n, d);
         }

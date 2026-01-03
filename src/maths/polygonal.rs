@@ -4,6 +4,8 @@ use num_traits::PrimInt;
 pub trait Polygonal: PrimInt + Roots {
     fn is_square(self) -> bool;
 
+    fn get_sqrt(self) -> Option<Self>;
+
     fn is_triangular(self) -> bool;
 
     fn is_pentagonal(self) -> bool;
@@ -36,6 +38,15 @@ macro_rules! impl_polygonal {
                 fn is_square(self) -> bool {
                     let sq = self.sqrt();
                     sq * sq == self
+                }
+
+                fn get_sqrt(self) -> Option<Self> {
+                    let sq = self.sqrt();
+                    if (sq * sq == self) {
+                        Some(sq)
+                    } else {
+                        None
+                    }
                 }
 
                 fn is_triangular(self) -> bool {
