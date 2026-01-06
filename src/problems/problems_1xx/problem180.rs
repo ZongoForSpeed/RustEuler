@@ -3,7 +3,6 @@ use crate::register_problem;
 use crate::utils::mpz_number::MpzNumber;
 use fraction::Fraction;
 use itertools::Itertools;
-use num_integer::Roots;
 use std::collections::HashSet;
 
 register_problem!(

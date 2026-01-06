@@ -1,4 +1,4 @@
-use crate::maths::digits::concat_numbers;
+use crate::maths::digits::Digits;
 use crate::maths::primes::crible235;
 use crate::register_problem;
 use itertools::Itertools;
@@ -54,8 +54,8 @@ pub fn problem060() -> String {
                 break;
             }
 
-            let pq = concat_numbers(*p, *q, 10);
-            let qp = concat_numbers(*q, *p, 10);
+            let pq = u64::concat_numbers(*p, *q, 10);
+            let qp = u64::concat_numbers(*q, *p, 10);
 
             if primes.contains(&pq) && primes.contains(&qp) {
                 let v = vec![q.clone()];

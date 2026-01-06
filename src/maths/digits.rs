@@ -1,4 +1,4 @@
-use num_traits::{ConstOne, ConstZero, PrimInt};
+use num_traits::PrimInt;
 use std::collections::{HashMap, VecDeque};
 use std::ops::{AddAssign, Div, DivAssign, Mul, MulAssign};
 
@@ -21,6 +21,9 @@ pub trait Digits: Sized + AddAssign + Div + DivAssign + Mul + MulAssign {
 
     fn count_digit(self, d: Self, base: Self) -> usize;
 
+    fn is_permutation(a: Self, b: Self, base: Self) -> bool;
+
+    fn concat_numbers(a: Self, b: Self, base: Self) -> Self;
 }
 
 macro_rules! impl_digits {
@@ -103,7 +106,31 @@ macro_rules! impl_digits {
                     count
                 }
 
-            }
+                fn is_permutation(a: Self, b: Self, base: Self) -> bool {
+                    let i_base = base as usize;
+                    let mut digits_a: Vec<usize> = vec![1; i_base];
+                    a.loop_digits(base, |digit| {
+                        digits_a[digit as usize] += 1;
+                    });
+                    let mut digits_b: Vec<usize> = vec![1; i_base];
+                    b.loop_digits(base, |digit| {
+                        digits_b[digit as usize] += 1;
+                    });
+                    digits_a == digits_b
+                }
+
+                fn concat_numbers(a: Self, b: Self, base: Self) -> Self {
+                    let mut multiplier = 1;
+                    let mut temp = b;
+
+                    while temp > 0 {
+                        multiplier *= base;
+                        temp /= base;
+                    }
+
+                    a * multiplier + b
+                }
+                        }
         )*
     }
 }
@@ -112,13 +139,6 @@ impl_digits!(
     u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize
 );
 
-fn addmul<'a, N>(a: N, b: N, base: N) -> N
-where
-    N: PrimInt + Mul + DivAssign + Copy + 'a,
-{
-    base * a + b
-}
-
 pub(crate) fn conversion<'a, N, V>(list: V, base: N) -> N
 where
     N: PrimInt + DivAssign + Copy + 'a,
@@ -126,45 +146,9 @@ where
 {
     let mut result = N::zero();
     for &d in list {
-        result = addmul(result, d, base);
+        result = base * result + d;
     }
     result
-}
-
-pub(crate) fn is_permutation<
-    N: PrimInt + AddAssign + DivAssign + Copy + Digits + ConstOne + ConstZero,
->(
-    a: N,
-    b: N,
-    base: N,
-) -> bool {
-    let i_base = base.to_usize().unwrap();
-    let mut digits_a: Vec<N> = vec![N::ZERO; i_base];
-    a.loop_digits(base, |digit| {
-        digits_a[digit.to_usize().unwrap()] += N::ONE;
-    });
-    let mut digits_b: Vec<N> = vec![N::ZERO; i_base];
-    b.loop_digits(base, |digit| {
-        digits_b[digit.to_usize().unwrap()] += N::ONE;
-    });
-    //chiffres_a.iter().eq(chiffres_b.iter())
-    digits_a == digits_b
-}
-
-pub(crate) fn concat_numbers<T: PrimInt + Div + DivAssign + MulAssign + ConstOne + ConstZero>(
-    a: T,
-    b: T,
-    base: T,
-) -> T {
-    let mut multiplier = T::ONE;
-    let mut temp = b;
-
-    while temp > T::ZERO {
-        multiplier *= base;
-        temp /= base;
-    }
-
-    a * multiplier + b
 }
 
 #[cfg(test)]
@@ -200,10 +184,10 @@ mod tests {
 
     #[test]
     fn test_permutation() {
-        assert_eq!(is_permutation(1234567890, 1237890456, 10), true);
-        assert_eq!(is_permutation(1234567890, 1237899456, 10), false);
+        assert_eq!(u64::is_permutation(1234567890, 1237890456, 10), true);
+        assert_eq!(u64::is_permutation(1234567890, 1237899456, 10), false);
         assert_eq!(
-            is_permutation(1234567890987654321u64, 1122334455667788990u64, 10),
+            u64::is_permutation(1234567890987654321, 1122334455667788990, 10),
             true
         );
     }
@@ -211,11 +195,11 @@ mod tests {
     #[test]
     fn test_concat_numbers() {
         assert_eq!(
-            concat_numbers(1234567890, 1237890456, 10),
+            u64::concat_numbers(1234567890, 1237890456, 10),
             12345678901237890456u64
         );
         assert_eq!(
-            concat_numbers(1234567890, 1237899456, 10),
+            u64::concat_numbers(1234567890, 1237899456, 10),
             12345678901237899456u64
         );
     }

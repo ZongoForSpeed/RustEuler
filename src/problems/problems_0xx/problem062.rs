@@ -1,4 +1,4 @@
-use crate::maths::digits::{is_permutation, Digits};
+use crate::maths::digits::Digits;
 use crate::register_problem;
 
 pub fn cubic_permutations() -> Vec<u64> {
@@ -17,7 +17,7 @@ pub fn cubic_permutations() -> Vec<u64> {
                 result.push(c1);
                 for j in i + 1..len {
                     let c2 = cubes[j];
-                    if is_permutation(c1, c2, 10) {
+                    if u64::is_permutation(c1, c2, 10) {
                         result.push(c2);
                     }
                 }

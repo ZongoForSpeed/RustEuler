@@ -1,4 +1,4 @@
-use crate::maths::digits::{concat_numbers, conversion, Digits};
+use crate::maths::digits::{conversion, Digits};
 use crate::register_problem;
 use crate::utils::permutations::permutations;
 
@@ -71,7 +71,7 @@ pub fn problem170() -> String {
                 if b == 0 || !pandigital(facteur * b) {
                     continue;
                 }
-                let n = concat_numbers(facteur * a, facteur * b, 10);
+                let n = u64::concat_numbers(facteur * a, facteur * b, 10);
                 if pandigital_complete(n) && resultat < n {
                     resultat = n;
                 }

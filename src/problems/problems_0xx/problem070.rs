@@ -1,4 +1,4 @@
-use crate::maths::digits;
+use crate::maths::digits::Digits;
 use crate::maths::primes::crible23;
 use crate::register_problem;
 use fraction::Fraction;
@@ -34,7 +34,7 @@ pub fn problem070() -> String {
 
             let phi = (p - 1) * (q - 1);
             let ratio = Fraction::new(n, phi);
-            if ratio < min_ratio && digits::is_permutation(n, phi, 10) {
+            if ratio < min_ratio && u32::is_permutation(n, phi, 10) {
                 min_ratio = ratio;
                 min_n = n;
             }

@@ -1,4 +1,4 @@
-use crate::maths::digits::is_permutation;
+use crate::maths::digits::Digits;
 use crate::register_problem;
 
 register_problem!(52, "Permuted multiples", problem052);
@@ -12,7 +12,7 @@ pub fn problem052() -> String {
     for n in 1.. {
         let mut found = true;
         for k in 2..7 {
-            if !is_permutation(n, n * k, 10) {
+            if !u64::is_permutation(n, n * k, 10) {
                 found = false;
                 break;
             }

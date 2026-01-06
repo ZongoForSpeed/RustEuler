@@ -3,12 +3,7 @@ use crate::register_problem;
 use num_traits::FloatConst;
 use std::cmp::Ordering;
 use std::collections::{BTreeSet, HashSet};
-
-const EPSILON: f64 = 1e-9;
-
-fn equal_epsilon(a: f64, b: f64) -> bool {
-    (a - b).abs() < EPSILON
-}
+use crate::utils::epsilon::{compare_epsilon, equal_epsilon};
 
 #[derive(Debug, Copy, Clone)]
 struct EpsF64(f64);
@@ -36,16 +31,7 @@ impl PartialOrd for EpsF64 {
 
 impl Ord for EpsF64 {
     fn cmp(&self, other: &Self) -> Ordering {
-        let a = self.0;
-        let b = other.0;
-
-        if equal_epsilon(a, b) {
-            Ordering::Equal
-        } else if a < b {
-            return Ordering::Less;
-        } else {
-            return Ordering::Greater;
-        }
+        compare_epsilon(self.0, other.0)
     }
 }
 
