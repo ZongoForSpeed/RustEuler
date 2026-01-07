@@ -85,6 +85,11 @@ mod tests {
     use crate::problems::problems_1xx::problem183::problem183;
     use crate::problems::problems_1xx::problem184::problem184;
     use crate::problems::problems_1xx::problem185::problem185;
+    use crate::problems::problems_1xx::problem186::problem186;
+    use crate::problems::problems_1xx::problem187::problem187;
+    use crate::problems::problems_1xx::problem188::problem188;
+    use crate::problems::problems_1xx::problem189::problem189;
+    use crate::problems::problems_1xx::problem190::problem190;
 
     #[test]
     fn test_problem101() {
@@ -594,5 +599,35 @@ mod tests {
     fn test_problem185() {
         let result = problem185();
         assert_eq!(result, "4640261571849533");
+    }
+    
+    #[test]
+    fn test_problem186() {
+        let result = problem186();
+        assert_eq!(result, "2325629");
+    }
+
+    #[test]
+    fn test_problem187() {
+        let result = problem187();
+        assert_eq!(result, "17427258");
+    }
+
+    #[test]
+    fn test_problem188() {
+        let result = problem188();
+        assert_eq!(result, "95962097");
+    }
+
+    #[test]
+    fn test_problem189() {
+        let result = problem189();
+        assert_eq!(result, "10834893628237824");
+    }
+
+    #[test]
+    fn test_problem190() {
+        let result = problem190();
+        assert_eq!(result, "371048281");
     }
 }
