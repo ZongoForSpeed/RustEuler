@@ -22,6 +22,10 @@ pub(crate) trait Arithmetic: Sized + AddAssign + Div + DivAssign + Mul + MulAssi
     where
         Self: 'a;
 
+    fn mobius<'a, V: IntoIterator<Item = &'a Self>>(self, primes: V) -> i8
+    where
+        Self: 'a;
+
     fn factorization<'a, V, F>(self, primes: V, output: F)
     where
         V: IntoIterator<Item = &'a Self>,
@@ -153,6 +157,33 @@ macro_rules! impl_arithmetic {
                         result *= n;
                     }
                     result
+                }
+
+                fn mobius<'a, V: IntoIterator<Item = &'a Self>>(self, primes: V) -> i8 where Self: 'a {
+                    let mut factors = 0;
+                    let mut n = self;
+                    for &p in primes {
+                        if p * p > n {
+                            break;
+                        }
+                        if (n % p) == 0 {
+                            let mut count = 0;
+                            while (n % p) == 0 {
+                                n /= p;
+                                count += 1;
+                            }
+                            if count > 1 {
+                                return 0;
+                            }
+                            factors += 1;
+                        }
+                    }
+
+                    if n > 1 {
+                        factors += 1;
+                    }
+
+                    if (factors % 2 == 0) {1} else {-1}
                 }
 
                 fn factorization<'a, V, F>(self, primes: V, mut output: F)
@@ -292,6 +323,19 @@ mod tests {
         assert_eq!(456753.radical(&primes), 456753);
         assert_eq!(496.radical(&primes), 62);
         assert_eq!(3246999210u64.radical(&primes), 2454270);
+    }
+
+    #[test]
+    fn test_mobius() {
+        let primes: Vec<u64> = vec![
+            2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83,
+            89, 97,
+        ];
+
+        assert_eq!(3246999210.mobius(&primes), 0);
+        assert_eq!(496.mobius(&primes), 0);
+        assert_eq!(19.mobius(&primes), -1);
+        assert_eq!(15.mobius(&primes), 1);
     }
 
     #[test]

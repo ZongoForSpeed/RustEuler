@@ -90,6 +90,11 @@ mod tests {
     use crate::problems::problems_1xx::problem188::problem188;
     use crate::problems::problems_1xx::problem189::problem189;
     use crate::problems::problems_1xx::problem190::problem190;
+    use crate::problems::problems_1xx::problem191::problem191;
+    use crate::problems::problems_1xx::problem192::problem192;
+    use crate::problems::problems_1xx::problem193::problem193;
+    use crate::problems::problems_1xx::problem194::problem194;
+    use crate::problems::problems_1xx::problem195::problem195;
 
     #[test]
     fn test_problem101() {
@@ -594,13 +599,13 @@ mod tests {
         let result = problem184();
         assert_eq!(result, "1725323624056");
     }
-    
+
     #[test]
     fn test_problem185() {
         let result = problem185();
         assert_eq!(result, "4640261571849533");
     }
-    
+
     #[test]
     fn test_problem186() {
         let result = problem186();
@@ -629,5 +634,35 @@ mod tests {
     fn test_problem190() {
         let result = problem190();
         assert_eq!(result, "371048281");
+    }
+
+    #[test]
+    fn test_problem191() {
+        let result = problem191();
+        assert_eq!(result, "1918080160");
+    }
+
+    #[test]
+    fn test_problem192() {
+        let result = problem192();
+        assert_eq!(result, "57060635927998347");
+    }
+
+    #[test]
+    fn test_problem193() {
+        let result = problem193();
+        assert_eq!(result, "684465067343069");
+    }
+    
+    #[test]
+    fn test_problem194() {
+        let result = problem194();
+        assert_eq!(result, "61190912");
+    }
+    
+    #[test]
+    fn test_problem195() {
+        let result = problem195();
+        assert_eq!(result, "75085391");
     }
 }

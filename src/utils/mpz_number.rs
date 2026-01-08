@@ -581,6 +581,14 @@ impl<'a, 'b> Add<&'b MpzNumber> for &'a MpzNumber {
     }
 }
 
+impl Add<&MpzNumber> for MpzNumber {
+    type Output = MpzNumber;
+
+    fn add(self, rhs: &MpzNumber) -> MpzNumber {
+        MpzNumber::internal_add(&self, &rhs)
+    }
+}
+
 impl AddAssign<&MpzNumber> for MpzNumber {
     fn add_assign(&mut self, rhs: &MpzNumber) {
         self.internal_add_assign(&rhs);
@@ -673,6 +681,14 @@ impl<'a, 'b> Mul<&'b MpzNumber> for &'a MpzNumber {
     type Output = MpzNumber;
 
     fn mul(self, rhs: &'b MpzNumber) -> MpzNumber {
+        MpzNumber::internal_mul(&self, &rhs)
+    }
+}
+
+impl Mul<&MpzNumber> for MpzNumber {
+    type Output = MpzNumber;
+
+    fn mul(self, rhs: &MpzNumber) -> MpzNumber {
         MpzNumber::internal_mul(&self, &rhs)
     }
 }
@@ -796,6 +812,14 @@ impl<'a, 'b> Sub<&'b MpzNumber> for &'a MpzNumber {
     }
 }
 
+impl Sub<&MpzNumber> for MpzNumber {
+    type Output = MpzNumber;
+
+    fn sub(self, rhs: &MpzNumber) -> MpzNumber {
+        MpzNumber::internal_sub(&self, &rhs)
+    }
+}
+
 impl SubAssign<&MpzNumber> for MpzNumber {
     fn sub_assign(&mut self, rhs: &MpzNumber) {
         self.internal_sub_assign(&rhs);
@@ -889,6 +913,14 @@ impl<'a, 'b> Div<&'b MpzNumber> for &'a MpzNumber {
     }
 }
 
+impl Div<&MpzNumber> for MpzNumber {
+    type Output = MpzNumber;
+
+    fn div(self, rhs: &MpzNumber) -> MpzNumber {
+        MpzNumber::internal_div(&self, &rhs)
+    }
+}
+
 impl DivAssign<&MpzNumber> for MpzNumber {
     fn div_assign(&mut self, rhs: &MpzNumber) {
         self.internal_div_assign(&rhs);
@@ -955,6 +987,14 @@ impl<'a, 'b> Rem<&'b MpzNumber> for &'a MpzNumber {
     type Output = MpzNumber;
 
     fn rem(self, rhs: &'b MpzNumber) -> MpzNumber {
+        MpzNumber::internal_mod(&self, &rhs)
+    }
+}
+
+impl Rem<&MpzNumber> for MpzNumber {
+    type Output = MpzNumber;
+
+    fn rem(self, rhs: &MpzNumber) -> MpzNumber {
         MpzNumber::internal_mod(&self, &rhs)
     }
 }
