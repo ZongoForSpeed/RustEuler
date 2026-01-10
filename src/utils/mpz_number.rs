@@ -7,6 +7,7 @@ use std::collections::VecDeque;
 use std::ffi::{c_char, c_int, c_long, c_ulong, c_void, CStr, CString};
 use std::fmt::{Display, Formatter};
 use std::hash::{Hash, Hasher};
+use std::iter::{Product, Sum};
 use std::mem::MaybeUninit;
 use std::ops::{
     Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Rem, RemAssign, Sub, SubAssign,
@@ -1038,6 +1039,18 @@ macro_rules! impl_rem {
 
 impl_rem!(i8, i16, i32, i64, isize, u8, u16, u32, u64, usize, i128, u128);
 // endregion
+
+impl Sum<MpzNumber> for MpzNumber {
+    fn sum<I: Iterator<Item=MpzNumber>>(iter: I) -> Self {
+        iter.fold(MpzNumber::zero(), Add::add)
+    }
+}
+
+impl Product<MpzNumber> for MpzNumber {
+    fn product<I: Iterator<Item=MpzNumber>>(iter: I) -> Self {
+        iter.fold(MpzNumber::one(), Mul::mul)
+    }
+}
 
 #[cfg(test)]
 mod tests {

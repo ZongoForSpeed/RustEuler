@@ -36,6 +36,10 @@ pub(crate) trait Arithmetic: Sized + AddAssign + Div + DivAssign + Mul + MulAssi
     where
         Self: 'a;
 
+    fn square_factor<'a, V: IntoIterator<Item = &'a Self>>(self, primes: V) -> bool
+    where
+        Self: 'a;
+
     fn repunit_a(self, base: Self) -> Self;
 
     fn count_factor(self, d: Self) -> usize;
@@ -235,6 +239,29 @@ macro_rules! impl_arithmetic {
                     result
                 }
 
+                fn square_factor<'a, V: IntoIterator<Item = &'a Self>>(self, primes: V) -> bool
+                where
+                    Self: 'a
+                {
+                    let mut n = self;
+                    for p in primes {
+                        if (p * p > n) {
+                            return false;
+                        }
+                        if (n % p == 0) {
+                            let mut count = 0;
+                            while (n % p == 0) {
+                                n /= p;
+                                count += 1;
+                            }
+                            if (count > 1) {
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
+                }
+
                 fn repunit_a(self, base: Self) -> Self {
                     let q = (base - 1) * self;
                     let mut p = base % q;
@@ -368,6 +395,16 @@ mod tests {
             1082070, 1623105, 3246210,
         ];
         assert_eq!(d, expected);
+    }
+    #[test]
+    fn test_square_factor() {
+        let primes: Vec<u64> = vec![
+            2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83,
+            89, 97,
+        ];
+
+        assert_eq!(3246999210.square_factor(&primes), true);
+        assert_eq!(42315.square_factor(&primes), false);
     }
 
     #[test]

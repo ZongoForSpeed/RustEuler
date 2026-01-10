@@ -24,18 +24,19 @@ fn test(n: u128) -> bool {
         return false;
     }
 
-    let digits = n.extract_digits(10);
-    for (n, &d) in digits.iter().enumerate() {
+    let mut digits = n.extract_digits(10);
+    for n in 0..digits.len() {
+        let d = digits[n];
         for a in 0..10 {
             if a != d {
-                let mut new_digits = digits.clone();
-                new_digits[n] = a;
-                let conv = conversion(&new_digits, 10);
+                digits[n] = a;
+                let conv = conversion(&digits, 10);
                 if conv.miller_rabin(25) {
                     return false;
                 }
             }
         }
+        digits[n] = d;
     }
 
     true

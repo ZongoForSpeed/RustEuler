@@ -1,5 +1,5 @@
 use crate::maths::digits::Digits;
-use crate::maths::factorial;
+use crate::maths::factorial::Factorial;
 use crate::register_problem;
 
 register_problem!(34, "Digit factorials", problem034);
@@ -14,7 +14,7 @@ pub fn problem034() -> String {
     let mut solution: u64 = 0;
     for n in 10..borne {
         let mut s = 0;
-        n.loop_digits( 10, |d| s += factorial::factorial(d));
+        n.loop_digits( 10, |d| s += u64::factorial(d));
         if s == n {
             solution += n;
         }
