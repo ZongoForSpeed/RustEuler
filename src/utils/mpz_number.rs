@@ -5,7 +5,7 @@ use num_traits::{One, Zero};
 use std::cmp::Ordering;
 use std::collections::VecDeque;
 use std::ffi::{c_char, c_int, c_long, c_ulong, c_void, CStr, CString};
-use std::fmt::{Display, Formatter};
+use std::fmt::{Debug, Display, Formatter};
 use std::hash::{Hash, Hasher};
 use std::iter::{Product, Sum};
 use std::mem::MaybeUninit;
@@ -15,7 +15,6 @@ use std::ops::{
 use std::ptr::null_mut;
 use std::str::FromStr;
 
-#[derive(Debug)]
 pub(crate) struct MpzNumber {
     pub data: mpz_t,
 }
@@ -418,6 +417,12 @@ impl Clone for MpzNumber {
 }
 
 impl Display for MpzNumber {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.to_string())
+    }
+}
+
+impl Debug for MpzNumber {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.to_string())
     }
