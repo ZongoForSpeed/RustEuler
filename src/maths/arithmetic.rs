@@ -4,6 +4,8 @@ use std::ops::{AddAssign, Div, DivAssign, Mul, MulAssign};
 pub(crate) trait Arithmetic: Sized + AddAssign + Div + DivAssign + Mul + MulAssign {
     fn gcd(a: Self, b: Self) -> Self;
 
+    fn bezout(a: Self, b: Self) -> (Self, Self, Self);
+
     fn lcm(a: Self, b: Self) -> Self;
 
     fn number_of_divisors<'a, V: IntoIterator<Item = &'a Self>>(self, primes: V) -> Self
@@ -67,6 +69,24 @@ macro_rules! impl_arithmetic {
                         a = b;
                         b = pgcd;
                     }
+                }
+
+                fn bezout(a: Self, b: Self) -> (Self, Self, Self) {
+                    let mut s = 0;
+                    let mut old_s = 1;
+                    let mut t = 1;
+                    let mut old_t = 0;
+                    let mut r = b;
+                    let mut old_r = a;
+
+                    while (r != 0) {
+                        let quotient = old_r / r;
+                        (old_r, r) = (r, old_r - quotient * r);
+                        (old_s, s) = (s, old_s - quotient * s);
+                        (old_t, t) = (t, old_t - quotient * t);
+                    }
+
+                    (old_s, old_t, old_r)
                 }
 
                 fn lcm(a: Self, b: Self) -> Self {
@@ -300,15 +320,26 @@ mod tests {
     use std::collections::HashMap;
 
     #[test]
-    fn test_pgcd() {
+    fn test_gcd() {
         assert_eq!(u32::gcd(456753, 97643), 1);
         assert_eq!(u32::gcd(456755, 158665), 65);
     }
 
     #[test]
-    fn test_ppcm() {
+    fn test_lcm() {
         assert_eq!(u64::lcm(456753u64, 97643u64), 44598733179u64);
         assert_eq!(u64::lcm(456755u64, 158665u64), 1114938955u64);
+    }
+
+    #[test]
+    fn test_bezout() {
+        let a = 456753;
+        let b = 97643;
+        let (u, v, d) = i64::bezout(a, b);
+        assert_eq!(d, 1);
+        assert_eq!(u, 18947);
+        assert_eq!(v, -88630);
+        assert_eq!(a * u + b * v, 1);
     }
 
     #[test]
