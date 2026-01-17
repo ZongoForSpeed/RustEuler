@@ -25,7 +25,7 @@ pub fn problem178() -> String {
     }
 
     let mut result = 0;
-    for (m, z) in iproduct!(1..=40, 0..10) {
+    for (m, z) in iproduct!(1..=40, 1..10) {
         result += f[m][0][9][z];
     }
 

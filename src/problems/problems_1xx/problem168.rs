@@ -16,7 +16,7 @@ pub fn problem168() -> String {
 
     let zero = MpzNumber::zero();
 
-    for (power, a, n) in iproduct!(0..=100, 1..10, 1..10) {
+    for (power, a, n) in iproduct!(1..=100, 1..10, 1..10) {
         let numer: MpzNumber = a * (MpzNumber::power_ui(10, power) - n);
         let denom = MpzNumber::from(10 * n - 1);
 
