@@ -45,3 +45,14 @@ pub fn problem062() -> String {
     let result = cubic_permutations();
     result.first().unwrap().to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem062() {
+        let result = problem062();
+        assert_eq!(result, "127035954683");
+    }
+}

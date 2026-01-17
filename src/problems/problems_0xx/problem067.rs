@@ -32,3 +32,14 @@ pub fn problem067() -> String {
     println!("{:?}", triangle);
     maximum_path_sum(triangle).to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem067() {
+        let result = problem067();
+        assert_eq!(result, "7273");
+    }
+}

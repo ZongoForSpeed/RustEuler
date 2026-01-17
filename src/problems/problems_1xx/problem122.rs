@@ -57,3 +57,14 @@ pub fn problem122() -> String {
 
     sum.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem122() {
+        let result = problem122();
+        assert_eq!(result, "1582");
+    }
+}

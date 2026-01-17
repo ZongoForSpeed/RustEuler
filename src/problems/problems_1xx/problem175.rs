@@ -43,3 +43,14 @@ pub fn problem175() -> String {
 
     resultat.into_iter().rev().join(",").to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem175() {
+        let result = problem175();
+        assert_eq!(result, "1,13717420,8");
+    }
+}

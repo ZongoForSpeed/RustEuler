@@ -27,3 +27,14 @@ pub fn problem136() -> String {
 
     counts.into_iter().filter(|&x| x == 1).count().to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem136() {
+        let result = problem136();
+        assert_eq!(result, "2544559");
+    }
+}

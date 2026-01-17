@@ -173,3 +173,14 @@ pub fn problem165() -> String {
 
     intersection.len().to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem165() {
+        let result = problem165();
+        assert_eq!(result, "2868868");
+    }
+}

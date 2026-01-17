@@ -92,3 +92,14 @@ pub fn problem180() -> String {
     let result = (&u + &v) / MpzNumber::gcd(&u, &v);
     result.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem180() {
+        let result = problem180();
+        assert_eq!(result, "285196020571078987");
+    }
+}

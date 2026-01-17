@@ -45,22 +45,22 @@ pub fn problem060() -> String {
 
     let mut graph: HashMap<Vec<u64>, Vec<u64>> = HashMap::new();
 
-    for p in &primes {
-        if *p > limit {
+    for &p in &primes {
+        if p > limit {
             break;
         }
-        for q in &primes {
+        for &q in &primes {
             if q >= p {
                 break;
             }
 
-            let pq = u64::concat_numbers(*p, *q, 10);
-            let qp = u64::concat_numbers(*q, *p, 10);
+            let pq = u64::concat_numbers(p, q, 10);
+            let qp = u64::concat_numbers(q, p, 10);
 
             if primes.contains(&pq) && primes.contains(&qp) {
                 let v = vec![q.clone()];
 
-                graph.entry(v).or_default().push(*p);
+                graph.entry(v).or_default().push(p);
             }
         }
     }
@@ -84,4 +84,15 @@ pub fn problem060() -> String {
 
     let result = solution.iter().sum::<u64>();
     result.to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem060() {
+        let result = problem060();
+        assert_eq!(result, "26033");
+    }
 }

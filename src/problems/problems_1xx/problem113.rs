@@ -1,3 +1,4 @@
+use itertools::iproduct;
 use crate::register_problem;
 use crate::utils::mpz_number::MpzNumber;
 
@@ -18,18 +19,25 @@ pub fn problem113() -> String {
     let length = 100;
     let mut result = MpzNumber::new();
 
-    for n in 0..length {
-        for d in 0..10 {
-            result += MpzNumber::binomial_ui(n + d, d);
-        }
+    for (n, d) in iproduct!(0..length, 0..10) {
+        result += MpzNumber::binomial_ui(n + d, d);
     }
 
-    for n in 0..length {
-        for d in 0..9 {
-            result += MpzNumber::binomial_ui(n + d, d);
-        }
+    for (n, d) in iproduct!(0..length, 0..9) {
+        result += MpzNumber::binomial_ui(n + d, d);
     }
 
     result -= 10 * length;
     result.to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem113() {
+        let result = problem113();
+        assert_eq!(result, "51161058134250");
+    }
 }

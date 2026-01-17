@@ -38,3 +38,14 @@ pub fn problem126() -> String {
 
     couche.iter().position(|&r| r == 1000).unwrap().to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem126() {
+        let result = problem126();
+        assert_eq!(result, "18522");
+    }
+}

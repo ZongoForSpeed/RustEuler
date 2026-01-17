@@ -98,4 +98,3 @@ mod problem197;
 mod problem198;
 mod problem199;
 mod problem200;
-mod tests;

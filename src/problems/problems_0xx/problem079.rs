@@ -59,3 +59,14 @@ pub fn problem079() -> String {
 
     password.string().unwrap()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem079() {
+        let result = problem079();
+        assert_eq!(result, "73162890");
+    }
+}

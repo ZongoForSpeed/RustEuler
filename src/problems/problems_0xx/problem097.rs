@@ -18,3 +18,14 @@ pub fn problem097() -> String {
     mersenne = (mersenne * 28433 + 1) % mask;
     mersenne.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem097() {
+        let result = problem097();
+        assert_eq!(result, "8739992577");
+    }
+}

@@ -89,3 +89,14 @@ pub fn problem186() -> String {
 
     panic!("No solution found");
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem186() {
+        let result = problem186();
+        assert_eq!(result, "2325629");
+    }
+}

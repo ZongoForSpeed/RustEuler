@@ -118,6 +118,10 @@ impl MpzNumber {
         unsafe { gmp::mpz_get_ui(&self.data) }
     }
 
+    pub fn get_f64(&self) -> f64 {
+        unsafe { gmp::mpz_get_d(&self.data) }
+    }
+
     pub fn get_u128(&self) -> u128 {
         let mut res = 0;
         unsafe {
@@ -965,7 +969,9 @@ macro_rules! impl_div {
     }
 }
 
-impl_div!(i8, i16, i32, i64, isize, u8, u16, u32, u64, usize, i128, u128);
+impl_div!(
+    i8, i16, i32, i64, isize, u8, u16, u32, u64, usize, i128, u128
+);
 // endregion
 
 // region Modulo
@@ -1042,17 +1048,19 @@ macro_rules! impl_rem {
     }
 }
 
-impl_rem!(i8, i16, i32, i64, isize, u8, u16, u32, u64, usize, i128, u128);
+impl_rem!(
+    i8, i16, i32, i64, isize, u8, u16, u32, u64, usize, i128, u128
+);
 // endregion
 
 impl Sum<MpzNumber> for MpzNumber {
-    fn sum<I: Iterator<Item=MpzNumber>>(iter: I) -> Self {
+    fn sum<I: Iterator<Item = MpzNumber>>(iter: I) -> Self {
         iter.fold(MpzNumber::zero(), Add::add)
     }
 }
 
 impl Product<MpzNumber> for MpzNumber {
-    fn product<I: Iterator<Item=MpzNumber>>(iter: I) -> Self {
+    fn product<I: Iterator<Item = MpzNumber>>(iter: I) -> Self {
         iter.fold(MpzNumber::one(), Mul::mul)
     }
 }

@@ -47,3 +47,14 @@ pub fn problem107() -> String {
 
     minimal_network("data/p107_network.txt").to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem107() {
+        let result = problem107();
+        assert_eq!(result, "259679");
+    }
+}

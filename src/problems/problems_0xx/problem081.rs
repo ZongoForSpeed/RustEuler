@@ -42,3 +42,14 @@ pub fn problem081() -> String {
 
     paths[length - 1][length - 1].to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem081() {
+        let result = problem081();
+        assert_eq!(result, "427337");
+    }
+}

@@ -26,3 +26,14 @@ pub fn problem028() -> String {
     }
     somme.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem028() {
+        let result = problem028();
+        assert_eq!(result, "669171001");
+    }
+}

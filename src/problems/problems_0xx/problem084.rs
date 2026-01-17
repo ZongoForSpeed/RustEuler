@@ -100,24 +100,12 @@ pub fn problem084() -> String {
                 _ => {}
             },
             7 | 22 | 36 => match rng.random_range(1..=16) {
-                1 => {
-                    position = 0;
-                }
-                2 => {
-                    position = 10;
-                }
-                3 => {
-                    position = 11;
-                }
-                4 => {
-                    position = 24;
-                }
-                5 => {
-                    position = 39;
-                }
-                6 => {
-                    position = 5;
-                }
+                1 => position = 0,
+                2 => position = 10,
+                3 => position = 11,
+                4 => position = 24,
+                5 => position = 39,
+                6 => position = 5,
                 7 | 8 => {
                     if position == 7 {
                         position = 15;
@@ -136,9 +124,7 @@ pub fn problem084() -> String {
                         position = 12;
                     }
                 }
-                10 => {
-                    position -= 3;
-                }
+                10 => position -= 3,
                 _ => {}
             },
             _ => {}
@@ -159,4 +145,15 @@ pub fn problem084() -> String {
     result.sort_by(|a, b| b.1.cmp(&a.1));
     println!("{:?}", result);
     result.iter().take(3).map(|x| x.0).join("")
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem084() {
+        let result = problem084();
+        assert_eq!(result, "101524");
+    }
 }

@@ -46,3 +46,14 @@ pub fn problem055() -> String {
 
     count.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem055() {
+        let result = problem055();
+        assert_eq!(result, "249");
+    }
+}

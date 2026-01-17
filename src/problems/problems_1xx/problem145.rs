@@ -33,3 +33,14 @@ pub fn problem145() -> String {
     // How many reversible numbers are there below one-billion (10^9)?
     (1..1000000000).into_par_iter().filter(|i| reversible(*i)).count().to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem145() {
+        let result = problem145();
+        assert_eq!(result, "608720");
+    }
+}

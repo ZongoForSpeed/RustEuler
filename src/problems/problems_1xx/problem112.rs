@@ -42,3 +42,14 @@ pub fn problem112() -> String {
 
     panic!("did not find the correct number")
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem112() {
+        let result = problem112();
+        assert_eq!(result, "1587000");
+    }
+}

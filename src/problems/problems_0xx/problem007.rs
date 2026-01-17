@@ -13,3 +13,14 @@ pub fn problem007() -> String {
     });
     primes[10000].to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem007() {
+        let result = problem007();
+        assert_eq!(result, "104743");
+    }
+}

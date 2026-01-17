@@ -12,3 +12,14 @@ pub fn problem015() -> String {
     println!("C(40, 20) = {}", result);
     result.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem015() {
+        let result = problem015();
+        assert_eq!(result, "137846528820");
+    }
+}

@@ -30,3 +30,14 @@ pub fn problem162() -> String {
     let str = format!("{:#X}", result);
     str[2..].to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem162() {
+        let result = problem162();
+        assert_eq!(result, "3D58725572C62302");
+    }
+}

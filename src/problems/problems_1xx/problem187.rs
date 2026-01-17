@@ -36,3 +36,14 @@ pub fn problem187() -> String {
 
     result.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem187() {
+        let result = problem187();
+        assert_eq!(result, "17427258");
+    }
+}

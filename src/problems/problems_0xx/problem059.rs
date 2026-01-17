@@ -78,3 +78,14 @@ pub fn problem059() -> String {
     let result:u64 = message.chars().into_iter().map(|c| c as u64).sum();
     result.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem059() {
+        let result = problem059();
+        assert_eq!(result, "129448");
+    }
+}

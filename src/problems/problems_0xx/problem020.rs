@@ -12,3 +12,14 @@ pub fn problem020() -> String {
     // Find the sum of the digits in the number 100!
     MpzNumber::factorial(100).sum_digits(10).to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem020() {
+        let result = problem020();
+        assert_eq!(result, "648");
+    }
+}

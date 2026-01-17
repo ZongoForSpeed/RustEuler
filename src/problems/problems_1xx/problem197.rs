@@ -1,6 +1,10 @@
 use crate::register_problem;
 
-register_problem!(197, "Investigating the behaviour of a recursively defined sequence", problem197);
+register_problem!(
+    197,
+    "Investigating the behaviour of a recursively defined sequence",
+    problem197
+);
 
 fn f(x: f64) -> f64 {
     f64::powf(2., 30.403243784 - x * x).floor() * 0.000000001
@@ -14,7 +18,7 @@ pub fn problem197() -> String {
     // Give your answer with 9 digits after the decimal point.
     let mut u_n = -1.;
     let mut u_n1 = f(u_n);
-    
+
     let result;
     loop {
         let u_n2 = f(u_n1);
@@ -28,4 +32,15 @@ pub fn problem197() -> String {
     }
 
     format!("{:.9}", result)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem197() {
+        let result = problem197();
+        assert_eq!(result, "1.710637717");
+    }
 }

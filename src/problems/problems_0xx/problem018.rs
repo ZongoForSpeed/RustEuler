@@ -63,3 +63,14 @@ pub fn problem018() -> String {
     // one-hundred rows; it cannot be solved by brute force, and requires a clever method! ;o)
     maximum_path_sum(triangle).to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem018() {
+        let result = problem018();
+        assert_eq!(result, "1074");
+    }
+}

@@ -66,3 +66,15 @@ pub fn problem049() -> String {
     println!("result: {:?}", result);
     conversion(&result, 10000).to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem049() {
+        let result = problem049();
+        assert_eq!(result, "296962999629");
+    }
+}
+// ... existing code ...

@@ -9,11 +9,11 @@ fn generate(primes: &Vec<u64>, p: u64, f: Fraction, a: u64) -> u64 {
     let mut result = 0;
     for m in (a + 1..).take_while(|m| m * p < 80 + 1) {
         let mut q = m;
-        for pp in primes {
-            if *pp > p {
+        for &pp in primes {
+            if pp > p {
                 break;
             }
-            while q % (*pp) == 0 {
+            while q % pp == 0 {
                 q /= pp;
             }
         }
@@ -24,9 +24,9 @@ fn generate(primes: &Vec<u64>, p: u64, f: Fraction, a: u64) -> u64 {
                 result += 1;
             } else {
                 if f1.denom().unwrap() % p != 0 {
-                    for pp in primes {
-                        if *pp < p {
-                            result += generate(primes, *pp, f1, 0);
+                    for &pp in primes {
+                        if pp < p {
+                            result += generate(primes, pp, f1, 0);
                         }
                     }
                 }
@@ -56,4 +56,15 @@ pub fn problem152() -> String {
     }
 
     result.to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem152() {
+        let result = problem152();
+        assert_eq!(result, "301");
+    }
 }

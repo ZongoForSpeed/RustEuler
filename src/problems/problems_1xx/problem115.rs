@@ -37,3 +37,14 @@ pub fn problem115() -> String {
 
     panic!()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem115() {
+        let result = problem115();
+        assert_eq!(result, "168");
+    }
+}

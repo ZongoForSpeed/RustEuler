@@ -19,3 +19,14 @@ pub fn problem006() -> String {
     let solution = somme * somme - somme_carre;
     solution.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem006() {
+        let result = problem006();
+        assert_eq!(result, "25164150");
+    }
+}

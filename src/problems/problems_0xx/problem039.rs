@@ -27,3 +27,14 @@ pub fn problem039() -> String {
         .map(|(index, _)| index);
     index_of_max.unwrap().to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem039() {
+        let result = problem039();
+        assert_eq!(result, "840");
+    }
+}

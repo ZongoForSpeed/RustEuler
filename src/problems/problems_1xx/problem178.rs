@@ -1,4 +1,5 @@
 use crate::register_problem;
+use itertools::iproduct;
 
 register_problem!(178, "Step Numbers", problem178);
 
@@ -13,24 +14,31 @@ pub fn problem178() -> String {
         f[1][i][i][i] = 1;
     }
 
-    for m in 2..=40 {
-        for x in 0..10 {
-            for y in x + 1..10 {
-                f[m][x][y][x] = f[m - 1][x][y][x + 1] + f[m - 1][x + 1][y][x + 1];
-                for z in x + 1..y {
-                    f[m][x][y][z] = f[m - 1][x][y][z - 1] + f[m - 1][x][y][z + 1];
-                }
-                f[m][x][y][y] = f[m - 1][x][y][y - 1] + f[m - 1][x][y - 1][y - 1];
+    for (m, x) in iproduct!(2..=40, 0..10) {
+        for y in x + 1..10 {
+            f[m][x][y][x] = f[m - 1][x][y][x + 1] + f[m - 1][x + 1][y][x + 1];
+            for z in x + 1..y {
+                f[m][x][y][z] = f[m - 1][x][y][z - 1] + f[m - 1][x][y][z + 1];
             }
+            f[m][x][y][y] = f[m - 1][x][y][y - 1] + f[m - 1][x][y - 1][y - 1];
         }
     }
 
     let mut result = 0;
-    for i in 1..=40 {
-        for z in 1..10 {
-            result += f[i][0][9][z];
-        }
+    for (m, z) in iproduct!(1..=40, 0..10) {
+        result += f[m][0][9][z];
     }
 
     result.to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem178() {
+        let result = problem178();
+        assert_eq!(result, "126461847755");
+    }
 }

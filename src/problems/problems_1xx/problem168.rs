@@ -1,6 +1,7 @@
-use num_traits::Zero;
 use crate::register_problem;
 use crate::utils::mpz_number::MpzNumber;
+use itertools::iproduct;
+use num_traits::Zero;
 
 register_problem!(168, "Number Rotations", problem168);
 
@@ -15,25 +16,32 @@ pub fn problem168() -> String {
 
     let zero = MpzNumber::zero();
 
-    for power in 1..=100 {
-        for a in 1..10 {
-            for n in 1..10 {
-                let numer: MpzNumber = a * (MpzNumber::power_ui(10, power) - n);
-                let denom = MpzNumber::from(10 * n - 1);
+    for (power, a, n) in iproduct!(0..=100, 1..10, 1..10) {
+        let numer: MpzNumber = a * (MpzNumber::power_ui(10, power) - n);
+        let denom = MpzNumber::from(10 * n - 1);
 
-                if (&numer % &denom) == zero {
-                    let mut valeur: MpzNumber = numer / denom;
-                    if valeur.number_digits(10) == power {
-                        valeur = 10 * valeur + a;
-                        if valeur.number_digits(10) <= 100 {
-                            result += valeur;
-                        }
-                    }
+        if (&numer % &denom) == zero {
+            let mut valeur: MpzNumber = numer / denom;
+            if valeur.number_digits(10) == power {
+                valeur = 10 * valeur + a;
+                if valeur.number_digits(10) <= 100 {
+                    result += valeur;
                 }
             }
         }
     }
 
     result %= 100000;
-    return result.to_string();
+    result.to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem168() {
+        let result = problem168();
+        assert_eq!(result, "59206");
+    }
 }

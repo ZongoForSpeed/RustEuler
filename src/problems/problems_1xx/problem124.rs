@@ -40,3 +40,14 @@ pub fn problem124() -> String {
 
     rad[10000].1.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem124() {
+        let result = problem124();
+        assert_eq!(result, "21417");
+    }
+}

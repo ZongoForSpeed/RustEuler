@@ -75,3 +75,14 @@ pub fn problem200() -> String {
 
     squbes.last().unwrap().to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem200() {
+        let result = problem200();
+        assert_eq!(result, "229161792008");
+    }
+}

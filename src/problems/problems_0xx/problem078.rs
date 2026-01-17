@@ -37,3 +37,15 @@ pub fn problem078() -> String {
 
     unreachable!()
 }
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem078() {
+        let result = problem078();
+        assert_eq!(result, "55374");
+    }
+}

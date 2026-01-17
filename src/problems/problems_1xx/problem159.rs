@@ -50,3 +50,14 @@ pub fn problem159() -> String {
     println!("max_digital_root_sum[24] = {}", max_digital_root_sum[24]);
     max_digital_root_sum.iter().sum::<usize>().to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem159() {
+        let result = problem159();
+        assert_eq!(result, "14489159");
+    }
+}

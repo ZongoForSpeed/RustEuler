@@ -71,3 +71,14 @@ pub fn problem068() -> String {
 
     max_solution.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem068() {
+        let result = problem068();
+        assert_eq!(result, "6531031914842725");
+    }
+}

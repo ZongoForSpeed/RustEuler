@@ -33,3 +33,14 @@ pub fn problem012() -> String {
     }
     triangle.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem012() {
+        let result = problem012();
+        assert_eq!(result, "76576500");
+    }
+}

@@ -1,4 +1,5 @@
 use fraction::Fraction;
+use itertools::iproduct;
 use crate::register_problem;
 
 register_problem!(33, "Digit cancelling fractions", problem033);
@@ -14,17 +15,24 @@ pub fn problem033() -> String {
     //
     // If the product of these four fractions is given in its lowest common terms, find the value of the denominator.
     let mut result: Fraction = Fraction::new(1u64, 1u64);
-    for a in 1..10 {
-        for b in 1..10 {
-            for c in 1..10 {
-                let bc:u64 = b * 10 + c;
-                let ab:u64 = a * 10 + b;
-                if a != b && ab * c == bc * a {
-                    println!("({} / {}", ab, bc);
-                    result *= Fraction::new(ab, bc);
-                }
-            }
+    for (a,b,c) in iproduct!(1..10, 1..10, 1..10) {
+        let bc:u64 = b * 10 + c;
+        let ab:u64 = a * 10 + b;
+        if a != b && ab * c == bc * a {
+            println!("({} / {}", ab, bc);
+            result *= Fraction::new(ab, bc);
         }
     }
     result.denom().unwrap().to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem033() {
+        let result = problem033();
+        assert_eq!(result, "100");
+    }
 }

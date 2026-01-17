@@ -34,3 +34,14 @@ pub fn problem080() -> String {
         .sum::<usize>()
         .to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem080() {
+        let result = problem080();
+        assert_eq!(result, "40886");
+    }
+}

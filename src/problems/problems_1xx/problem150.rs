@@ -71,3 +71,14 @@ pub fn problem150() -> String {
     let result = (0..m.len()).into_par_iter().map(|i| min_sum_i(&m, i)).min().unwrap();
     result.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem150() {
+        let result = problem150();
+        assert_eq!(result, "-271248680");
+    }
+}

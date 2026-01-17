@@ -162,3 +162,14 @@ pub fn problem103() -> String {
 
     solution.iter().map(|x| x.to_string()).join("")
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem103() {
+        let result = problem103();
+        assert_eq!(result, "20313839404245");
+    }
+}

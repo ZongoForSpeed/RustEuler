@@ -50,3 +50,14 @@ pub fn problem074() -> String {
     }
     result.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem074() {
+        let result = problem074();
+        assert_eq!(result, "402");
+    }
+}

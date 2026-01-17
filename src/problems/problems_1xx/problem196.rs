@@ -139,3 +139,14 @@ pub fn problem196() -> String {
     let result = s(5678027) + s(7208785);
     result.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem196() {
+        let result = problem196();
+        assert_eq!(result, "322303240771079935");
+    }
+}

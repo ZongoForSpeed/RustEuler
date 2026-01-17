@@ -49,3 +49,14 @@ pub fn problem181() -> String {
 
     combination[objects.0][objects.1].to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem181() {
+        let result = problem181();
+        assert_eq!(result, "83735848679360680");
+    }
+}

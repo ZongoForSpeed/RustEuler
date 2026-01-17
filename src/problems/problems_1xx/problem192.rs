@@ -14,8 +14,8 @@ fn evaluate(a: &MpzNumber, b: &MpzNumber, s: u64) -> bool {
 
 fn continuous_fraction(s: u64, bound: &MpzNumber) -> MpqFraction {
     let sq = s.isqrt();
-    let mut a:Pair = (sq.into(), MpzNumber::one());
-    let mut b:Pair = (&a.0 + 1, MpzNumber::one());
+    let mut a: Pair = (sq.into(), MpzNumber::one());
+    let mut b: Pair = (&a.0 + 1, MpzNumber::one());
 
     while &a.1 + &b.1 <= *bound {
         let x = (&a.0 + &b.0, &a.1 + &b.1);
@@ -46,7 +46,7 @@ pub fn problem192() -> String {
     //
     // Find the sum of all denominators of the best approximations to √n for the denominator bound
     // 10^12, where n is not a perfect square and 1 < n ≤ 100000.
-    let bound = MpzNumber::from_u64(1000000000000) ;
+    let bound = MpzNumber::from_u64(1000000000000);
     let mut result = MpzNumber::new();
 
     for n in 1..=100000 {
@@ -57,4 +57,15 @@ pub fn problem192() -> String {
     }
 
     result.to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem192() {
+        let result = problem192();
+        assert_eq!(result, "57060635927998347");
+    }
 }

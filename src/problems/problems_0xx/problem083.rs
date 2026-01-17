@@ -67,3 +67,14 @@ pub fn problem083() -> String {
     let result: u32 = a_star((0, 0), (length - 1, length - 1), g, d, h) + m[length - 1][length - 1];
     result.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem083() {
+        let result = problem083();
+        assert_eq!(result, "425185");
+    }
+}

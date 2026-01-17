@@ -101,3 +101,14 @@ pub fn problem101() -> String {
 
     result.numer().unwrap().to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem101() {
+        let result = problem101();
+        assert_eq!(result, "37076114526");
+    }
+}

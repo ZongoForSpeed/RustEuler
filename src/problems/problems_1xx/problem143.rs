@@ -63,3 +63,14 @@ pub fn problem143() -> String {
     
     triplets.into_iter().sum::<u64>().to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem143() {
+        let result = problem143();
+        assert_eq!(result, "30758397");
+    }
+}

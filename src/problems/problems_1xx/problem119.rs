@@ -30,3 +30,14 @@ pub fn problem119() -> String {
     println!("a_n = {:?}", result);
     result[30].to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem119() {
+        let result = problem119();
+        assert_eq!(result, "248155780267521");
+    }
+}

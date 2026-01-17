@@ -47,3 +47,14 @@ pub fn problem121() -> String {
     let result = probability.denom().unwrap() / probability.numer().unwrap();
     result.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem121() {
+        let result = problem121();
+        assert_eq!(result, "2269");
+    }
+}

@@ -62,3 +62,14 @@ pub fn problem027() -> String {
     let result = a_max * b_max;
     result.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem027() {
+        let result = problem027();
+        assert_eq!(result, "-59231");
+    }
+}

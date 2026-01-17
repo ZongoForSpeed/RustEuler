@@ -16,3 +16,14 @@ pub fn problem056() -> String {
     }
     maximum.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem056() {
+        let result = problem056();
+        assert_eq!(result, "972");
+    }
+}

@@ -4,6 +4,7 @@ pub mod factorial;
 pub mod fibonacci;
 pub mod graph;
 pub mod integer_root;
+pub mod matrix;
 pub mod polygonal;
 pub mod polynomial;
 pub mod power;

@@ -56,7 +56,7 @@ pub fn problem184() -> String {
     // How many triangles are there containing the origin in the interior and having all three vertices in I105?
     let limit = 105;
 
-    let mut points:Vec<(Point, u64)> = Vec::new();
+    let mut points: Vec<(Point, u64)> = Vec::new();
     let ll = limit * limit;
     for x in 0..limit {
         for y in 1..limit {
@@ -73,7 +73,7 @@ pub fn problem184() -> String {
     let len = points.len();
     for i in 0..points.len() {
         let mut count = 0;
-        for j in (i+1..).take_while(|&j| j < i + 2 * len) {
+        for j in (i + 1..).take_while(|&j| j < i + 2 * len) {
             result += points[i].1 * points[j % len].1 * count;
             count += points[j % len].1;
         }
@@ -81,4 +81,15 @@ pub fn problem184() -> String {
 
     result = result * 4 / 3;
     result.to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem184() {
+        let result = problem184();
+        assert_eq!(result, "1725323624056");
+    }
 }

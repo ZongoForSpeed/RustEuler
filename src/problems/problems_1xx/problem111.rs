@@ -85,3 +85,14 @@ pub fn problem111() -> String {
     let result = sums.iter().sum::<u64>();
     result.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem111() {
+        let result = problem111();
+        assert_eq!(result, "612407567715");
+    }
+}

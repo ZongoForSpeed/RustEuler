@@ -22,3 +22,14 @@ pub fn problem072() -> String {
     let result: u64 = (2..=limite).into_iter().map(|n| n.phi(&prime)).sum();
     result.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem072() {
+        let result = problem072();
+        assert_eq!(result, "303963552391");
+    }
+}

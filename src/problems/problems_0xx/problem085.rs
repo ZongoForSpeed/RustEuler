@@ -12,13 +12,13 @@ pub fn problem085() -> String {
     let borne = 2000000;
     let limit = 2000;
 
-    let mut minimum= i32::MAX;
-    let mut maximum= 0;
+    let mut minimum = i32::MAX;
+    let mut maximum = 0;
 
     for i in 1..=limit {
-        for j in 1..=i{
+        for j in 1..=i {
             let triangle_ij = i.triangular() * j.triangular();
-            let value:i32 = borne - triangle_ij;
+            let value: i32 = borne - triangle_ij;
             if value.abs() < minimum {
                 minimum = value.abs();
                 maximum = i * j;
@@ -29,4 +29,15 @@ pub fn problem085() -> String {
         }
     }
     maximum.to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem085() {
+        let result = problem085();
+        assert_eq!(result, "2772");
+    }
 }

@@ -20,21 +20,6 @@ fn letter(n: u128) -> char {
     letter(n + ab.0 - ab.1)
 }
 
-/*
-namespace {
-    char lettre(nombre n) {
-        static const char *fibo = "ABBAB";
-        if (n < 6)
-            return fibo[n - 1];
-        std::pair<nombre, nombre> ab(1, 1);
-        while (ab.second < n) {
-            ab = std::make_pair(ab.second, ab.first + ab.second);
-        }
-        return lettre(n + ab.first - ab.second);
-    }
-}
- */
-
 pub fn problem230() -> String {
     // For any two strings of digits, A and B, we define FA,B to be the sequence (A,B,AB,BAB,ABBAB,...) in which each
     // term is the concatenation of the previous two.

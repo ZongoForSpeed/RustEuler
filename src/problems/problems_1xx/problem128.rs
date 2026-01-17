@@ -60,3 +60,14 @@ pub fn problem128() -> String {
 
     panic!("No solution found");
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem128() {
+        let result = problem128();
+        assert_eq!(result, "14516824220");
+    }
+}

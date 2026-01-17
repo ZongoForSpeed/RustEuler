@@ -56,3 +56,14 @@ pub fn problem151() -> String {
 
     format!("{:.6}", f.get_f())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem151() {
+        let result = problem151();
+        assert_eq!(result, "0.464399");
+    }
+}

@@ -204,27 +204,34 @@ where
     T: PrimInt + std::ops::DivAssign,
     F: FnMut(T),
 {
-    let label = format!("Crible 2 with taille = {}", taille);
-    let _timer = ScopeTimer::new(label.as_str(), false);
+    if taille < 2 { return; }
+    if let Some(two) = T::from(2) { sortie(two); }
+    if taille == 2 { return; }
 
-    let taille_crible = taille / 2;
-    let mut test: BitSet<u32> = BitSet::from_iter(1..taille_crible);
-    let mut p = 1;
-    while p * p < taille_crible / 2 {
-        if test.contains(p) {
-            ((2 * (p * p + p))..taille_crible)
-                .step_by(2 * p + 1)
-                .for_each(|n| {
-                    test.remove(n);
-                });
+    let max_idx = (taille - 1) / 2;
+    // 'composites' bit set to 1 means the number is NOT prime.
+    // Starts all 0s (all assumed prime), no initialization loop needed!
+    let mut composites = BitSet::with_capacity(max_idx + 1);
+
+    let limit = ((taille as f64).sqrt() as usize - 1) / 2;
+    
+    for p in 1..=limit {
+        if !composites.contains(p) {
+            let prime_val = 2 * p + 1;
+            let start = 2 * p * (p + 1);
+            
+            for n in (start..=max_idx).step_by(prime_val) {
+                composites.insert(n);
+            }
         }
-
-        p += 1;
     }
 
-    sortie(T::from(2).unwrap());
-    for p in test.iter() {
-        sortie(T::from(2 * p + 1).unwrap());
+    for p in 1..=max_idx {
+        if !composites.contains(p) {
+            if let Some(val) = T::from(2 * p + 1) {
+                sortie(val);
+            }
+        }
     }
 }
 

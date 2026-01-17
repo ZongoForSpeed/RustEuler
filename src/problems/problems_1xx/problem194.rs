@@ -50,7 +50,6 @@ fn n(mut cache: &mut Cache, a: u128, b: u128, c: u128) -> u128 {
 
     result %= 100000000;
 
-
     cache.insert(key, result);
     result
 }
@@ -79,4 +78,15 @@ pub fn problem194() -> String {
     println!("N(2,2,3) = {}", result);
 
     result.to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem194() {
+        let result = problem194();
+        assert_eq!(result, "61190912");
+    }
 }

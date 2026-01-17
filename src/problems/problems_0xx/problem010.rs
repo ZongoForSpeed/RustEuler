@@ -11,3 +11,14 @@ pub fn problem010() -> String {
     primes::crible2(2000000, |p: u64| solution += p);
     solution.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem010() {
+        let result = problem010();
+        assert_eq!(result, "142913828922");
+    }
+}

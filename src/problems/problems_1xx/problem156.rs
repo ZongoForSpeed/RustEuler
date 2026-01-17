@@ -79,3 +79,14 @@ pub fn problem156() -> String {
 
     (1..10).into_par_iter().map(|d| count_s(limit, m, d)).sum::<i64>().to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem156() {
+        let result = problem156();
+        assert_eq!(result, "21295121502550");
+    }
+}

@@ -41,3 +41,14 @@ pub fn problem065() -> String {
     println!("Fraction : {}", f.get_f());
     f.numerator().sum_digits(10).to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem065() {
+        let result = problem065();
+        assert_eq!(result, "272");
+    }
+}

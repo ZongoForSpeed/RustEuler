@@ -19,9 +19,9 @@ pub fn problem134() -> String {
     crible235(limit as usize, |p| primes.push(p));
 
     let mut result = 0;
-    for n in 0..primes.len() - 1 {
-        let p1 = primes[n];
-        let p2 = primes[n + 1];
+    for x in primes.windows(2) {
+        let p1 = x[0];
+        let p2 = x[1];
         if p1 > 4 && p1 < limit {
             let d1 = p1.count_digits(10) as u64;
             let mut b = u64::power_mod(10, d1 * (p2 - 2), p2);
@@ -30,6 +30,17 @@ pub fn problem134() -> String {
             result += b * u64::power(10, d1) + p1;
         }
     }
-
+    
     result.to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem134() {
+        let result = problem134();
+        assert_eq!(result, "18613426663617118");
+    }
 }

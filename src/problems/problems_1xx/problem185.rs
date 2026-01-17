@@ -36,7 +36,12 @@ fn read_input(filepath: &str) -> Vec<Pair> {
     tries
 }
 
-fn add_equal_constraint(var_manager: &mut BasicVarManager, mut cnf: &mut Cnf, literals: &Vec<Lit>, k: usize) {
+fn add_equal_constraint(
+    var_manager: &mut BasicVarManager,
+    mut cnf: &mut Cnf,
+    literals: &Vec<Lit>,
+    k: usize,
+) {
     let eq_constr = CardConstraint::new_eq(literals.to_vec(), k);
 
     encode_cardinality_constraint::<Totalizer, Cnf>(eq_constr, &mut cnf, var_manager)
@@ -157,4 +162,15 @@ pub fn problem185() -> String {
     }
 
     solve_number_mind("data/p185_number_mind.txt", 16).unwrap()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem185() {
+        let result = problem185();
+        assert_eq!(result, "4640261571849533");
+    }
 }

@@ -45,3 +45,14 @@ pub fn problem070() -> String {
 
     min_n.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem070() {
+        let result = problem070();
+        assert_eq!(result, "8319823");
+    }
+}

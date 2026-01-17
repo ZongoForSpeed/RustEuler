@@ -49,3 +49,14 @@ pub fn problem023() -> String {
     let result: usize = test.iter().sum();
     result.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem023() {
+        let result = problem023();
+        assert_eq!(result, "4179871");
+    }
+}

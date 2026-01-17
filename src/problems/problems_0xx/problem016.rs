@@ -10,3 +10,14 @@ pub fn problem016() -> String {
     let result = MpzNumber::power_ui(2, 1000).sum_digits(10);
     result.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem016() {
+        let result = problem016();
+        assert_eq!(result, "1366");
+    }
+}

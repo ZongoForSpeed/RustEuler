@@ -50,3 +50,14 @@ pub fn problem154() -> String {
         .sum::<usize>();
     result.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem154() {
+        let result = problem154();
+        assert_eq!(result, "479742450");
+    }
+}

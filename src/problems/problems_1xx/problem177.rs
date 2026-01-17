@@ -1,9 +1,9 @@
 use crate::register_problem;
 
+use crate::utils::epsilon::{compare_epsilon, equal_epsilon};
 use num_traits::FloatConst;
 use std::cmp::Ordering;
 use std::collections::{BTreeSet, HashSet};
-use crate::utils::epsilon::{compare_epsilon, equal_epsilon};
 
 #[derive(Debug, Copy, Clone)]
 struct EpsF64(f64);
@@ -149,4 +149,15 @@ pub fn problem177() -> String {
         .map(|(i, &v)| v / i)
         .sum::<usize>()
         .to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem177() {
+        let result = problem177();
+        assert_eq!(result, "129325");
+    }
 }

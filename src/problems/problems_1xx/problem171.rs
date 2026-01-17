@@ -2,6 +2,7 @@ use crate::maths::power::Power;
 use crate::register_problem;
 use num_integer::Roots;
 use std::ops::RemAssign;
+use itertools::iproduct;
 
 register_problem!(
     171,
@@ -27,10 +28,8 @@ pub fn problem171() -> String {
         let mut n_sums = vec![0; sums.len() + 81];
 
         if n > 8 {
-            for i in 0..sums.len() {
-                for j in 0..10 {
-                    n_sums[i + j * j] += sums[i];
-                }
+            for (i,j) in iproduct!(0..sums.len(), 0..10) {
+                n_sums[i + j * j] += sums[i];
             }
         } else {
             let mut n_combination = vec![0; combination.len() + 81];
@@ -60,4 +59,15 @@ pub fn problem171() -> String {
 
     result %= mask;
     result.to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem171() {
+        let result = problem171();
+        assert_eq!(result, "142989277");
+    }
 }

@@ -32,3 +32,14 @@ pub fn problem163() -> String {
     result += 3 * ((22 * n * n * n + 45 * n * n - 4 * n) / 48);
     result.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem163() {
+        let result = problem163();
+        assert_eq!(result, "343047");
+    }
+}

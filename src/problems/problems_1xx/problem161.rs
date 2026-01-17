@@ -7,8 +7,8 @@ type Matrix = [[bool; 12]; 9];
 
 fn free(m: &Matrix) -> Option<(usize, usize)> {
     for (i, line) in m.iter().enumerate() {
-        for (j, value) in line.iter().enumerate() {
-            if *value {
+        for (j, &value) in line.iter().enumerate() {
+            if value {
                 return Some((i, j));
             }
         }
@@ -147,4 +147,15 @@ pub fn problem161() -> String {
     let mut cache: HashMap<Matrix, u128> = HashMap::new();
     let result = combinaison(&mut cache, m);
     result.to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem161() {
+        let result = problem161();
+        assert_eq!(result, "20574308184277971");
+    }
 }

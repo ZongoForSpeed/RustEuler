@@ -15,7 +15,7 @@ fn f(cache: &mut HashMap<u128, u64>, n: u128) -> u64 {
 
     // f(n) = f(n/2) + f(n/2 - 1) si n pair
     // f(n) = f((n-1)/2) si n impair
-    let result ;
+    let result;
     if n == 0 {
         result = 1;
     } else if n % 2 == 0 {
@@ -43,4 +43,15 @@ pub fn problem169() -> String {
     // What is f(10^25)?
     let n = u128::power(10, 25);
     f(&mut HashMap::new(), n).to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem169() {
+        let result = problem169();
+        assert_eq!(result, "178653872807");
+    }
 }

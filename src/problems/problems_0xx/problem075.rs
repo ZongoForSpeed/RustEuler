@@ -37,3 +37,14 @@ pub fn problem075() -> String {
 
     solutions.into_iter().filter(|s| *s == 1).count().to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem075() {
+        let result = problem075();
+        assert_eq!(result, "161667");
+    }
+}

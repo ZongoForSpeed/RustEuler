@@ -22,3 +22,14 @@ pub fn problem048() -> String {
     println!("Serie 1000 = {}", s1000);
     s1000.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem048() {
+        let result = problem048();
+        assert_eq!(result, "9110846700");
+    }
+}

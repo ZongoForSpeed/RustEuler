@@ -50,3 +50,14 @@ pub fn problem191() -> String {
     let result = sequence(&mut cache, 30, 0, false);
     result.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem191() {
+        let result = problem191();
+        assert_eq!(result, "1918080160");
+    }
+}

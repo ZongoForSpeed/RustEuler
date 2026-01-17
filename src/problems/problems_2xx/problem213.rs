@@ -1,21 +1,8 @@
 use crate::register_problem;
 use ndarray::Array2;
+use crate::maths::matrix::Matrix;
 
 register_problem!(213, "Flea Circus", problem213);
-
-fn power_matrix(a: &Array2<f64>, mut exponent: usize) -> Array2<f64> {
-    let mut base = a.clone();
-    let size = a.shape()[0];
-    let mut result = Array2::<f64>::eye(size);
-    while exponent > 0 {
-        if exponent % 2 == 1 {
-            result = result.dot(&base);
-        }
-        exponent /= 2;
-        base = base.dot(&base);
-    }
-    result
-}
 
 pub fn problem213() -> String {
     // A 30×30 grid of squares contains 900 fleas, initially one flea per square.
@@ -52,7 +39,7 @@ pub fn problem213() -> String {
     }
 
     let mut result = 0.;
-    let an = power_matrix(&matrix_a, 50);
+    let an = f64::power_matrix(&matrix_a, 50);
     for j in 0..taille * taille {
         let mut e = 1.;
         for i in 0..taille * taille {

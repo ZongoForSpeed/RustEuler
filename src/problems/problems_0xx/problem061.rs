@@ -73,3 +73,14 @@ pub fn problem061() -> String {
     let result = solution.unwrap().iter().sum::<u32>();
     result.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem061() {
+        let result = problem061();
+        assert_eq!(result, "28684");
+    }
+}

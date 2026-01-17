@@ -22,3 +22,14 @@ pub fn problem031() -> String {
 
     dp[objectif].to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem031() {
+        let result = problem031();
+        assert_eq!(result, "73682");
+    }
+}

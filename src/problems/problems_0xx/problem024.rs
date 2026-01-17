@@ -18,3 +18,14 @@ pub fn problem024() -> String {
     println!("v = {:?}", option);
     conversion(&option.unwrap(), 10).to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem024() {
+        let result = problem024();
+        assert_eq!(result, "2783915460");
+    }
+}

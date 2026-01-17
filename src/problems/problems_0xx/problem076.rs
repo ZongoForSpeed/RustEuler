@@ -36,3 +36,14 @@ pub fn problem076() -> String {
     let result = partition[limit] - 1;
     result.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem076() {
+        let result = problem076();
+        assert_eq!(result, "190569291");
+    }
+}

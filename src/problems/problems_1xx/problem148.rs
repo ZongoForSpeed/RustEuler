@@ -34,3 +34,14 @@ pub fn problem148() -> String {
     let base = 7;
     (0..1000000000).into_par_iter().map(|n| pascal(n, base)).sum::<u64>().to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem148() {
+        let result = problem148();
+        assert_eq!(result, "2129970655314432");
+    }
+}

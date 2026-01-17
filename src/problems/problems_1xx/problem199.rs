@@ -1,7 +1,7 @@
+use crate::register_problem;
 use std::cmp::Ordering;
 use std::collections::BTreeMap;
 use std::ops::AddAssign;
-use crate::register_problem;
 
 use num_traits::FloatConst;
 
@@ -35,7 +35,6 @@ impl Ord for Triplet {
     }
 }
 
-
 fn area(k: f64) -> f64 {
     let r = f64::abs(1. / k);
     r * r * f64::PI()
@@ -47,9 +46,18 @@ fn iteration(apollonios: &Apollonios) -> (Apollonios, f64) {
     for (&Triplet(k1, k2, k3), second) in apollonios {
         let k4 = k1 + k2 + k3 + 2. * f64::sqrt(k1 * k2 + k2 * k3 + k1 * k3);
         a += (*second as f64) * area(k4);
-        result.entry(Triplet(k4, k1, k2)).or_insert(0).add_assign(second);
-        result.entry(Triplet(k4, k1, k3)).or_insert(0).add_assign(second);
-        result.entry(Triplet(k4, k2, k3)).or_insert(0).add_assign(second);
+        result
+            .entry(Triplet(k4, k1, k2))
+            .or_insert(0)
+            .add_assign(second);
+        result
+            .entry(Triplet(k4, k1, k3))
+            .or_insert(0)
+            .add_assign(second);
+        result
+            .entry(Triplet(k4, k2, k3))
+            .or_insert(0)
+            .add_assign(second);
     }
 
     (result, a)
@@ -90,4 +98,15 @@ pub fn problem199() -> String {
 
     let result = 1. - a / a0;
     format!("{:.8}", result)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_problem199() {
+        let result = problem199();
+        assert_eq!(result, "0.00396087");
+    }
 }
