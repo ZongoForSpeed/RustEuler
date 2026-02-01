@@ -516,6 +516,19 @@ impl PartialOrd for MpzNumber {
     }
 }
 
+impl Ord for MpzNumber {
+    fn cmp(&self, other: &Self) -> Ordering {
+        let cmp = self.cmp(&other);
+        if cmp > 0 {
+            Ordering::Greater
+        } else if cmp < 0 {
+            Ordering::Less
+        } else {
+            Ordering::Equal
+        }
+    }
+}
+
 // region From
 macro_rules! impl_from_unsigned {
     ($($t:ty),*) => {
