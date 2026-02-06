@@ -2,11 +2,11 @@ use crate::register_problem;
 
 register_problem!(193, "Squarefree Numbers", problem193);
 
+/// A positive integer n is called squarefree, if no square of a prime divides n, thus 1, 2, 3, 5, 6, 7, 10, 11 are
+/// squarefree, but not 4, 8, 9, 12.
+///
+/// How many squarefree numbers are there below 2^50?
 pub fn problem193() -> String {
-    // A positive integer n is called squarefree, if no square of a prime divides n, thus 1, 2, 3, 5, 6, 7, 10, 11 are
-    // squarefree, but not 4, 8, 9, 12.
-    //
-    // How many squarefree numbers are there below 2^50?
     let limit = 1 << 25;
     let mut mobius: Vec<i64> = vec![2; limit + 1];
     mobius[0] = 0;

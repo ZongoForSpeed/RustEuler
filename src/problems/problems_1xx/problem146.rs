@@ -40,11 +40,11 @@ fn prime_pattern(n: u128) -> bool {
     false
 }
 
+/// The smallest positive integer n for which the numbers n²+1, n²+3, n²+7, n²+9, n²+13, and n²+27 are consecutive
+/// primes is 10. The sum of all such integers n below one-million is 1242490.
+///
+/// What is the sum of all such integers n below 150 million?
 pub fn problem146() -> String {
-    // The smallest positive integer n for which the numbers n²+1, n²+3, n²+7, n²+9, n²+13, and n²+27 are consecutive
-    // primes is 10. The sum of all such integers n below one-million is 1242490.
-    //
-    // What is the sum of all such integers n below 150 million?
     let range: Vec<u128> = (10..150000000).step_by(10).collect();
     range
         .into_par_iter()

@@ -10,14 +10,14 @@ register_problem!(
     problem171
 );
 
+/// For a positive integer n, let f(n) be the sum of the squares of the digits (in base 10) of n, e.g.
+///
+///      f(3) = 3² = 9,
+///      f(25) = 2² + 5² = 4 + 25 = 29,
+///      f(442) = 4² + 4² + 2² = 16 + 16 + 4 = 36
+///
+/// Find the last nine digits of the sum of all n, 0 < n < 10^20, such that f(n) is a perfect square.
 pub fn problem171() -> String {
-    // For a positive integer n, let f(n) be the sum of the squares of the digits (in base 10) of n, e.g.
-    //
-    //      f(3) = 3² = 9,
-    //      f(25) = 2² + 5² = 4 + 25 = 29,
-    //      f(442) = 4² + 4² + 2² = 16 + 16 + 4 = 36
-    //
-    // Find the last nine digits of the sum of all n, 0 < n < 10^20, such that f(n) is a perfect square.
     let mask = 1000000000;
     let limit = 20;
 

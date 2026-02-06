@@ -3,28 +3,28 @@ use bit_set::BitSet;
 
 register_problem!(229, "Four Representations using Squares", problem229);
 
+/// Consider the number 3600. It is very special, because
+///
+/// 				3600 = 48² +   36²
+///				3600 = 20² + 2×40²
+///				3600 = 30² + 3×30²
+///				3600 = 45² + 7×15²
+///
+/// Similarly, we find that 88201 = 99² + 280² = 287² + 2×54² = 283² + 3×52² = 1972 + 7×84².
+///
+/// In 1747, Euler proved which numbers are representable as a sum of two squares. We are interested in the numbers n
+/// which admit representations of all of the following four types:
+///
+///				n = a1² +   b1²
+///				n = a2² + 2 b2²
+///				n = a3² + 3 b3²
+///				n = a7² + 7 b7²,
+///
+/// where the ak and bk are positive integers.
+///
+/// There are 75373 such numbers that do not exceed 10^7.
+/// How many such numbers are there that do not exceed 2×10^9?
 pub fn problem229() -> String {
-    // Consider the number 3600. It is very special, because
-    //
-    // 				3600 = 48² +   36²
-    //				3600 = 20² + 2×40²
-    //				3600 = 30² + 3×30²
-    //				3600 = 45² + 7×15²
-    //
-    // Similarly, we find that 88201 = 99² + 280² = 287² + 2×54² = 283² + 3×52² = 1972 + 7×84².
-    //
-    // In 1747, Euler proved which numbers are representable as a sum of two squares. We are interested in the numbers n
-    // which admit representations of all of the following four types:
-    //
-    //				n = a1² +   b1²
-    //				n = a2² + 2 b2²
-    //				n = a3² + 3 b3²
-    //				n = a7² + 7 b7²,
-    //
-    // where the ak and bk are positive integers.
-    //
-    // There are 75373 such numbers that do not exceed 10^7.
-    // How many such numbers are there that do not exceed 2×10^9?
     let limit = 2000000000;
     let mut type1 = BitSet::with_capacity(limit + 1);
     let mut type2 = BitSet::with_capacity(limit + 1);

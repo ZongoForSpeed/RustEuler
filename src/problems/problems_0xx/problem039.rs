@@ -3,13 +3,13 @@ use crate::register_problem;
 
 register_problem!(39, "Integer right triangles", problem039);
 
+/// If p is the perimeter of a right angle triangle with integral length sides, {a,b,c}, there
+/// are exactly three solutions for p = 120.
+///
+/// {20,48,52}, {24,45,51}, {30,40,50}
+///
+/// For which value of p ≤ 1000, is the number of solutions maximised?
 pub fn problem039() -> String {
-    // If p is the perimeter of a right angle triangle with integral length sides, {a,b,c}, there
-    // are exactly three solutions for p = 120.
-    //
-    // {20,48,52}, {24,45,51}, {30,40,50}
-    //
-    // For which value of p ≤ 1000, is the number of solutions maximised?
     let limit = 1000;
     let mut solutions = vec![0; limit + 1];
 

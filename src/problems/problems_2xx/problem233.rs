@@ -5,13 +5,13 @@ use num_traits::PrimInt;
 
 register_problem!(233, "Lattice points on a circle", problem233);
 
+/// Let f(N) be the number of points with integer coordinates that are on a circle passing through (0,0), (N,0),
+/// (0,N), and (N,N).
+///
+/// It can be shown that f(10000) = 36
+///
+/// What is the sum of all positive integers N ≤ 10^11 such that f(N) = 420 ?
 pub fn problem233() -> String {
-    // Let f(N) be the number of points with integer coordinates that are on a circle passing through (0,0), (N,0),
-    // (0,N), and (N,N).
-    //
-    // It can be shown that f(10000) = 36
-    //
-    // What is the sum of all positive integers N ≤ 10^11 such that f(N) = 420 ?
     let limit = usize::power(10, 11);
 
     let mut primes: Vec<usize> = Vec::new();

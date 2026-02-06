@@ -34,19 +34,19 @@ fn are_anagrams(a: &String, b: &String) -> bool {
 
 register_problem!(98, "Anagramic squares", problem098);
 
+/// By replacing each of the letters in the word CARE with 1, 2, 9, and 6 respectively, we form a square number:
+/// 1296 = 36². What is remarkable is that, by using the same digital substitutions, the anagram, RACE, also forms a
+/// square number: 9216 = 96². We shall call CARE (and RACE) a square anagram word pair and specify further that
+/// leading zeroes are not permitted, neither may a different letter have the same digital value as another letter.
+///
+/// Using words.txt (right click and 'Save Link/Target As...'), a 16K text file containing nearly two-thousand common
+/// English words, find all the square anagram word pairs (a palindromic word is NOT considered to be an anagram of
+/// itself).
+///
+/// What is the largest square number formed by any member of such a pair?
+///
+/// NOTE: All anagrams formed must be contained in the given text file.
 pub fn problem098() -> String {
-    // By replacing each of the letters in the word CARE with 1, 2, 9, and 6 respectively, we form a square number:
-    // 1296 = 36². What is remarkable is that, by using the same digital substitutions, the anagram, RACE, also forms a
-    // square number: 9216 = 96². We shall call CARE (and RACE) a square anagram word pair and specify further that
-    // leading zeroes are not permitted, neither may a different letter have the same digital value as another letter.
-    //
-    // Using words.txt (right click and 'Save Link/Target As...'), a 16K text file containing nearly two-thousand common
-    // English words, find all the square anagram word pairs (a palindromic word is NOT considered to be an anagram of
-    // itself).
-    //
-    // What is the largest square number formed by any member of such a pair?
-    //
-    // NOTE: All anagrams formed must be contained in the given text file.
     let mut anagrams: HashMap<usize, HashSet<Vec<usize>>> = HashMap::new();
     let digits = vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 

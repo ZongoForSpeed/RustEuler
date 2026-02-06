@@ -1,5 +1,5 @@
 use gmp_mpfr_sys::gmp;
-use gmp_mpfr_sys::gmp::mpz_t;
+use gmp_mpfr_sys::gmp::{mpz_t, size_t};
 use gmp_mpfr_sys::mpc::free_str;
 use num_traits::{One, Zero};
 use std::cmp::Ordering;
@@ -403,8 +403,33 @@ impl MpzNumber {
     }
 
     fn internal_hash<H: Hasher>(&self, state: &mut H) {
-        // TODO implement better hash method
-        self.to_string().hash(state);
+        unsafe {
+            let size = gmp::mpz_size(&self.data) as size_t;
+            for i in 0..size {
+                let limb = gmp::mpz_getlimbn(&self.data, i);
+                state.write_u64(limb as u64);
+            }
+            state.write_u64(size as u64);
+        }
+        // size_t operator()(gmp::integer const& x) const {
+        //       std::size_t h = 0;
+        //       for (mp_size_t i = 0; i < mpz_size(x.value_); ++i)
+        //         h ^= std::hash<mp_limb_t>()(mpz_getlimbn(x.value_, i));
+        //       return h ^ std::hash<mp_size_t>()(x.value_->_mp_size);
+        //     }
+    }
+
+
+    pub(crate) fn concat_numbers(a: &Self, b: &Self, base: u32) -> Self {
+        let mut multiplier = MpzNumber::one();
+        let mut temp = b.clone();
+
+        while temp.sign() > 0 {
+            multiplier *= base;
+            temp /= base;
+        }
+
+        a * multiplier + b
     }
 }
 
@@ -1083,7 +1108,8 @@ mod tests {
     use super::*;
     use gmp_mpfr_sys::gmp;
     use std::ffi::CStr;
-    use std::ptr::null_mut;
+    use std::ptr::{null_mut};
+    use crate::utils::hash::default_hash;
 
     #[test]
     fn test_gmp_dummy() {
@@ -1298,11 +1324,23 @@ mod tests {
     fn test_puissance() {
         let p = MpzNumber::power_ui(11, 11);
         assert_eq!(p.get_ui(), 285311670611);
+        assert_eq!(default_hash(&p), 3291863197702073267);
     }
 
     #[test]
     fn test_puissance_m() {
         let p = MpzNumber::power_mod_ui(11, 1111, 123456789);
         assert_eq!(p.get_ui(), 116094638);
+        assert_eq!(default_hash(&p), 8845908726311342514);
     }
+
+    #[test]
+    fn test_hash() {
+        let p = MpzNumber::from_u64(123456789);
+        assert_eq!(default_hash(&p), 5411885455911869709);
+
+        assert_eq!(default_hash(&MpzNumber::zero()), 13646096770106105413);
+        assert_eq!(default_hash(&MpzNumber::one()), 7912899488978770657);
+    }
+
 }

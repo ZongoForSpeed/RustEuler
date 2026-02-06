@@ -126,23 +126,23 @@ fn combinaison(cache: &mut HashMap<Matrix, u128>, m: Matrix) -> u128 {
     result
 }
 
+/// A triomino is a shape consisting of three squares joined via the edges. There are two basic forms:
+///
+///              XXX     XX
+///                      X
+///
+/// If all possible orientations are taken into account there are six:
+///
+///           X  X        X
+///      XXX  X  XX  XX  XX  XX
+///           X      X        X
+///
+/// Any n by m grid for which nxm is divisible by 3 can be tiled with triominoes.
+/// If we consider tilings that can be obtained by reflection or rotation from another tiling as different there are
+/// 41 ways a 2 by 9 grid can be tiled with triominoes:
+///
+/// In how many ways can a 9 by 12 grid be tiled in this way by triominoes?
 pub fn problem161() -> String {
-    // A triomino is a shape consisting of three squares joined via the edges. There are two basic forms:
-    //
-    //              XXX     XX
-    //                      X
-    //
-    // If all possible orientations are taken into account there are six:
-    //
-    //           X  X        X
-    //      XXX  X  XX  XX  XX  XX
-    //           X      X        X
-    //
-    // Any n by m grid for which nxm is divisible by 3 can be tiled with triominoes.
-    // If we consider tilings that can be obtained by reflection or rotation from another tiling as different there are
-    // 41 ways a 2 by 9 grid can be tiled with triominoes:
-    //
-    // In how many ways can a 9 by 12 grid be tiled in this way by triominoes?
     let m: Matrix = [[true; 12]; 9];
     let mut cache: HashMap<Matrix, u128> = HashMap::new();
     let result = combinaison(&mut cache, m);

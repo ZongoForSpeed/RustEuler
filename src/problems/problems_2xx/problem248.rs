@@ -51,10 +51,10 @@ fn enumerate(
     }
 }
 
+/// The first number n for which φ(n)=13! is 6227180929.
+///
+/// Find the 150,000th such number.
 pub fn problem248() -> String {
-    // The first number n for which φ(n)=13! is 6227180929.
-    //
-    // Find the 150,000th such number.
     let phi = u64::factorial(13);
 
     let mut primes: BTreeSet<u64> = BTreeSet::new();

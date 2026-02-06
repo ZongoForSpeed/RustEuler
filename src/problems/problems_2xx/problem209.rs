@@ -16,21 +16,21 @@ fn combinaison(n: u64) -> u64 {
     result
 }
 
+/// A k-input binary truth table is a map from k input bits (binary digits, 0 [false] or 1 [true]) to 1 output bit.
+/// For example, the 2-input binary truth tables for the logical AND and XOR functions are:
+///
+///                  x	y	x AND y         x	y	x XOR y
+///                  0	0	    0           0	0	    0
+///                  0	1	    0           0	1	    1
+///                  1	0	    0           1	0	    1
+///                  1	1	    1           1	1	    0
+///
+/// How many 6-input binary truth tables, τ, satisfy the formula
+///
+/// τ(a, b, c, d, e, f) AND τ(b, c, d, e, f, a XOR (b AND c)) = 0
+///
+/// for all 6-bit inputs (a, b, c, d, e, f) ?
 pub fn problem209() -> String {
-    // A k-input binary truth table is a map from k input bits (binary digits, 0 [false] or 1 [true]) to 1 output bit.
-    // For example, the 2-input binary truth tables for the logical AND and XOR functions are:
-    //
-    //                  x	y	x AND y         x	y	x XOR y
-    //                  0	0	    0           0	0	    0
-    //                  0	1	    0           0	1	    1
-    //                  1	0	    0           1	0	    1
-    //                  1	1	    1           1	1	    0
-    //
-    // How many 6-input binary truth tables, τ, satisfy the formula
-    //
-    // τ(a, b, c, d, e, f) AND τ(b, c, d, e, f, a XOR (b AND c)) = 0
-    //
-    // for all 6-bit inputs (a, b, c, d, e, f) ?
     let limite = 1 << 6;
 
     let mut forest = DisjointSet::with_len(limite);

@@ -4,17 +4,17 @@ use crate::register_problem;
 
 register_problem!(77, "Prime summations", problem077);
 
+/// It is possible to write ten as the sum of primes in exactly five different ways:
+///
+///      7 + 3
+///      5 + 5
+///      5 + 3 + 2
+///      3 + 3 + 2 + 2
+///      2 + 2 + 2 + 2 + 2
+///
+/// What is the first value which can be written as the sum of primes in over five thousand
+/// different ways?
 pub fn problem077() -> String {
-    // It is possible to write ten as the sum of primes in exactly five different ways:
-    //
-    //      7 + 3
-    //      5 + 5
-    //      5 + 3 + 2
-    //      3 + 3 + 2 + 2
-    //      2 + 2 + 2 + 2 + 2
-    //
-    // What is the first value which can be written as the sum of primes in over five thousand
-    // different ways?
     let mut primes: BTreeSet<u32> = BTreeSet::new();
     crible23(1000000, |p| {primes.insert(p);});
 

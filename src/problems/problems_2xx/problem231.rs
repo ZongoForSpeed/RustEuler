@@ -16,11 +16,11 @@ fn x(mut n: u64, p: u64) -> u64 {
     result
 }
 
+/// The binomial coefficient 10C3 = 120. 120 = 23 × 3 × 5 = 2 × 2 × 2 × 3 × 5, and 2 + 2 + 2 + 3 + 5 = 14.
+/// So the sum of the terms in the prime factorisation of 10C3 is 14.
+///
+/// Find the sum of the terms in the prime factorisation of 20000000C15000000.
 pub fn problem231() -> String {
-    // The binomial coefficient 10C3 = 120. 120 = 23 × 3 × 5 = 2 × 2 × 2 × 3 × 5, and 2 + 2 + 2 + 3 + 5 = 14.
-    // So the sum of the terms in the prime factorisation of 10C3 is 14.
-    //
-    // Find the sum of the terms in the prime factorisation of 20000000C15000000.
     let n = 20000000;
     let k = 15000000;
 

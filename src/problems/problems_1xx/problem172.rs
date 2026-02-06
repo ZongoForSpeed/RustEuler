@@ -7,9 +7,9 @@ register_problem!(
     problem172
 );
 
+/// How many 18-digit numbers n (without leading zeros) are there such that no digit occurs more
+/// than three times in n?
 pub fn problem172() -> String {
-    // How many 18-digit numbers n (without leading zeros) are there such that no digit occurs more
-    // than three times in n?
     let size: usize = 18;
     let mut factorials = vec![1];
     for n in 1..=size {

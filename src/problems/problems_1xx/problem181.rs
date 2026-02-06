@@ -23,12 +23,12 @@ fn increment(objects: &Pair, index: &mut Pair, head_room: &Pair) -> bool {
     false
 }
 
+/// Having three black objects B and one white object W they can be grouped in 7 ways like this:
+///
+///      (BBBW)   (B,BBW)   (B,B,BW)   (B,B,B,W)   (B,BB,W)   (BBB,W)   (BB,BW)
+///
+/// In how many ways can sixty black objects B and forty white objects W be thus grouped?
 pub fn problem181() -> String {
-    // Having three black objects B and one white object W they can be grouped in 7 ways like this:
-    //
-    //      (BBBW)   (B,BBW)   (B,B,BW)   (B,B,B,W)   (B,BB,W)   (BBB,W)   (BB,BW)
-    //
-    // In how many ways can sixty black objects B and forty white objects W be thus grouped?
     let objects: Pair = (60, 40);
 
     let mut combination: Vec<Vec<u64>> = vec![vec![0; 40 + 1]; 60 + 1];

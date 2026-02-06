@@ -7,25 +7,25 @@ register_problem!(
     problem173
 );
 
+/// We shall define a square lamina to be a square outline with a square "hole" so that the shape possesses vertical
+/// and horizontal symmetry. For example, using exactly thirty-two square tiles we can form two different square
+/// laminae:
+///
+///              XXXXXX  XXXXXXXXX
+///              XXXXXX  X       X
+///              XX  XX  X       X
+///              XX  XX  X       X
+///              XXXXXX  X       X
+///              XXXXXX  X       X
+///                      X       X
+///                      X       X
+///                      XXXXXXXXX
+///
+/// With one-hundred tiles, and not necessarily using all of the tiles at one time, it is possible to form forty-one
+/// different square laminae.
+///
+/// Using up to one million tiles how many different square laminae can be formed?
 pub fn problem173() -> String {
-    // We shall define a square lamina to be a square outline with a square "hole" so that the shape possesses vertical
-    // and horizontal symmetry. For example, using exactly thirty-two square tiles we can form two different square
-    // laminae:
-    //
-    //              XXXXXX  XXXXXXXXX
-    //              XXXXXX  X       X
-    //              XX  XX  X       X
-    //              XX  XX  X       X
-    //              XXXXXX  X       X
-    //              XXXXXX  X       X
-    //                      X       X
-    //                      X       X
-    //                      XXXXXXXXX
-    //
-    // With one-hundred tiles, and not necessarily using all of the tiles at one time, it is possible to form forty-one
-    // different square laminae.
-    //
-    // Using up to one million tiles how many different square laminae can be formed?
     let limit = 1000000;
     let mut result: u64 = 0;
     for n in 1..(limit + 1) / 2 {

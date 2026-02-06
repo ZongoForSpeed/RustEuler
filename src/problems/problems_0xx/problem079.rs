@@ -28,16 +28,16 @@ fn minimum(keys: &Vec<String>) -> char {
 }
 
 
+/// A common security method used for online banking is to ask the user for three random
+/// characters from a passcode.
+/// For example, if the passcode was 531278, they may ask for the 2nd, 3rd, and 5th characters;
+/// the expected reply would be: 317.
+///
+/// The text file, keylog.txt, contains fifty successful login attempts.
+///
+/// Given that the three characters are always asked for in order, analyse the file so as to
+/// determine the shortest possible secret passcode of unknown length.
 pub fn problem079() -> String {
-    // A common security method used for online banking is to ask the user for three random
-    // characters from a passcode.
-    // For example, if the passcode was 531278, they may ask for the 2nd, 3rd, and 5th characters;
-    // the expected reply would be: 317.
-    //
-    // The text file, keylog.txt, contains fifty successful login attempts.
-    //
-    // Given that the three characters are always asked for in order, analyse the file so as to
-    // determine the shortest possible secret passcode of unknown length.
     let path = Path::new("data/p079_keylog.txt");
     let mut keys = std::fs::read_to_string(path)
         .unwrap()

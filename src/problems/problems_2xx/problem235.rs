@@ -10,13 +10,14 @@ fn s_function(r: f64) -> f64 {
 
     return s;
 }
+
+/// Given is the arithmetic-geometric sequence u(k) = (900-3k)rk-1.
+/// Let s(n) = Σk=1...nu(k).
+///
+/// Find the value of r for which s(5000) = -600,000,000,000.
+///
+/// Give your answer rounded to 12 places behind the decimal point.
 pub fn problem235() -> String {
-    // Given is the arithmetic-geometric sequence u(k) = (900-3k)rk-1.
-    // Let s(n) = Σk=1...nu(k).
-    //
-    // Find the value of r for which s(5000) = -600,000,000,000.
-    //
-    // Give your answer rounded to 12 places behind the decimal point.
     let objective = -600000000000.;
     let mut r = 1.;
     let mut dr = 0.125;

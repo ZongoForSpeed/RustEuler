@@ -3,32 +3,32 @@ use itertools::Itertools;
 
 register_problem!(122, "Efficient exponentiation", problem122);
 
+/// The most naive way of computing n^15 requires fourteen multiplications:
+///
+///      n × n × ... × n = n^15
+///
+/// But using a "binary" method you can compute it in six multiplications:
+///
+///      n × n = n^2
+///      n^2 × n^2 = n^4
+///      n^4 × n^4 = n^8
+///      n^8 × n^4 = n^12
+///      n^12 × n^2 = n^14
+///      n^14 × n = n^15
+///
+/// However it is yet possible to compute it in only five multiplications:
+///
+///      n × n = n2
+///      n^2 × n = n3
+///      n^3 × n^3 = n6
+///      n^6 × n^6 = n12
+///      n^12 × n^3 = n15
+///
+/// We shall define m(k) to be the minimum number of multiplications to compute n^k;
+/// for example m(15) = 5.
+///
+/// For 1 ≤ k ≤ 200, find ∑ m(k).
 pub fn problem122() -> String {
-    // The most naive way of computing n^15 requires fourteen multiplications:
-    //
-    //      n × n × ... × n = n^15
-    //
-    // But using a "binary" method you can compute it in six multiplications:
-    //
-    //      n × n = n^2
-    //      n^2 × n^2 = n^4
-    //      n^4 × n^4 = n^8
-    //      n^8 × n^4 = n^12
-    //      n^12 × n^2 = n^14
-    //      n^14 × n = n^15
-    //
-    // However it is yet possible to compute it in only five multiplications:
-    //
-    //      n × n = n2
-    //      n^2 × n = n3
-    //      n^3 × n^3 = n6
-    //      n^6 × n^6 = n12
-    //      n^12 × n^3 = n15
-    //
-    // We shall define m(k) to be the minimum number of multiplications to compute n^k;
-    // for example m(15) = 5.
-    //
-    // For 1 ≤ k ≤ 200, find ∑ m(k).
     let mut cache: Vec<Vec<Vec<usize>>> = vec![vec![vec![1]]];
     let mut sum = 0;
     for k in 2..=200 {

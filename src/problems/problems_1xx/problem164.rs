@@ -18,9 +18,9 @@ fn count(mut counter: &mut Vec<Vec<Vec<u64>>>, d1: usize, d2: usize, reste: usiz
     counter[d1][d2][reste]
 }
 
+/// How many 20 digit numbers n (without any leading zero) exist such that no three consecutive
+/// digits of n have a sum greater than 9?
 pub fn problem164() -> String {
-    // How many 20 digit numbers n (without any leading zero) exist such that no three consecutive
-    // digits of n have a sum greater than 9?
     let limite = 20;
     let mut counter: Vec<Vec<Vec<u64>>> = vec![vec![vec![0; limite]; 10]; 10];
 

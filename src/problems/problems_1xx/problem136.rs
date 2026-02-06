@@ -2,15 +2,15 @@ use crate::register_problem;
 
 register_problem!(136, "Singleton difference", problem136);
 
+/// The positive integers, x, y, and z, are consecutive terms of an arithmetic progression.
+/// Given that n is a positive integer, the equation, x² − y² − z² = n, has exactly one solution when n = 20:
+///
+///                                          13² − 10² − 7² = 20
+///
+/// In fact there are twenty-five values of n below one hundred for which the equation has a unique solution.
+///
+/// How many values of n less than fifty million have exactly one solution?
 pub fn problem136() -> String {
-    // The positive integers, x, y, and z, are consecutive terms of an arithmetic progression.
-    // Given that n is a positive integer, the equation, x² − y² − z² = n, has exactly one solution when n = 20:
-    //
-    //                                          13² − 10² − 7² = 20
-    //
-    // In fact there are twenty-five values of n below one hundred for which the equation has a unique solution.
-    //
-    // How many values of n less than fifty million have exactly one solution?
     let limit = 50000000;
     let mut counts = vec![0; limit];
 

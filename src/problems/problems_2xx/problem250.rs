@@ -3,9 +3,9 @@ use crate::register_problem;
 
 register_problem!(250, "250250", problem250);
 
+/// Find the number of non-empty subsets of {1^1, 2^2, 3^3,..., 250250^250250}, the sum of whose elements is
+/// divisible by 250. Enter the rightmost 16 digits as your answer.
 pub fn problem250() -> String {
-    // Find the number of non-empty subsets of {1^1, 2^2, 3^3,..., 250250^250250}, the sum of whose elements is
-    // divisible by 250. Enter the rightmost 16 digits as your answer.
     let mask = usize::pow(10, 16);
 
     let m = 250;

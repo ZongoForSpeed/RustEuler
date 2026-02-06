@@ -3,21 +3,21 @@ use itertools::iproduct;
 
 register_problem!(166, "Criss Cross", problem166);
 
+/// A 4x4 grid is filled with digits d, 0 ≤ d ≤ 9.
+///
+/// It can be seen that in the grid
+///
+///                                       6 3 3 0
+///                                       5 0 4 3
+///                                       0 7 1 4
+///                                       1 2 4 5
+///
+/// the sum of each row and each column has the value 12. Moreover the sum of each diagonal is
+/// also 12.
+///
+/// In how many ways can you fill a 4x4 grid with the digits d, 0 ≤ d ≤ 9 so that each row, each
+/// column, and both diagonals have the same sum?
 pub fn problem166() -> String {
-    // A 4x4 grid is filled with digits d, 0 ≤ d ≤ 9.
-    //
-    // It can be seen that in the grid
-    //
-    //                                       6 3 3 0
-    //                                       5 0 4 3
-    //                                       0 7 1 4
-    //                                       1 2 4 5
-    //
-    // the sum of each row and each column has the value 12. Moreover the sum of each diagonal is
-    // also 12.
-    //
-    // In how many ways can you fill a 4x4 grid with the digits d, 0 ≤ d ≤ 9 so that each row, each
-    // column, and both diagonals have the same sum?
     let mut result = 0;
 
     for (a11, a12, a13, a14) in iproduct!(0..10, 0..10, 0..10, 0..10) {

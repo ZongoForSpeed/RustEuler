@@ -18,9 +18,9 @@ fn test(n: u128) -> bool {
         && digits[18] == 0
 }
 
+/// Find the unique positive integer whose square has the form 1_2_3_4_5_6_7_8_9_0,
+/// where each “_” is a single digit.
 pub fn problem206() -> String {
-    // Find the unique positive integer whose square has the form 1_2_3_4_5_6_7_8_9_0,
-    // where each “_” is a single digit.
     let min = 102030405060708.sqrt();
     let max = 192939495969798.sqrt();
 

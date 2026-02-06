@@ -6,17 +6,17 @@ fn parity(k: usize) -> i32 {
     if k % 2 == 0 { -1 } else { 1 }
 }
 
+/// It is possible to write five as a sum in exactly six different ways:
+///
+///      4 + 1
+///      3 + 2
+///      3 + 1 + 1
+///      2 + 2 + 1
+///      2 + 1 + 1 + 1
+///      1 + 1 + 1 + 1 + 1
+///
+/// How many different ways can one hundred be written as a sum of at least two positive integers?
 pub fn problem076() -> String {
-    // It is possible to write five as a sum in exactly six different ways:
-    //
-    //      4 + 1
-    //      3 + 2
-    //      3 + 1 + 1
-    //      2 + 2 + 1
-    //      2 + 1 + 1 + 1
-    //      1 + 1 + 1 + 1 + 1
-    //
-    // How many different ways can one hundred be written as a sum of at least two positive integers?
     let limit: usize = 100;
     let mut partition: Vec<i32> = vec![0; limit + 1];
     partition[0] = 1;

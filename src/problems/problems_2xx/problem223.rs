@@ -5,10 +5,10 @@ register_problem!(223, "Almost right-angled triangles I", problem223);
 
 type Triplet = (i64, i64, i64);
 
+/// Let us call an integer sided triangle with sides a ≤ b ≤ c barely acute if the sides satisfy a² + b² = c² + 1.
+///
+/// How many barely acute triangles are there with perimeter ≤ 25,000,000?
 pub fn problem223() -> String {
-    // Let us call an integer sided triangle with sides a ≤ b ≤ c barely acute if the sides satisfy a² + b² = c² + 1.
-    //
-    // How many barely acute triangles are there with perimeter ≤ 25,000,000?
     let limit = 25000000;
     let mut result = 0;
 

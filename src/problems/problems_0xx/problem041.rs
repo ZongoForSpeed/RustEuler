@@ -21,11 +21,11 @@ fn pandigital(n: u32, pandigits: &Vec<u32>) -> bool {
 
 register_problem!(41, "Pandigital prime", problem041);
 
+/// We shall say that an n-digit number is pandigital if it makes use of all the digits 1 to n exactly once.
+/// For example, 2143 is a 4-digit pandigital and is also prime.
+///
+/// What is the largest n-digit pandigital prime that exists?
 pub fn problem041() -> String {
-    // We shall say that an n-digit number is pandigital if it makes use of all the digits 1 to n exactly once.
-    // For example, 2143 is a 4-digit pandigital and is also prime.
-    //
-    // What is the largest n-digit pandigital prime that exists?
     let mut primes: Vec<u32> = Vec::new();
     crible235(10000000, |p| primes.push(p));
 

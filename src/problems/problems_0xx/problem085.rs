@@ -3,12 +3,12 @@ use crate::register_problem;
 
 register_problem!(85, "Counting rectangles", problem085);
 
+/// By counting carefully it can be seen that a rectangular grid measuring 3 by 2 contains
+/// eighteen rectangles:
+///
+/// Although there exists no rectangular grid that contains exactly two million rectangles, find
+/// the area of the grid with the nearest solution.
 pub fn problem085() -> String {
-    // By counting carefully it can be seen that a rectangular grid measuring 3 by 2 contains
-    // eighteen rectangles:
-    //
-    // Although there exists no rectangular grid that contains exactly two million rectangles, find
-    // the area of the grid with the nearest solution.
     let borne = 2000000;
     let limit = 2000;
 

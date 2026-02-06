@@ -5,11 +5,11 @@ register_problem!(224, "Almost right-angled triangles II", problem224);
 
 type Triplet = (i64, i64, i64);
 
+/// Let us call an integer sided triangle with sides a ≤ b ≤ c barely obtuse if the sides satisfy
+/// a² + b² = c² - 1.
+///
+/// How many barely obtuse triangles are there with perimeter ≤ 75,000,000?
 pub fn problem224() -> String {
-    // Let us call an integer sided triangle with sides a ≤ b ≤ c barely obtuse if the sides satisfy
-    // a² + b² = c² - 1.
-    //
-    // How many barely obtuse triangles are there with perimeter ≤ 75,000,000?
     let limit = 75000000;
     let mut result = 0;
 

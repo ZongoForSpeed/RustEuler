@@ -17,11 +17,11 @@ fn height_stack(stack: &Vec<f64>) -> f64 {
     result
 }
 
+/// What is the length of the shortest pipe, of internal radius 50mm, that can fully contain 21 balls of radii 30mm,
+/// 31mm, ..., 50mm?
+///
+/// Give your answer in micrometres (10^-6 m) rounded to the nearest integer.
 pub fn problem222() -> String {
-    // What is the length of the shortest pipe, of internal radius 50mm, that can fully contain 21 balls of radii 30mm,
-    // 31mm, ..., 50mm?
-    //
-    // Give your answer in micrometres (10^-6 m) rounded to the nearest integer.
     let mut generator = rand::rng();
     const R: f64 = 50.;
 
