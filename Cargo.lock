@@ -666,6 +666,7 @@ name = "rust_euler"
 version = "0.1.0"
 dependencies = [
  "bit-set",
+ "bit-vec",
  "chrono",
  "colored",
  "disjoint",

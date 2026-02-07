@@ -296,6 +296,10 @@ impl MpzNumber {
         res
     }
 
+    pub fn catalan(n: u64) -> MpzNumber {
+        Self::binomial_ui(2 * n, n) / (n + 1)
+    }
+
     pub fn factorial(n: u64) -> MpzNumber {
         let mut res = MpzNumber::new();
         unsafe {
