@@ -42,7 +42,7 @@ pub fn problem229() -> String {
     type1.intersect_with(&type3);
     type1.intersect_with(&type7);
 
-    type1.len().to_string()
+    type1.count().to_string()
 }
 
 fn fill(

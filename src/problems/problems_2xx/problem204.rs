@@ -34,7 +34,7 @@ pub fn problem204() -> String {
 
     let mut hamming = BitSet::new();
     find_hamming(&mut hamming, &primes, 0, 1, limit);
-    hamming.len().to_string()
+    hamming.count().to_string()
 }
 
 #[cfg(test)]
