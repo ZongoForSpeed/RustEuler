@@ -43,7 +43,7 @@ pub fn problem201() -> String {
     let min = squares[..50].iter().sum::<usize>();
     let max = squares[50..].iter().sum::<usize>();
 
-    let mut somme = vec![vec![0; max + 1]; k_max + 1];
+    let mut somme = vec![vec![0u8; max + 1]; k_max + 1];
     somme[0][0] = 1;
     for c in squares {
         let mut tmp = somme.clone();
@@ -53,7 +53,7 @@ pub fn problem201() -> String {
                 tmp[k + 1][s] = somme[k + 1][s];
             }
             for s in c..=max {
-                tmp[k + 1][s] = somme[k][s - c] + somme[k + 1][s];
+                tmp[k + 1][s] = (somme[k][s - c] + somme[k + 1][s]).min(2);
             }
         }
         somme = tmp;
