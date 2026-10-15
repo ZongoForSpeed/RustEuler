@@ -88,3 +88,8 @@ mod problem287;
 mod problem288;
 mod problem289;
 mod problem290;
+mod problem291;
+mod problem292;
+mod problem293;
+mod problem294;
+mod problem295;
