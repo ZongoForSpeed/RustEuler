@@ -1,6 +1,6 @@
 use crate::register_problem;
 use itertools::Itertools;
-use rand::Rng;
+use rand::RngExt;
 
 register_problem!(84, "Monopoly odds", problem084);
 
