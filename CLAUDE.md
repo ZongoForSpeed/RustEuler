@@ -6,6 +6,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Solutions to Project Euler problems in Rust (edition 2024), compiled into one binary crate (`rust_euler`). Big-integer work goes through GMP via `gmp-mpfr-sys`, so building needs a working C toolchain.
 
+## Reference C++ implementation
+
+This crate is a port of the C++20 solutions in `../ProjectEuler`, which has its own `CLAUDE.md`. Before solving or porting a problem, check for an existing solution there in `problemes/probleme0xx/` … `probleme3xx/`, or in `problemes/probleme<N>.cpp` for N ≥ 400. Identifiers on the C++ side are in French. These are the main equivalents:
+
+| C++ (`../ProjectEuler`)            | Rust (here)                         |
+|------------------------------------|-------------------------------------|
+| `ENREGISTRER_PROBLEME(N, "...")`   | `register_problem!(N, "...", fn)`   |
+| `utils/mpz_nombre`, `mpq_fraction` | `utils::mpz_number`, `mpq_fraction` |
+| `maths/premiers` (`crible2`, …)    | `maths::primes`                     |
+| `maths/arithmetique`               | `maths::arithmetic`                 |
+| `maths/matrice`, `polynome`        | `maths::matrix`, `polynomial`       |
+| `maths/graphe`, `pythagoricien`    | `maths::graph`, `pythagorean`       |
+
+The two repos share the `data/` input files and the `data/solutions.txt` format.
+
 ## Commands
 
 ```sh
