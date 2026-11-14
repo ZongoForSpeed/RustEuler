@@ -1,7 +1,7 @@
 use crate::maths::digits::Digits;
 use crate::register_problem;
-use rayon::iter::ParallelIterator;
 use rayon::iter::IntoParallelIterator;
+use rayon::iter::ParallelIterator;
 
 register_problem!(
     145,
@@ -31,7 +31,11 @@ fn reversible(n: u64) -> bool {
 ///
 /// How many reversible numbers are there below one-billion (10^9)?
 pub fn problem145() -> String {
-    (1..1000000000).into_par_iter().filter(|i| reversible(*i)).count().to_string()
+    (1..1000000000)
+        .into_par_iter()
+        .filter(|i| reversible(*i))
+        .count()
+        .to_string()
 }
 
 #[cfg(test)]

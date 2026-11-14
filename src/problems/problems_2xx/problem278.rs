@@ -1,11 +1,7 @@
 use crate::maths::primes::crible2;
 use crate::register_problem;
 
-register_problem!(
-    278,
-    "Linear Combinations of Semiprimes",
-    problem278
-);
+register_problem!(278, "Linear Combinations of Semiprimes", problem278);
 
 /// Given the values of integers 1 < a1 < a2 <... < an, consider the linear combination q1.a1 + q2.a2 + ...
 /// + qn.an = b, using only integer values qk ≥ 0.

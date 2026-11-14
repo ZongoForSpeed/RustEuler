@@ -1,8 +1,8 @@
-use rayon::iter::ParallelIterator;
-use crate::register_problem;
-use std::collections::{HashMap, HashSet};
-use rayon::iter::IntoParallelIterator;
 use crate::maths::digits::Digits;
+use crate::register_problem;
+use rayon::iter::IntoParallelIterator;
+use rayon::iter::ParallelIterator;
+use std::collections::{HashMap, HashSet};
 
 register_problem!(156, "Counting Digits", problem156);
 
@@ -35,7 +35,6 @@ fn count_s(limite: i64, m: i64, d: i64) -> i64 {
     println!("S({d}) = {}", s);
     s
 }
-
 
 /// Starting from zero the natural numbers are written down in base 10 like this:
 ///
@@ -77,7 +76,11 @@ pub fn problem156() -> String {
     let limit = 1000000000000;
     let m = 100000;
 
-    (1..10).into_par_iter().map(|d| count_s(limit, m, d)).sum::<i64>().to_string()
+    (1..10)
+        .into_par_iter()
+        .map(|d| count_s(limit, m, d))
+        .sum::<i64>()
+        .to_string()
 }
 
 #[cfg(test)]

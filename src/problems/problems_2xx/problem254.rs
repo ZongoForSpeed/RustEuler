@@ -1,15 +1,15 @@
+use crate::maths::digits::Digits;
 use crate::register_problem;
 use crate::utils::mpz_number::MpzNumber;
+use num_traits::One;
 use std::collections::HashMap;
 use std::ops::{AddAssign, MulAssign};
-use num_traits::One;
-use crate::maths::digits::Digits;
 
 register_problem!(254, "Sums of Digit Factorials", problem254);
 
 struct Result {
     sg: u32,
-    g: MpzNumber
+    g: MpzNumber,
 }
 
 fn algorithm(cache: &mut HashMap<u32, Result>, factorials: &Vec<u32>, mut f: u32) {

@@ -1,10 +1,6 @@
 use crate::register_problem;
 
-register_problem!(
-    271,
-    "Modular Cubes, part 1",
-    problem271
-);
+register_problem!(271, "Modular Cubes, part 1", problem271);
 
 fn s(n: u128) -> u128 {
     let mut somme = 0;

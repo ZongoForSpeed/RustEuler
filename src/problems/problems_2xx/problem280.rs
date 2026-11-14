@@ -1,11 +1,7 @@
 use crate::register_problem;
 use std::collections::HashMap;
 
-register_problem!(
-    280,
-    "Ant and seeds",
-    problem280
-);
+register_problem!(280, "Ant and seeds", problem280);
 
 type Cle = (usize, usize, u32, u32);
 

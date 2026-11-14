@@ -1,6 +1,6 @@
-use std::collections::{BTreeSet, HashMap, HashSet};
 use crate::maths::primes::crible23;
 use crate::register_problem;
+use std::collections::{BTreeSet, HashMap, HashSet};
 
 register_problem!(77, "Prime summations", problem077);
 
@@ -16,7 +16,9 @@ register_problem!(77, "Prime summations", problem077);
 /// different ways?
 pub fn problem077() -> String {
     let mut primes: BTreeSet<u32> = BTreeSet::new();
-    crible23(1000000, |p| {primes.insert(p);});
+    crible23(1000000, |p| {
+        primes.insert(p);
+    });
 
     let mut solutions: HashMap<u32, HashSet<Vec<u32>>> = HashMap::new();
     for n in 4.. {
@@ -27,7 +29,7 @@ pub fn problem077() -> String {
             }
 
             if primes.contains(&(n - p)) {
-                let mut s =vec![n - p, *p];
+                let mut s = vec![n - p, *p];
                 s.sort();
                 sol_n.insert(s);
             }

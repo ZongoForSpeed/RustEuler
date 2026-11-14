@@ -1,11 +1,7 @@
 use crate::register_problem;
 use std::collections::HashMap;
 
-register_problem!(
-    294,
-    "Sum of digits - experience #23",
-    problem294
-);
+register_problem!(294, "Sum of digits - experience #23", problem294);
 
 // clé : (somme des chiffres, reste modulo), valeur : compteur
 type Dictionnaire = HashMap<(u64, u64), u64>;
@@ -83,7 +79,10 @@ pub fn problem294() -> String {
     let modulo = 23;
 
     let n = 11u64.pow(12);
-    let resultat = algorithme(n, modulo, masque).get(&(23, 0)).copied().unwrap_or(0);
+    let resultat = algorithme(n, modulo, masque)
+        .get(&(23, 0))
+        .copied()
+        .unwrap_or(0);
 
     resultat.to_string()
 }

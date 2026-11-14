@@ -58,7 +58,6 @@ struct Hand {
 }
 
 impl Hand {
-
     fn from(
         card1: &String,
         card2: &String,
@@ -128,14 +127,10 @@ impl Hand {
         let card2 = &self.cards[2];
         let card3 = &self.cards[3];
         let card4 = &self.cards[4];
-        if card0.value == card1.value
-            && card0.value == card2.value
-            && card3.value == card4.value {
+        if card0.value == card1.value && card0.value == card2.value && card3.value == card4.value {
             return card0.value;
         }
-        if card0.value == card1.value
-            && card2.value == card3.value
-            && card2.value == card4.value {
+        if card0.value == card1.value && card2.value == card3.value && card2.value == card4.value {
             return card2.value;
         }
         0
@@ -147,9 +142,7 @@ impl Hand {
         let card2 = &self.cards[2];
         let card3 = &self.cards[3];
         let card4 = &self.cards[4];
-        if (card0.value == card1.value
-            && card0.value == card2.value
-            && card0.value == card3.value)
+        if (card0.value == card1.value && card0.value == card2.value && card0.value == card3.value)
             || (card1.value == card2.value
                 && card1.value == card3.value
                 && card1.value == card4.value)
@@ -198,8 +191,8 @@ impl Hand {
         let card2 = &self.cards[2];
         let card3 = &self.cards[3];
         let card4 = &self.cards[4];
-        if card0.value == card1.value &&
-            (card2.value == card3.value || card3.value == card4.value) {
+        if card0.value == card1.value && (card2.value == card3.value || card3.value == card4.value)
+        {
             return (card3.value, card1.value);
         }
 

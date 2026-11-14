@@ -1,6 +1,6 @@
-use itertools::iproduct;
 use crate::register_problem;
 use crate::utils::mpz_number::MpzNumber;
+use itertools::iproduct;
 
 register_problem!(113, "Non-bouncy numbers", problem113);
 

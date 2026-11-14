@@ -16,8 +16,8 @@ register_problem!(87, "Prime power triples", problem087);
 /// How many numbers below fifty million can be expressed as the sum of a prime square, prime
 /// cube, and prime fourth power?
 pub fn problem087() -> String {
-    let limit:u32 = 50000000;
-    let mut primes:Vec<u32> = Vec::new();
+    let limit: u32 = 50000000;
+    let mut primes: Vec<u32> = Vec::new();
     crible23((limit.isqrt() + 6) as usize, |p| primes.push(p));
 
     let mut result = HashSet::new();

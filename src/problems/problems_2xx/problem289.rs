@@ -1,11 +1,7 @@
 use crate::register_problem;
 use std::collections::BTreeMap;
 
-register_problem!(
-    289,
-    "Eulerian Cycles",
-    problem289
-);
+register_problem!(289, "Eulerian Cycles", problem289);
 
 #[derive(Clone, PartialEq, Eq, PartialOrd, Ord)]
 struct Position {

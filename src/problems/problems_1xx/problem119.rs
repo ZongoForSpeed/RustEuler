@@ -13,18 +13,17 @@ register_problem!(119, "Digit power sum", problem119);
 ///
 /// Find a30.
 pub fn problem119() -> String {
-    let length:u128 = 18;
+    let length: u128 = 18;
     let borne = 10u128.pow(length as u32);
 
     let mut result = vec![0];
-    for d in 2.. 9*length {
+    for d in 2..9 * length {
         for n in std::iter::successors(Some(d), |&n| Some(n * d)).take_while(|&n| n < borne) {
             if n > 10 && n.sum_digits(10) == d {
                 result.push(n);
             }
         }
     }
-
 
     result.sort();
     println!("a_n = {:?}", result);

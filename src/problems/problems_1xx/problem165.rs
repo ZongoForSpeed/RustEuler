@@ -130,9 +130,18 @@ impl Display for Segment {
 pub fn problem165() -> String {
     let limite = 20000;
 
-    let l1 = Segment::new(Point::new(27.into(), 44.into()), Point::new(12.into(), 32.into()));
-    let l2 = Segment::new(Point::new(46.into(), 53.into()), Point::new(17.into(), 62.into()));
-    let l3 = Segment::new(Point::new(46.into(), 70.into()), Point::new(22.into(), 40.into()));
+    let l1 = Segment::new(
+        Point::new(27.into(), 44.into()),
+        Point::new(12.into(), 32.into()),
+    );
+    let l2 = Segment::new(
+        Point::new(46.into(), 53.into()),
+        Point::new(17.into(), 62.into()),
+    );
+    let l3 = Segment::new(
+        Point::new(46.into(), 70.into()),
+        Point::new(22.into(), 40.into()),
+    );
 
     println!("L1 = {l1}");
     println!("L2 = {l2}");
@@ -149,7 +158,7 @@ pub fn problem165() -> String {
         println!("L2 x L3 = {p1}");
     }
 
-    let mut t:Vec<u64> = Vec::new();
+    let mut t: Vec<u64> = Vec::new();
     let mut s = 290797;
     for _ in 0..limite {
         s = (s * s) % 50515093;
@@ -158,7 +167,10 @@ pub fn problem165() -> String {
 
     let mut segments = Vec::new();
     for n in (0..limite).step_by(4) {
-        segments.push(Segment::new(Point::new(t[n].into(),t[n + 1].into()), Point::new(t[n+2].into(), t[n+3].into())));
+        segments.push(Segment::new(
+            Point::new(t[n].into(), t[n + 1].into()),
+            Point::new(t[n + 2].into(), t[n + 3].into()),
+        ));
     }
 
     let mut intersection = HashSet::new();

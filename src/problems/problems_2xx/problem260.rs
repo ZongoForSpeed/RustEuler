@@ -2,7 +2,6 @@ use crate::register_problem;
 
 register_problem!(260, "Stone Game", problem260);
 
-
 /// A game is played with three piles of stones and two players.
 /// At her turn, a player removes one or more stones from the piles. However, if she takes stones from more than one
 /// pile, she must remove the same number of stones from each of the selected piles.
@@ -30,9 +29,15 @@ register_problem!(260, "Stone Game", problem260);
 
 #[inline(always)]
 fn sort3(mut a: usize, mut b: usize, mut c: usize) -> (usize, usize, usize) {
-    if a > b { std::mem::swap(&mut a, &mut b); }
-    if b > c { std::mem::swap(&mut b, &mut c); }
-    if a > b { std::mem::swap(&mut a, &mut b); }
+    if a > b {
+        std::mem::swap(&mut a, &mut b);
+    }
+    if b > c {
+        std::mem::swap(&mut b, &mut c);
+    }
+    if a > b {
+        std::mem::swap(&mut a, &mut b);
+    }
     (a, b, c)
 }
 
@@ -98,7 +103,6 @@ pub fn problem260() -> String {
     }
     result.to_string()
 }
-
 
 #[cfg(test)]
 mod tests {

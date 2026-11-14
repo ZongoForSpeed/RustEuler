@@ -38,7 +38,6 @@ pub fn problem078() -> String {
     unreachable!()
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;

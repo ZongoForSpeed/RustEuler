@@ -14,7 +14,7 @@ pub fn problem034() -> String {
     let mut solution: u64 = 0;
     for n in 10..borne {
         let mut s = 0;
-        n.loop_digits( 10, |d| s += u64::factorial(d));
+        n.loop_digits(10, |d| s += u64::factorial(d));
         if s == n {
             solution += n;
         }

@@ -30,7 +30,7 @@ pub fn problem091() -> String {
             || (p1.0 * p2.0 + p1.1 * p2.1 == 0);
     };
 
-    let mut result:usize = 0;
+    let mut result: usize = 0;
     let len = points.len();
     for i in 0..len {
         let p1 = points[i];

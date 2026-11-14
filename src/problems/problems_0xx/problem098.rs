@@ -1,10 +1,10 @@
 use crate::maths::digits::conversion;
+use crate::maths::polygonal::Polygonal;
 use crate::register_problem;
 use crate::utils::permutations::permutations;
 use std::collections::{HashMap, HashSet};
 use std::ops::AddAssign;
 use std::path::Path;
-use crate::maths::polygonal::Polygonal;
 
 fn are_anagrams(a: &String, b: &String) -> bool {
     if a.len() != b.len() {
@@ -31,7 +31,6 @@ fn are_anagrams(a: &String, b: &String) -> bool {
     count.values().all(|&v| v == 0)
 }
 
-
 register_problem!(98, "Anagramic squares", problem098);
 
 /// By replacing each of the letters in the word CARE with 1, 2, 9, and 6 respectively, we form a square number:
@@ -51,18 +50,23 @@ pub fn problem098() -> String {
     let digits = vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     for permute in permutations(digits) {
-        
         if permute[0] != 0 {
             for i in 1..10 {
                 let permuation = permute[..i].to_vec();
                 let n = conversion(&permuation, 10);
                 if n.is_square() {
-                    anagrams.entry(permuation.len()).or_insert_with(HashSet::new).insert(permuation);
+                    anagrams
+                        .entry(permuation.len())
+                        .or_insert_with(HashSet::new)
+                        .insert(permuation);
                 }
             }
             let n = conversion(&permute, 10);
             if n.is_square() {
-                anagrams.entry(permute.len()).or_insert_with(HashSet::new).insert(permute.clone());
+                anagrams
+                    .entry(permute.len())
+                    .or_insert_with(HashSet::new)
+                    .insert(permute.clone());
             }
         }
     }

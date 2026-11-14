@@ -13,8 +13,8 @@ pub fn problem039() -> String {
     let limit = 1000;
     let mut solutions = vec![0; limit + 1];
 
-    for (a,b,c) in pythagorean_limit(limit) {
-        let s = a +b + c;
+    for (a, b, c) in pythagorean_limit(limit) {
+        let s = a + b + c;
         for k in (s..=limit).step_by(s) {
             solutions[k] += 1;
         }

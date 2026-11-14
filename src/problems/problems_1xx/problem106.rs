@@ -1,6 +1,6 @@
+use crate::maths::digits::Digits;
 use crate::register_problem;
 use itertools::Itertools;
-use crate::maths::digits::Digits;
 
 register_problem!(106, "Special subset sums: meta-testing", problem106);
 

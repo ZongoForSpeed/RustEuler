@@ -2,11 +2,7 @@ use crate::maths::integer_root::isqrt;
 use crate::maths::primes::crible2;
 use crate::register_problem;
 
-register_problem!(
-    273,
-    "Sum of Squares",
-    problem273
-);
+register_problem!(273, "Sum of Squares", problem273);
 
 type Complexe = (i64, i64);
 

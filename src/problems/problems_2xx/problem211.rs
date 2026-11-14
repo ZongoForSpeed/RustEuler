@@ -1,5 +1,5 @@
-use crate::register_problem;
 use crate::maths::polygonal::Polygonal;
+use crate::register_problem;
 
 register_problem!(211, "Divisor Square Sum", problem211);
 

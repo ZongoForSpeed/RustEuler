@@ -11,14 +11,14 @@ register_problem!(132, "Large repunit factors", problem132);
 /// Find the sum of the first forty prime factors of R(109).
 pub fn problem132() -> String {
     let limit = 1000000;
-    let mut primes:Vec<u64> = Vec::new();
+    let mut primes: Vec<u64> = Vec::new();
     crible23(limit, |p| primes.push(p));
 
     let mut count = 0;
     let mut result = 0;
 
     for p in primes {
-        if u64::power_mod(10, 1000000000, 9*p) == 1 {
+        if u64::power_mod(10, 1000000000, 9 * p) == 1 {
             count += 1;
             result += p;
             if count == 40 {

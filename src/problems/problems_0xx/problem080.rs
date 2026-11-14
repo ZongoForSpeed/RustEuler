@@ -1,7 +1,7 @@
+use crate::maths::polygonal::Polygonal;
 use crate::register_problem;
 use crate::utils::mpz_number::MpzNumber;
 use string_builder::Builder;
-use crate::maths::polygonal::Polygonal;
 
 register_problem!(80, "Square root digital expansion", problem080);
 
@@ -26,7 +26,8 @@ pub fn problem080() -> String {
         }
     }
 
-    builder.string()
+    builder
+        .string()
         .unwrap()
         .bytes()
         .map(|b| b - b'0')

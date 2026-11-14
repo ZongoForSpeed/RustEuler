@@ -4,7 +4,13 @@ use bit_set::BitSet;
 
 register_problem!(204, "Generalised Hamming Numbers", problem204);
 
-fn find_hamming(mut hamming: &mut BitSet<u32>, primes: &Vec<usize>, n: usize, factor: usize, limit: usize) {
+fn find_hamming(
+    mut hamming: &mut BitSet<u32>,
+    primes: &Vec<usize>,
+    n: usize,
+    factor: usize,
+    limit: usize,
+) {
     if n >= primes.len() {
         return;
     }
@@ -29,7 +35,7 @@ fn find_hamming(mut hamming: &mut BitSet<u32>, primes: &Vec<usize>, n: usize, fa
 pub fn problem204() -> String {
     let limit = 1000000000;
 
-    let mut primes:Vec<usize> = Vec::new();
+    let mut primes: Vec<usize> = Vec::new();
     crible2(100, |p| primes.push(p));
 
     let mut hamming = BitSet::new();

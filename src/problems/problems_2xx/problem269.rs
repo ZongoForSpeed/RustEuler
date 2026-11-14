@@ -1,7 +1,11 @@
-use std::collections::HashMap;
 use crate::register_problem;
+use std::collections::HashMap;
 
-register_problem!(269, "Polynomials with at least one integer root", problem269);
+register_problem!(
+    269,
+    "Polynomials with at least one integer root",
+    problem269
+);
 
 type Cache = HashMap<([i16; 10], usize), i64>;
 

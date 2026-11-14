@@ -35,12 +35,17 @@ pub fn problem059() -> String {
         .map(Result::unwrap)
         .collect();
 
-    let mut tmp_lettres = vec![' ', ',', '(', ')', '[', ']', '.', '!', '\'', ';', '"', '+', '-', '/', '*', ':'];
+    let mut tmp_lettres = vec![
+        ' ', ',', '(', ')', '[', ']', '.', '!', '\'', ';', '"', '+', '-', '/', '*', ':',
+    ];
     tmp_lettres.extend('a'..='z');
     tmp_lettres.extend('A'..='Z');
     tmp_lettres.extend('0'..='9');
 
-    let lettres = tmp_lettres.into_iter().map(|c| c as u8).collect::<HashSet<u8>>();
+    let lettres = tmp_lettres
+        .into_iter()
+        .map(|c| c as u8)
+        .collect::<HashSet<u8>>();
 
     let mut message = "".to_string();
     let a = 'a' as u8;
@@ -75,7 +80,7 @@ pub fn problem059() -> String {
         }
     }
 
-    let result:u64 = message.chars().into_iter().map(|c| c as u64).sum();
+    let result: u64 = message.chars().into_iter().map(|c| c as u64).sum();
     result.to_string()
 }
 

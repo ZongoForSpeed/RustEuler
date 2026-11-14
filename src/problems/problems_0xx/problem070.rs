@@ -16,7 +16,7 @@ register_problem!(70, "Totient permutation", problem070);
 /// Find the value of n, 1 < n < 10^7, for which φ(n) is a permutation of n and the ratio n/φ(n)
 /// produces a minimum.
 pub fn problem070() -> String {
-    let mut primes:Vec<u32> = Vec::new();
+    let mut primes: Vec<u32> = Vec::new();
     crible23(5000, |p| primes.push(p));
 
     let mut min_ratio: Fraction = Fraction::new(u64::MAX, 1u64);

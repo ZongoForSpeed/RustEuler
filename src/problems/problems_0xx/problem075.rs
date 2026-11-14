@@ -34,7 +34,11 @@ pub fn problem075() -> String {
         }
     }
 
-    solutions.into_iter().filter(|s| *s == 1).count().to_string()
+    solutions
+        .into_iter()
+        .filter(|s| *s == 1)
+        .count()
+        .to_string()
 }
 
 #[cfg(test)]

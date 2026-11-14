@@ -1,7 +1,7 @@
+use crate::register_problem;
 use std::collections::HashMap;
 use std::path::Path;
 use string_builder::Builder;
-use crate::register_problem;
 
 register_problem!(79, "Passcode derivation", problem079);
 
@@ -14,7 +14,10 @@ fn minimum(keys: &Vec<String>) -> char {
 
     for key in keys {
         for (n, u8) in key.as_bytes().iter().enumerate() {
-            maximum.entry(*u8 as char).and_modify(|e| *e = std::cmp::max(*e, n)).or_insert(n);
+            maximum
+                .entry(*u8 as char)
+                .and_modify(|e| *e = std::cmp::max(*e, n))
+                .or_insert(n);
         }
     }
 
@@ -26,7 +29,6 @@ fn minimum(keys: &Vec<String>) -> char {
 
     ' '
 }
-
 
 /// A common security method used for online banking is to ask the user for three random
 /// characters from a passcode.
@@ -47,11 +49,11 @@ pub fn problem079() -> String {
 
     let mut password = Builder::default();
     while !is_empty(&keys) {
-            let c = minimum(&keys);
+        let c = minimum(&keys);
         password.append(c);
         for i in 0..keys.len() {
             let key = &keys[i];
-            if !key.is_empty() && key.starts_with(c){
+            if !key.is_empty() && key.starts_with(c) {
                 keys[i] = key[1..].to_string();
             }
         }

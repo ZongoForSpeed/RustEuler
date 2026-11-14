@@ -6,7 +6,7 @@ register_problem!(209, "Circular Logic", problem209);
 
 fn combinaison(n: u64) -> u64 {
     let mut result = 0;
-    for k in 0..=(n/2) {
+    for k in 0..=(n / 2) {
         if k == 0 {
             result += 1;
         } else {

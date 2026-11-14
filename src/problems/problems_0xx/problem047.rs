@@ -1,7 +1,7 @@
+use crate::maths::arithmetic::Arithmetic;
 use crate::maths::primes::crible235;
 use crate::register_problem;
 use std::collections::{BTreeSet, HashSet, VecDeque};
-use crate::maths::arithmetic::Arithmetic;
 
 register_problem!(47, "Distinct primes factors", problem047);
 
@@ -68,4 +68,3 @@ mod tests {
         assert_eq!(result, "134043");
     }
 }
-// ... existing code ...

@@ -1,6 +1,6 @@
 use crate::maths::primes::crible2;
-use std::collections::HashSet;
 use crate::register_problem;
+use std::collections::HashSet;
 
 register_problem!(37, "Truncatable primes", problem037);
 

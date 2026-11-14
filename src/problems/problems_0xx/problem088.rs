@@ -1,5 +1,5 @@
-use bit_set::BitSet;
 use crate::register_problem;
+use bit_set::BitSet;
 
 register_problem!(88, "Product-sum numbers", problem088);
 
@@ -39,18 +39,18 @@ fn generate(best: &mut Vec<usize>, n: usize, length: usize, sum: usize, ratio: u
 ///
 /// What is the sum of all the minimal product-sum numbers for 2≤k≤12000?
 pub fn problem088() -> String {
-    let limit:usize = 12000;
+    let limit: usize = 12000;
     let mut best: Vec<usize> = vec![usize::MAX; limit * 2];
     best[1] = 1;
     for i in 2..limit * 2 {
-        for j in 2..=i.isqrt()+1 {
+        for j in 2..=i.isqrt() + 1 {
             if i % j == 0 {
-                generate(&mut best, i, 1, j, i/j);
+                generate(&mut best, i, 1, j, i / j);
             }
         }
     }
 
-    let mut used2:BitSet<usize> = BitSet::default();
+    let mut used2: BitSet<usize> = BitSet::default();
     let mut result = 0;
     for i in 2..=limit {
         let b = best[i];

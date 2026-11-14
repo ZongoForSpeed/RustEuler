@@ -1,6 +1,6 @@
-use rayon::iter::ParallelIterator;
-use rayon::iter::IntoParallelIterator;
 use crate::register_problem;
+use rayon::iter::IntoParallelIterator;
+use rayon::iter::ParallelIterator;
 
 register_problem!(148, "Exploring Pascal's triangle", problem148);
 
@@ -32,7 +32,11 @@ fn pascal(n: u64, base: u64) -> u64 {
 /// Pascal's triangle.
 pub fn problem148() -> String {
     let base = 7;
-    (0..1000000000).into_par_iter().map(|n| pascal(n, base)).sum::<u64>().to_string()
+    (0..1000000000)
+        .into_par_iter()
+        .map(|n| pascal(n, base))
+        .sum::<u64>()
+        .to_string()
 }
 
 #[cfg(test)]

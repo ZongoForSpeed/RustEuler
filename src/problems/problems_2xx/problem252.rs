@@ -112,7 +112,6 @@ fn algorithm(
     result
 }
 
-
 /// Given a set of points on a plane, we define a convex hole to be a convex
 /// polygon having as vertices any of the given points and not containing any
 /// of the given points in its interior (in addition to the vertices, other

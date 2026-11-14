@@ -35,7 +35,7 @@ pub fn problem014() -> String {
             }
             chaine.push(p);
         }
-        
+
         if let Some(length) = cache.get_mut(&p) {
             let mut mut_longueur = length.clone();
             for c in chaine.iter().rev() {
@@ -54,7 +54,6 @@ pub fn problem014() -> String {
 
     max_nombre.to_string()
 }
-
 
 #[cfg(test)]
 mod tests {

@@ -20,7 +20,6 @@ pub fn problem004() -> String {
     solution.to_string()
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;

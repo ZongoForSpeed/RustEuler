@@ -1,7 +1,7 @@
+use crate::maths::polygonal::Polygonal;
 use crate::maths::primes::crible235;
 use crate::register_problem;
 use std::collections::HashSet;
-use crate::maths::polygonal::Polygonal;
 
 register_problem!(128, "Hexagonal tile differences", problem128);
 

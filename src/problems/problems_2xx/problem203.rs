@@ -1,7 +1,7 @@
 use crate::register_problem;
 use crate::utils::mpz_number::MpzNumber;
-use std::collections::HashSet;
 use num_traits::Zero;
+use std::collections::HashSet;
 
 register_problem!(203, "Squarefree Binomial Coefficients", problem203);
 

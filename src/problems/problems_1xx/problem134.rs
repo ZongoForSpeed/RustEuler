@@ -30,7 +30,7 @@ pub fn problem134() -> String {
             result += b * u64::power(10, d1) + p1;
         }
     }
-    
+
     result.to_string()
 }
 

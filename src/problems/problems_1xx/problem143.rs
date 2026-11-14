@@ -3,7 +3,11 @@ use crate::register_problem;
 use num_integer::Roots;
 use std::collections::{HashMap, HashSet};
 
-register_problem!(143, "Investigating the Torricelli point of a triangle", problem143);
+register_problem!(
+    143,
+    "Investigating the Torricelli point of a triangle",
+    problem143
+);
 
 /// Let ABC be a triangle with all interior angles being less than 120 degrees.
 /// Let X be any point inside the triangle and let XA = p, XB = q, and XC = r.
@@ -25,8 +29,8 @@ register_problem!(143, "Investigating the Torricelli point of a triangle", probl
 pub fn problem143() -> String {
     let limit = 120000;
 
-    let mut dict:HashMap<u64, HashSet<u64>> = HashMap::new();
-    
+    let mut dict: HashMap<u64, HashSet<u64>> = HashMap::new();
+
     for m in 1..limit.sqrt() {
         for n in 1..m {
             if (m - n) % 3 == 0 {
@@ -40,12 +44,12 @@ pub fn problem143() -> String {
             let b = m * m - n * n;
 
             for k in (1..).take_while(|k| k * (a + b) < limit) {
-                dict.entry(a * k).or_insert_with(HashSet::new).insert(b* k);
-                dict.entry(b * k).or_insert_with(HashSet::new).insert(a* k);
+                dict.entry(a * k).or_insert_with(HashSet::new).insert(b * k);
+                dict.entry(b * k).or_insert_with(HashSet::new).insert(a * k);
             }
         }
     }
-    
+
     let mut triplets = HashSet::new();
 
     for (a, bs) in &dict {
@@ -56,11 +60,11 @@ pub fn problem143() -> String {
                     if abc < limit {
                         triplets.insert(abc);
                     }
-                }                
+                }
             }
         }
     }
-    
+
     triplets.into_iter().sum::<u64>().to_string()
 }
 

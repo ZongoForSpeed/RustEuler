@@ -72,7 +72,6 @@ pub fn problem238() -> String {
                 p[r#as] = i + 1;
                 compteur += 1;
             }
-
         }
     }
 

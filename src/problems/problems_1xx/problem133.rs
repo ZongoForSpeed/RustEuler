@@ -16,7 +16,7 @@ register_problem!(133, "Repunit nonfactors", problem133);
 /// Find the sum of all the primes below one-hundred thousand that will never be a factor of R(10n).
 pub fn problem133() -> String {
     let limit = 100000;
-    let mut primes:Vec<u32> = Vec::new();
+    let mut primes: Vec<u32> = Vec::new();
     crible2(limit, |p| primes.push(p));
 
     let mut result = 0;

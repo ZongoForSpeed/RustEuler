@@ -2,11 +2,7 @@ use crate::maths::integer_root::isqrt;
 use crate::register_problem;
 use std::collections::HashMap;
 
-register_problem!(
-    292,
-    "Pythagorean Polygons",
-    problem292
-);
+register_problem!(292, "Pythagorean Polygons", problem292);
 
 type Triplet = (i32, i32, i32);
 
@@ -67,7 +63,8 @@ fn algorithme(
             let reste = perimetre - nl;
 
             if nx * nx + ny * ny <= reste * reste && reste >= 0 {
-                resultat += algorithme(cache, triplets, perimetre, nx, ny, nl, suivant(triplets, k));
+                resultat +=
+                    algorithme(cache, triplets, perimetre, nx, ny, nl, suivant(triplets, k));
             }
         }
     }

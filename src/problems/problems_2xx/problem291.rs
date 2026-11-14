@@ -1,10 +1,6 @@
 use crate::register_problem;
 
-register_problem!(
-    291,
-    "Panaitopol Primes",
-    problem291
-);
+register_problem!(291, "Panaitopol Primes", problem291);
 
 /// A prime number p is called a Panaitopol prime if (x**4 - y**4)/(x**3 + y**3) for some positive integers x and y.
 ///

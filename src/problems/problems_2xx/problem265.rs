@@ -11,7 +11,7 @@ register_problem!(265, "Binary Circles", problem265);
 /// * `n`: The length of the subsequences.
 fn solve_recursive(visited_mask: u32, current_path: usize, n: usize) -> usize {
     let num_subsequences = 1 << n;
-    
+
     // Base case: if we've visited all possible N-digit subsequences.
     if visited_mask.count_ones() as usize == num_subsequences {
         return current_path;
@@ -23,13 +23,21 @@ fn solve_recursive(visited_mask: u32, current_path: usize, n: usize) -> usize {
     // Try appending 0
     let next_subsequence_0 = last_n_minus_1_bits;
     if (visited_mask & (1 << next_subsequence_0)) == 0 {
-        sum += solve_recursive(visited_mask | (1 << next_subsequence_0), current_path << 1, n);
+        sum += solve_recursive(
+            visited_mask | (1 << next_subsequence_0),
+            current_path << 1,
+            n,
+        );
     }
 
     // Try appending 1
     let next_subsequence_1 = last_n_minus_1_bits | 1;
     if (visited_mask & (1 << next_subsequence_1)) == 0 {
-        sum += solve_recursive(visited_mask | (1 << next_subsequence_1), (current_path << 1) | 1, n);
+        sum += solve_recursive(
+            visited_mask | (1 << next_subsequence_1),
+            (current_path << 1) | 1,
+            n,
+        );
     }
 
     sum
@@ -45,23 +53,23 @@ fn solve_recursive(visited_mask: u32, current_path: usize, n: usize) -> usize {
 /// Each circular arrangement can be encoded as a number by concatenating the binary digits starting with the
 /// subsequence of all zeros as the most significant bits and proceeding clockwise. The two arrangements for N=3 are
 /// thus represented as 23 and 29:
-/// 
+///
 /// 00010111 2 = 23
 /// 00011101 2 = 29
-/// 
+///
 /// Calling S(N) the sum of the unique numeric representations, we can see that S(3) = 23 + 29 = 52.
 ///
 /// Find S(5).
 pub fn problem265() -> String {
     const N: usize = 5;
-    
+
     // We start with the subsequence of all zeros (0).
     // The problem states the sequence starts with N zeros.
     // So the first subsequence is 0 (N zeros).
     // The current path also starts with 0.
     let initial_visited_mask = 1 << 0;
     let initial_path = 0;
-    
+
     // The result from solve_recursive needs to be divided by 2^(N-1) because the problem's
     // numeric representation starts with N zeros, but our recursion counts all sequences
     // that start with at least one 0 and uses all possible subsequences.
@@ -77,7 +85,7 @@ pub fn problem265() -> String {
     // it was effectively overcounting or using a different representation.
     // Given that the test passes with this factor, it matches the logic of the original code.
     let total_sum = solve_recursive(initial_visited_mask, initial_path, N) >> (N - 1);
-    
+
     total_sum.to_string()
 }
 

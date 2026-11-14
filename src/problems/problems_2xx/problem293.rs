@@ -2,11 +2,7 @@ use crate::maths::primes::crible2;
 use crate::register_problem;
 use std::collections::BTreeSet;
 
-register_problem!(
-    293,
-    "Pseudo-Fortunate Numbers",
-    problem293
-);
+register_problem!(293, "Pseudo-Fortunate Numbers", problem293);
 
 fn est_premier(n: u64) -> bool {
     if n < 2 {

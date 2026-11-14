@@ -1,11 +1,7 @@
 use crate::register_problem;
 use crate::utils::mpz_number::MpzNumber;
 
-register_problem!(
-    284,
-    "Steady Squares",
-    problem284
-);
+register_problem!(284, "Steady Squares", problem284);
 
 /// The 3-digit number 376 in the decimal numbering system is an example of numbers with the special property that
 /// its square ends with the same digits: 376² = 141376. Let's call a number with this property a steady square.

@@ -19,7 +19,7 @@ pub fn problem268() -> String {
 
     let mut res = 0;
 
-    let max:u64 = 1 << primes.len();
+    let max: u64 = 1 << primes.len();
     for n in 0..max {
         let count = n.count_ones();
         if count < 4 {

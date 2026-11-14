@@ -20,7 +20,7 @@ fn optimum_polynomial(k: i64, p: &QPolynomial) -> QPolynomial {
         return QPolynomial::from(&y);
     }
 
-    let mut result= QPolynomial::new();
+    let mut result = QPolynomial::new();
     for i in 0..x.len() {
         let mut pi = QPolynomial::from_n(y[i]);
         for j in 0..x.len() {
@@ -93,7 +93,9 @@ fn bad_optimum_polynomial(k: i64, p: &QPolynomial) -> SignedFraction {
 pub fn problem101() -> String {
     let mut result = SignedFraction::zero();
     let one = SignedFraction::one();
-    let p = QPolynomial::from(&vec![one, -one, one, -one, one, -one, one, -one, one, -one, one]);
+    let p = QPolynomial::from(&vec![
+        one, -one, one, -one, one, -one, one, -one, one, -one, one,
+    ]);
 
     for k in 1..p.len() {
         let bop = bad_optimum_polynomial(k as i64, &p);

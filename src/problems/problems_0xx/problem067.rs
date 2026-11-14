@@ -23,11 +23,17 @@ register_problem!(67, "Maximum path sum II", problem067);
 /// algorithm to solve it. ;o)
 pub fn problem067() -> String {
     let path = Path::new("data/p067_triangle.txt");
-    let triangle:Vec<Vec<u16>> = std::fs::read_to_string(path)
+    let triangle: Vec<Vec<u16>> = std::fs::read_to_string(path)
         .unwrap()
         .lines()
         .map(String::from)
-        .map(|s| s.split_whitespace().map(str::parse).map(Result::unwrap).collect()).collect();
+        .map(|s| {
+            s.split_whitespace()
+                .map(str::parse)
+                .map(Result::unwrap)
+                .collect()
+        })
+        .collect();
 
     println!("{:?}", triangle);
     maximum_path_sum(triangle).to_string()

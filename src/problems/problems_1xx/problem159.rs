@@ -42,8 +42,11 @@ pub fn problem159() -> String {
     }
 
     for i in 2..=limite / 2 {
-        for j in (2..).take_while(|j| i*j < limite) {
-            max_digital_root_sum[i * j] = std::cmp::max(max_digital_root_sum[i * j], max_digital_root_sum[i] + max_digital_root_sum[j]);
+        for j in (2..).take_while(|j| i * j < limite) {
+            max_digital_root_sum[i * j] = std::cmp::max(
+                max_digital_root_sum[i * j],
+                max_digital_root_sum[i] + max_digital_root_sum[j],
+            );
         }
     }
 

@@ -11,7 +11,10 @@ fn v_intersection(a: &Vec<u64>, b: &Vec<u64>) -> Vec<u64> {
     set_a.intersection(&set_b).cloned().sorted().collect()
 }
 
-fn next_group(g: &HashMap<Vec<u64>, Vec<u64>>, groupe: &HashMap<Vec<u64>, Vec<u64>>) -> HashMap<Vec<u64>, Vec<u64>> {
+fn next_group(
+    g: &HashMap<Vec<u64>, Vec<u64>>,
+    groupe: &HashMap<Vec<u64>, Vec<u64>>,
+) -> HashMap<Vec<u64>, Vec<u64>> {
     let mut suivant = HashMap::new();
     for (p, arete) in g {
         for q in arete {
@@ -80,7 +83,6 @@ pub fn problem060() -> String {
         solution.extend(entry.1);
         solution.sort();
     }
-
 
     let result = solution.iter().sum::<u64>();
     result.to_string()

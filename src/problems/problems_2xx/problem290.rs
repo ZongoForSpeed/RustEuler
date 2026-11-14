@@ -1,11 +1,7 @@
 use crate::register_problem;
 use std::collections::HashMap;
 
-register_problem!(
-    290,
-    "Digital Signature",
-    problem290
-);
+register_problem!(290, "Digital Signature", problem290);
 
 fn somme_chiffres(mut n: i64) -> i64 {
     let mut somme = 0;
@@ -33,7 +29,9 @@ pub fn problem290() -> String {
                 //            et une difference de difference + d - n%10
                 // où 137*d + retenue
                 let n = 137 * d + retenue;
-                *suivant.entry((difference + d - n % 10, n / 10)).or_insert(0) += compteur;
+                *suivant
+                    .entry((difference + d - n % 10, n / 10))
+                    .or_insert(0) += compteur;
             }
         }
         table = suivant;

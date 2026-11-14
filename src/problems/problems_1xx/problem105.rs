@@ -1,7 +1,7 @@
-use std::path::Path;
+use crate::problems::problems_1xx::problem103::verify;
 use crate::register_problem;
 use itertools::Itertools;
-use crate::problems::problems_1xx::problem103::verify;
+use std::path::Path;
 
 register_problem!(105, "Special subset sums: testing", problem105);
 
@@ -23,15 +23,17 @@ pub fn problem105() -> String {
     let path = Path::new("data/p105_sets.txt");
     let mut result: u64 = 0;
     for line in std::fs::read_to_string(path).unwrap().lines() {
-        let set = line.split(',').map(|s| s.parse::<u64>().unwrap()).sorted().collect::<Vec<u64>>();
+        let set = line
+            .split(',')
+            .map(|s| s.parse::<u64>().unwrap())
+            .sorted()
+            .collect::<Vec<u64>>();
         if verify(&set) {
             result += set.iter().sum::<u64>()
         }
-
     }
 
     result.to_string()
-
 }
 
 #[cfg(test)]

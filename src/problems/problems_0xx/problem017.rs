@@ -23,7 +23,7 @@ pub fn problem017() -> String {
             let c = n % 100;
             if c < 20 {
                 resultat += unite[c];
-            }            else {
+            } else {
                 resultat += dizaine[c / 10] + unite[c % 10];
             }
         }
@@ -47,4 +47,3 @@ mod tests {
         assert_eq!(result, "21124");
     }
 }
-

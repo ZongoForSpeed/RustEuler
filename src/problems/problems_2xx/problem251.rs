@@ -1,6 +1,6 @@
-use num_integer::Roots;
 use crate::maths::arithmetic::Arithmetic;
 use crate::register_problem;
+use num_integer::Roots;
 
 register_problem!(251, "Cardano Triplets", problem251);
 
@@ -29,7 +29,7 @@ pub fn problem251() -> String {
 
             let (q, _, _) = i64::bezout(d, 8 * n);
             let mut l = -3 * q * q % (8 * n);
-            l += if l < 0 {8 * n} else {0};
+            l += if l < 0 { 8 * n } else { 0 };
             let c = u + 1 - (3 * n + d) * (d * d * l + 3) / (8 * n) - n * n * l;
             if c > 0 {
                 result += c / (8 * n * n * n + (3 * n + d) * d * d) + 1;

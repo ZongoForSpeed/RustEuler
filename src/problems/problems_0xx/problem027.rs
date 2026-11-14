@@ -1,7 +1,7 @@
-use std::collections::HashSet;
-use num_traits::abs;
 use crate::maths::primes::crible235;
 use crate::register_problem;
+use num_traits::abs;
+use std::collections::HashSet;
 
 fn prime_seq(primes: &HashSet<i64>, a: i64, b: i64) -> i64 {
     let mut compteur = 0;
@@ -38,7 +38,9 @@ register_problem!(27, "Quadratic primes", problem027);
 /// primes for consecutive values of n, starting with n = 0.
 pub fn problem027() -> String {
     let mut primes: HashSet<i64> = HashSet::new();
-    crible235(1000000, |p| { primes.insert(p);} );
+    crible235(1000000, |p| {
+        primes.insert(p);
+    });
 
     let mut a_max = 0;
     let mut b_max = 0;
@@ -55,7 +57,6 @@ pub fn problem027() -> String {
                         // std::cout << "(a, b, c) = (" << a << ", " << b << ", " << compteur << ")" << std::endl;
                     }
                 }
-
             }
         }
     }

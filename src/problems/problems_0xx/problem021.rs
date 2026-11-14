@@ -20,7 +20,7 @@ pub fn problem021() -> String {
     let mut diviseurs: Vec<u64> = Vec::new();
     diviseurs.reserve(10000);
     diviseurs.push(0);
-    let mut resultat:u64 = 0;
+    let mut resultat: u64 = 0;
     for n in 1..10000 {
         let d = n.sum_of_divisors(&primes) - n;
         diviseurs.push(d);

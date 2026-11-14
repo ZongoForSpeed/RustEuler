@@ -204,9 +204,15 @@ where
     T: PrimInt + std::ops::DivAssign,
     F: FnMut(T),
 {
-    if taille < 2 { return; }
-    if let Some(two) = T::from(2) { sortie(two); }
-    if taille == 2 { return; }
+    if taille < 2 {
+        return;
+    }
+    if let Some(two) = T::from(2) {
+        sortie(two);
+    }
+    if taille == 2 {
+        return;
+    }
 
     let max_idx = (taille - 1) / 2;
     // 'composites' bit set to 1 means the number is NOT prime.
@@ -214,12 +220,12 @@ where
     let mut composites = BitSet::with_capacity(max_idx + 1);
 
     let limit = ((taille as f64).sqrt() as usize - 1) / 2;
-    
+
     for p in 1..=limit {
         if !composites.contains(p) {
             let prime_val = 2 * p + 1;
             let start = 2 * p * (p + 1);
-            
+
             for n in (start..=max_idx).step_by(prime_val) {
                 composites.insert(n);
             }
@@ -1054,7 +1060,7 @@ mod tests {
         let p = 2305843009213693951u64;
         assert_eq!(p.next_prime(25), 2305843009213693967);
 
-        for n in p+1..2305843009213693967 {
+        for n in p + 1..2305843009213693967 {
             assert_eq!(n.miller_rabin(25), false);
         }
 

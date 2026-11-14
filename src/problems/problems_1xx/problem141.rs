@@ -1,11 +1,15 @@
 use crate::maths::arithmetic::Arithmetic;
+use crate::maths::polygonal::Polygonal;
 use crate::register_problem;
 use std::collections::HashSet;
-use crate::maths::polygonal::Polygonal;
 
-register_problem!(141, "Investigating progressive numbers, n, which are also square", problem141);
+register_problem!(
+    141,
+    "Investigating progressive numbers, n, which are also square",
+    problem141
+);
 
-/// A positive integer, n, is divided by d and the quotient and remainder are q and r respectively. 
+/// A positive integer, n, is divided by d and the quotient and remainder are q and r respectively.
 /// In addition d, q, and r are consecutive positive integer terms in a geometric sequence, but not necessarily in
 /// that order.
 ///
@@ -18,13 +22,13 @@ register_problem!(141, "Investigating progressive numbers, n, which are also squ
 ///
 /// Find the sum of all progressive perfect squares below one trillion (1012).
 pub fn problem141() -> String {
-    let limit:u64 = 1000000000000;
-    
+    let limit: u64 = 1000000000000;
+
     let mut solutions = HashSet::<u64>::new();
     for t in (1..).take_while(|t| t * t * (1 + t * t) < limit) {
-        for s in (t+1..).take_while(|s| t * (t + s * s * s) < limit) {
+        for s in (t + 1..).take_while(|s| t * (t + s * s * s) < limit) {
             if u64::gcd(t, s) == 1 {
-                let s_cube = s*s*s;
+                let s_cube = s * s * s;
                 for v in (1..).take_while(|v| v * t * (t + s_cube * v) < limit) {
                     let n = v * t * (t + s_cube * v);
                     if n.is_square() {
@@ -34,7 +38,7 @@ pub fn problem141() -> String {
             }
         }
     }
-    
+
     solutions.iter().sum::<u64>().to_string()
 }
 

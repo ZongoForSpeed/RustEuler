@@ -1,4 +1,4 @@
-use crate::maths::digits::{conversion, Digits};
+use crate::maths::digits::{Digits, conversion};
 use crate::register_problem;
 use crate::utils::permutations::permutations;
 

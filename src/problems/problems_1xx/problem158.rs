@@ -21,7 +21,7 @@ register_problem!(
 ///
 /// What is the maximum value of p(n)?
 pub fn problem158() -> String {
-    let mut result:u64 = 0;
+    let mut result: u64 = 0;
     let mut p2 = 1;
 
     let mut c = 1;

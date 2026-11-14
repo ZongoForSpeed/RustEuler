@@ -1,17 +1,20 @@
+use crate::register_problem;
 use std::collections::HashSet;
 use std::path::Path;
-use crate::register_problem;
 
+fn convert_u8(c: u8) -> usize {
+    if c == '"' as u8 {
+        0
+    } else {
+        let d = c - 'A' as u8;
+        (d + 1) as usize
+    }
+}
 
 fn conversion(s: &String) -> usize {
-    s.bytes().map(|c| {
-        if c == '"' as u8 {
-            return 0;
-        } else {
-            let d = c - 'A' as u8;
-            (d + 1) as usize
-        }
-    }).sum()
+    s.bytes()
+        .map(|c| convert_u8(c))
+        .sum()
 }
 
 register_problem!(42, "Coded triangle numbers", problem042);
@@ -36,7 +39,7 @@ pub fn problem042() -> String {
         .map(String::from)
         .collect();
 
-    let mut triangles= HashSet::new();
+    let mut triangles = HashSet::new();
     for n in 1..50 {
         triangles.insert(n * (n + 1) / 2);
     }

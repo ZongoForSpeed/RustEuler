@@ -1,15 +1,12 @@
 use crate::register_problem;
 
-register_problem!(
-    285,
-    "Pythagorean odds",
-    problem285
-);
+register_problem!(285, "Pythagorean odds", problem285);
 
 fn aire_section_disque(r: f64, x: f64, y: f64) -> f64 {
     // http://villemin.gerard.free.fr/GeomLAV/Cercle/aaaAIRE/RectangT.htm
     // acos(sqrt(r²-x²)/r) = atan2(x, sqrt(r²-x²)) : évite la perte de précision de acos près de 1
-    r * r * (y / r).acos() / 2.0 - y * (r * r - y * y).sqrt() / 2.0
+    r * r * (y / r).acos() / 2.0
+        - y * (r * r - y * y).sqrt() / 2.0
         - r * r * x.atan2((r * r - x * x).sqrt()) / 2.0
         + (r * r - x * x).sqrt() * x.abs() / 2.0
         - x * ((r * r - x * x).sqrt() - y)

@@ -1,10 +1,6 @@
 use crate::register_problem;
 
-register_problem!(
-    276,
-    "Primitive Triangles",
-    problem276
-);
+register_problem!(276, "Primitive Triangles", problem276);
 
 fn nombre_triangles(p: u64) -> u64 {
     // http://mathworld.wolfram.com/IntegerTriangle.html

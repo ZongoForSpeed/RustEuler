@@ -18,13 +18,17 @@ register_problem!(86, "Cuboid route", problem086);
 ///
 /// Find the least value of M such that the number of solutions first exceeds one million.
 pub fn problem086() -> String {
-    let mut result:u32 = 0;
-    let mut count:u32 = 0;
+    let mut result: u32 = 0;
+    let mut count: u32 = 0;
     for a in 1.. {
-        for s in 2..=2*a {
+        for s in 2..=2 * a {
             let n = a * a + s * s;
             if n.is_square() {
-                count += if s > a + 1 {a + 1 - (s + 1) / 2} else {s / 2};
+                count += if s > a + 1 {
+                    a + 1 - (s + 1) / 2
+                } else {
+                    s / 2
+                };
             }
         }
 

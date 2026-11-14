@@ -1,10 +1,6 @@
 use crate::register_problem;
 
-register_problem!(
-    288,
-    "An enormous factorial",
-    problem288
-);
+register_problem!(288, "An enormous factorial", problem288);
 
 fn nombre_facteur(n: u128, p: u128, modulo: u128) -> u128 {
     let mut quotient = n / p;

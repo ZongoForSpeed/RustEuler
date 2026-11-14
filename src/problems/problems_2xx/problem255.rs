@@ -3,14 +3,14 @@ use crate::register_problem;
 register_problem!(255, "Rounded Square Roots", problem255);
 
 fn floor(a: i64, b: i64) -> i64 {
-    a/b
+    a / b
 }
 
 fn ceil(a: i64, b: i64) -> i64 {
-    (a+b-1)/b
+    (a + b - 1) / b
 }
 
-fn f(n:i64, x: i64) -> i64 {
+fn f(n: i64, x: i64) -> i64 {
     floor(x + ceil(n, x), 2)
 }
 

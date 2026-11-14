@@ -1,10 +1,6 @@
 use crate::register_problem;
 
-register_problem!(
-    275,
-    "Balanced Sculptures",
-    problem275
-);
+register_problem!(275, "Balanced Sculptures", problem275);
 
 type Point = (i64, i64);
 

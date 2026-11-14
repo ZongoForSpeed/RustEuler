@@ -1,5 +1,5 @@
-use std::collections::{HashMap, HashSet};
 use crate::register_problem;
+use std::collections::{HashMap, HashSet};
 
 register_problem!(109, "Darts", problem109);
 
@@ -15,7 +15,10 @@ fn build(score: &Darts, combinaisons: &Combinations) -> Combinations {
                 let mut copy_f = f.clone();
                 copy_f.push(s.clone());
                 copy_f.sort();
-                result.entry(s.1 + first).or_insert_with(HashSet::new).insert(copy_f);
+                result
+                    .entry(s.1 + first)
+                    .or_insert_with(HashSet::new)
+                    .insert(copy_f);
             }
         }
     }
@@ -71,21 +74,21 @@ fn dart(t: char, score: u32, value: u32) -> Dart {
 ///
 /// How many distinct ways can a player checkout with a score less than 100?
 pub fn problem109() -> String {
-    let mut score:Darts = Darts::new();
-    let mut score_double:Darts = Darts::new();
+    let mut score: Darts = Darts::new();
+    let mut score_double: Darts = Darts::new();
 
     for n in 1..=20 {
         score.push(dart('S', n, n));
-        score.push(dart('D', n, 2*n));
-        score.push(dart('T', n, 3*n));
+        score.push(dart('D', n, 2 * n));
+        score.push(dart('T', n, 3 * n));
 
-        score_double.push(dart('D', n, 2*n));
+        score_double.push(dart('D', n, 2 * n));
     }
 
     score.push(dart('S', 25, 25));
-    score.push(dart('D', 25, 2*25));
+    score.push(dart('D', 25, 2 * 25));
 
-    score_double.push(dart('D', 25, 2*25));
+    score_double.push(dart('D', 25, 2 * 25));
 
     let zero: Darts = vec![("0".into(), 0)];
 
@@ -102,7 +105,10 @@ pub fn problem109() -> String {
             for f in second {
                 let mut copy_f = f.clone();
                 copy_f.push(s.clone());
-                solution.entry(s.1 + first).or_insert_with(HashSet::new).insert(copy_f);
+                solution
+                    .entry(s.1 + first)
+                    .or_insert_with(HashSet::new)
+                    .insert(copy_f);
             }
         }
     }

@@ -2,9 +2,16 @@ use crate::register_problem;
 use crate::utils::mpq_fraction::MpqFraction;
 use std::collections::HashMap;
 
-register_problem!(151, "Paper sheets of standard sizes: an expected-value problem", problem151);
+register_problem!(
+    151,
+    "Paper sheets of standard sizes: an expected-value problem",
+    problem151
+);
 
-fn expected_value(mut cache: &mut HashMap<Vec<u16>, MpqFraction>, envelope: Vec<u16>) -> MpqFraction {
+fn expected_value(
+    mut cache: &mut HashMap<Vec<u16>, MpqFraction>,
+    envelope: Vec<u16>,
+) -> MpqFraction {
     if let Some(value) = cache.get(&envelope) {
         return value.clone();
     }
@@ -14,7 +21,7 @@ fn expected_value(mut cache: &mut HashMap<Vec<u16>, MpqFraction>, envelope: Vec<
         for (i, sheet) in envelope.iter().enumerate() {
             let mut new_envelope = envelope.clone();
             new_envelope.remove(i);
-            for j in sheet+1..=5 {
+            for j in sheet + 1..=5 {
                 new_envelope.push(j);
             }
             new_envelope.sort();

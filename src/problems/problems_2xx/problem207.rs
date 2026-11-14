@@ -25,7 +25,7 @@ register_problem!(207, "Integer partition equations", problem207);
 ///
 /// Find the smallest m for which P(m) < 1/12345
 pub fn problem207() -> String {
-    let limite:u64 = 12345;
+    let limite: u64 = 12345;
     // P(x*(x-1)) = floor(log_2(x)) / (x-1)
     // ==> k / (2^k - 1) < 1 / 12345
 

@@ -2,9 +2,13 @@ use crate::maths::arithmetic::Arithmetic;
 use crate::maths::power::Power;
 use crate::maths::primes::crible235;
 use crate::register_problem;
-use itertools::{iproduct, Itertools};
+use itertools::{Itertools, iproduct};
 
-register_problem!(157, "Solving the diophantine equation 1/a+1/b= p/10n", problem157);
+register_problem!(
+    157,
+    "Solving the diophantine equation 1/a+1/b= p/10n",
+    problem157
+);
 
 fn solve_diophantine(primes: &Vec<u64>, n: u64) -> u64 {
     let m = u64::power(10, n);
@@ -15,13 +19,17 @@ fn solve_diophantine(primes: &Vec<u64>, n: u64) -> u64 {
         d5.push(u64::power(5, p));
     }
 
-    let divisors = iproduct!(d2, d5).map(|(i, j)| i * j).unique().sorted().collect::<Vec<u64>>();
+    let divisors = iproduct!(d2, d5)
+        .map(|(i, j)| i * j)
+        .unique()
+        .sorted()
+        .collect::<Vec<u64>>();
 
     let mut result_n = 0;
     for b in &divisors {
         for a in &divisors {
             if a > b || a * b > m {
-                break
+                break;
             }
             if u64::gcd(*a, *b) != 1 {
                 continue;

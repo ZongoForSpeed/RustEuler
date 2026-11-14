@@ -22,7 +22,7 @@ pub fn problem126() -> String {
     let mut couche = vec![0; limit];
 
     for a in 1..limit / 4 {
-        let limit_b = std::cmp::min(limit / (4 * a), a+1);
+        let limit_b = std::cmp::min(limit / (4 * a), a + 1);
         for b in 1..limit_b {
             for c in 1..=b {
                 let mut n = 1;

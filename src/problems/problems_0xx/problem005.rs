@@ -9,7 +9,7 @@ register_problem!(5, "Smallest multiple", problem005);
 /// What is the smallest positive number that is evenly divisible by all of the numbers from 1
 /// to 20?
 pub fn problem005() -> String {
-    let mut solution:u64 = 2;
+    let mut solution: u64 = 2;
     for d in 3..=20 {
         solution = u64::lcm(solution, d);
     }

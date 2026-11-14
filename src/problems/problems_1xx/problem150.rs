@@ -1,8 +1,12 @@
-use rayon::iter::ParallelIterator;
-use rayon::iter::IntoParallelIterator;
 use crate::register_problem;
+use rayon::iter::IntoParallelIterator;
+use rayon::iter::ParallelIterator;
 
-register_problem!(150, "Searching a triangular array for a sub-triangle having minimum-sum", problem150);
+register_problem!(
+    150,
+    "Searching a triangular array for a sub-triangle having minimum-sum",
+    problem150
+);
 
 fn min_sum_i(m: &Vec<Vec<i64>>, i: usize) -> i64 {
     let mut result = 0;
@@ -53,9 +57,9 @@ fn min_sum_i(m: &Vec<Vec<i64>>, i: usize) -> i64 {
 /// The "sum of a sub-triangle" is defined as the sum of all the elements it contains.
 /// Find the smallest possible sub-triangle sum.
 pub fn problem150() -> String {
-    let two20:i64 = 1 << 20;
-    let two19:i64 = 1 << 19;
-    let mut t:i64 = 0;
+    let two20: i64 = 1 << 20;
+    let two19: i64 = 1 << 19;
+    let mut t: i64 = 0;
 
     let mut m = Vec::new();
     let mut line = Vec::new();
@@ -68,7 +72,11 @@ pub fn problem150() -> String {
         }
     }
 
-    let result = (0..m.len()).into_par_iter().map(|i| min_sum_i(&m, i)).min().unwrap();
+    let result = (0..m.len())
+        .into_par_iter()
+        .map(|i| min_sum_i(&m, i))
+        .min()
+        .unwrap();
     result.to_string()
 }
 

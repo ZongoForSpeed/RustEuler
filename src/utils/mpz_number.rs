@@ -4,7 +4,7 @@ use gmp_mpfr_sys::mpc::free_str;
 use num_traits::{One, Zero};
 use std::cmp::Ordering;
 use std::collections::VecDeque;
-use std::ffi::{c_char, c_int, c_long, c_ulong, c_void, CStr, CString};
+use std::ffi::{CStr, CString, c_char, c_int, c_long, c_ulong, c_void};
 use std::fmt::{Debug, Display, Formatter};
 use std::hash::{Hash, Hasher};
 use std::iter::{Product, Sum};
@@ -422,7 +422,6 @@ impl MpzNumber {
         //       return h ^ std::hash<mp_size_t>()(x.value_->_mp_size);
         //     }
     }
-
 
     pub(crate) fn concat_numbers(a: &Self, b: &Self, base: u32) -> Self {
         let mut multiplier = MpzNumber::one();
@@ -1110,10 +1109,10 @@ impl Product<MpzNumber> for MpzNumber {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::utils::hash::default_hash;
     use gmp_mpfr_sys::gmp;
     use std::ffi::CStr;
-    use std::ptr::{null_mut};
-    use crate::utils::hash::default_hash;
+    use std::ptr::null_mut;
 
     #[test]
     fn test_gmp_dummy() {
@@ -1346,5 +1345,4 @@ mod tests {
         assert_eq!(default_hash(&MpzNumber::zero()), 13646096770106105413);
         assert_eq!(default_hash(&MpzNumber::one()), 7912899488978770657);
     }
-
 }

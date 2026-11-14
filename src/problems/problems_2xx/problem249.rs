@@ -1,4 +1,4 @@
-use crate::maths::primes::{crible2};
+use crate::maths::primes::crible2;
 use crate::register_problem;
 
 register_problem!(249, "Prime Subset Sums", problem249);
@@ -29,7 +29,7 @@ pub fn problem249() -> String {
             j = j - 1;
         }
     }
-    
+
     primes.clear();
     crible2(sum, |p| primes.push(p));
 

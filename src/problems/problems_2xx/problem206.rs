@@ -50,5 +50,4 @@ mod tests {
         let result = problem206();
         assert_eq!(result, "1389019170");
     }
-
 }

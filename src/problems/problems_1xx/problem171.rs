@@ -1,8 +1,8 @@
 use crate::maths::power::Power;
 use crate::register_problem;
+use itertools::iproduct;
 use num_integer::Roots;
 use std::ops::RemAssign;
-use itertools::iproduct;
 
 register_problem!(
     171,
@@ -28,7 +28,7 @@ pub fn problem171() -> String {
         let mut n_sums = vec![0; sums.len() + 81];
 
         if n > 8 {
-            for (i,j) in iproduct!(0..sums.len(), 0..10) {
+            for (i, j) in iproduct!(0..sums.len(), 0..10) {
                 n_sums[i + j * j] += sums[i];
             }
         } else {

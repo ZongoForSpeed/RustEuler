@@ -63,7 +63,6 @@ pub fn problem083() -> String {
 
     let h = |_: &Node, _: &Node| 0;
 
-
     let result: u32 = a_star((0, 0), (length - 1, length - 1), g, d, h) + m[length - 1][length - 1];
     result.to_string()
 }

@@ -4,7 +4,7 @@ register_problem!(246, "Tangents to an ellipse", problem246);
 
 struct Point {
     x: i64,
-    y: i64
+    y: i64,
 }
 
 impl Point {

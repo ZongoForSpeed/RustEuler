@@ -66,5 +66,4 @@ mod tests {
         assert_eq!(1, u32::binomial(40, 0));
         assert_eq!(137846528820, u128::binomial(40, 20));
     }
-
 }

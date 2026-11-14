@@ -1,11 +1,7 @@
 use crate::maths::primes::crible235;
 use crate::register_problem;
 
-register_problem!(
-    274,
-    "Divisibility Multipliers",
-    problem274
-);
+register_problem!(274, "Divisibility Multipliers", problem274);
 
 /// For each integer p > 1 coprime to 10 there is a positive divisibility multiplier m < p which preserves
 /// divisibility by p for the following function on any positive integer, n:

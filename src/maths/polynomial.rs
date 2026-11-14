@@ -136,7 +136,16 @@ where
 
 impl<T> PartialEq<Self> for Polynomial<T>
 where
-    T: AddAssign + Clone + Copy + MulAssign + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
+    T: AddAssign
+        + Clone
+        + Copy
+        + MulAssign
+        + SubAssign
+        + ToString
+        + Signed
+        + PartialOrd
+        + ConstOne
+        + ConstZero,
 {
     fn eq(&self, other: &Self) -> bool {
         self._poly == other._poly
@@ -145,7 +154,16 @@ where
 
 impl<T> PartialEq<Polynomial<T>> for &Polynomial<T>
 where
-    T: AddAssign + Clone + Copy + MulAssign + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
+    T: AddAssign
+        + Clone
+        + Copy
+        + MulAssign
+        + SubAssign
+        + ToString
+        + Signed
+        + PartialOrd
+        + ConstOne
+        + ConstZero,
 {
     fn eq(&self, other: &Polynomial<T>) -> bool {
         self._poly == other._poly
@@ -153,13 +171,31 @@ where
 }
 
 impl<T> Eq for Polynomial<T> where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero
+    T: Clone
+        + MulAssign
+        + AddAssign
+        + Copy
+        + SubAssign
+        + ToString
+        + Signed
+        + PartialOrd
+        + ConstOne
+        + ConstZero
 {
 }
 
 impl<T> Clone for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
+    T: Clone
+        + MulAssign
+        + AddAssign
+        + Copy
+        + SubAssign
+        + ToString
+        + Signed
+        + PartialOrd
+        + ConstOne
+        + ConstZero,
 {
     fn clone(&self) -> Self {
         Polynomial::from(&self._poly)
@@ -168,7 +204,16 @@ where
 
 impl<T> Debug for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
+    T: Clone
+        + MulAssign
+        + AddAssign
+        + Copy
+        + SubAssign
+        + ToString
+        + Signed
+        + PartialOrd
+        + ConstOne
+        + ConstZero,
 {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.to_string())
@@ -177,7 +222,16 @@ where
 
 impl<T> Display for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
+    T: Clone
+        + MulAssign
+        + AddAssign
+        + Copy
+        + SubAssign
+        + ToString
+        + Signed
+        + PartialOrd
+        + ConstOne
+        + ConstZero,
 {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.to_string())
@@ -186,7 +240,16 @@ where
 
 impl<T> AddAssign<Polynomial<T>> for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
+    T: Clone
+        + MulAssign
+        + AddAssign
+        + Copy
+        + SubAssign
+        + ToString
+        + Signed
+        + PartialOrd
+        + ConstOne
+        + ConstZero,
 {
     fn add_assign(&mut self, rhs: Polynomial<T>) {
         self._internal_add(&rhs);
@@ -195,7 +258,16 @@ where
 
 impl<T> AddAssign<&Polynomial<T>> for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
+    T: Clone
+        + MulAssign
+        + AddAssign
+        + Copy
+        + SubAssign
+        + ToString
+        + Signed
+        + PartialOrd
+        + ConstOne
+        + ConstZero,
 {
     fn add_assign(&mut self, rhs: &Polynomial<T>) {
         self._internal_add(rhs);
@@ -204,7 +276,16 @@ where
 
 impl<T> Add<&Polynomial<T>> for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
+    T: Clone
+        + MulAssign
+        + AddAssign
+        + Copy
+        + SubAssign
+        + ToString
+        + Signed
+        + PartialOrd
+        + ConstOne
+        + ConstZero,
 {
     type Output = Polynomial<T>;
 
@@ -217,7 +298,16 @@ where
 
 impl<T> Add<&Polynomial<T>> for &Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
+    T: Clone
+        + MulAssign
+        + AddAssign
+        + Copy
+        + SubAssign
+        + ToString
+        + Signed
+        + PartialOrd
+        + ConstOne
+        + ConstZero,
 {
     type Output = Polynomial<T>;
 
@@ -230,7 +320,16 @@ where
 
 impl<T> MulAssign<Polynomial<T>> for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
+    T: Clone
+        + MulAssign
+        + AddAssign
+        + Copy
+        + SubAssign
+        + ToString
+        + Signed
+        + PartialOrd
+        + ConstOne
+        + ConstZero,
 {
     fn mul_assign(&mut self, rhs: Polynomial<T>) {
         self._internal_mul(&rhs);
@@ -239,7 +338,16 @@ where
 
 impl<T> MulAssign<&Polynomial<T>> for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
+    T: Clone
+        + MulAssign
+        + AddAssign
+        + Copy
+        + SubAssign
+        + ToString
+        + Signed
+        + PartialOrd
+        + ConstOne
+        + ConstZero,
 {
     fn mul_assign(&mut self, rhs: &Polynomial<T>) {
         self._internal_mul(&rhs);
@@ -248,7 +356,16 @@ where
 
 impl<T> Mul<&Polynomial<T>> for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
+    T: Clone
+        + MulAssign
+        + AddAssign
+        + Copy
+        + SubAssign
+        + ToString
+        + Signed
+        + PartialOrd
+        + ConstOne
+        + ConstZero,
 {
     type Output = Polynomial<T>;
 
@@ -261,7 +378,16 @@ where
 
 impl<T> Mul<&Polynomial<T>> for &Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
+    T: Clone
+        + MulAssign
+        + AddAssign
+        + Copy
+        + SubAssign
+        + ToString
+        + Signed
+        + PartialOrd
+        + ConstOne
+        + ConstZero,
 {
     type Output = Polynomial<T>;
 
@@ -274,7 +400,16 @@ where
 
 impl<T> SubAssign<Polynomial<T>> for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
+    T: Clone
+        + MulAssign
+        + AddAssign
+        + Copy
+        + SubAssign
+        + ToString
+        + Signed
+        + PartialOrd
+        + ConstOne
+        + ConstZero,
 {
     fn sub_assign(&mut self, rhs: Polynomial<T>) {
         self._internal_sub(&rhs);
@@ -283,7 +418,16 @@ where
 
 impl<T> SubAssign<&Polynomial<T>> for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
+    T: Clone
+        + MulAssign
+        + AddAssign
+        + Copy
+        + SubAssign
+        + ToString
+        + Signed
+        + PartialOrd
+        + ConstOne
+        + ConstZero,
 {
     fn sub_assign(&mut self, rhs: &Polynomial<T>) {
         self._internal_sub(&rhs);
@@ -292,7 +436,16 @@ where
 
 impl<T> Sub<&Polynomial<T>> for Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
+    T: Clone
+        + MulAssign
+        + AddAssign
+        + Copy
+        + SubAssign
+        + ToString
+        + Signed
+        + PartialOrd
+        + ConstOne
+        + ConstZero,
 {
     type Output = Polynomial<T>;
 
@@ -305,7 +458,16 @@ where
 
 impl<T> Sub<&Polynomial<T>> for &Polynomial<T>
 where
-    T: Clone + MulAssign + AddAssign + Copy + SubAssign + ToString + Signed + PartialOrd + ConstOne + ConstZero,
+    T: Clone
+        + MulAssign
+        + AddAssign
+        + Copy
+        + SubAssign
+        + ToString
+        + Signed
+        + PartialOrd
+        + ConstOne
+        + ConstZero,
 {
     type Output = Polynomial<T>;
 

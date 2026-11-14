@@ -3,11 +3,7 @@ use crate::maths::integer_root::isqrt;
 use crate::register_problem;
 use std::collections::BTreeSet;
 
-register_problem!(
-    295,
-    "Lenticular holes",
-    problem295
-);
+register_problem!(295, "Lenticular holes", problem295);
 
 fn lenticular(x: i64, y: i64, a: i64, b: i64) -> bool {
     let r = x * x + y * y;

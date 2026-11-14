@@ -12,7 +12,7 @@ register_problem!(94, "Almost equilateral triangles", problem094);
 /// Find the sum of the perimeters of all almost equilateral triangles with integral side lengths
 /// and area and whose perimeters do not exceed one billion (1,000,000,000).
 pub fn problem094() -> String {
-    let limit:u64 = 1000000000;
+    let limit: u64 = 1000000000;
     let mut result = 0;
     for k in 1..(limit - 2) / 6 {
         let n = 3 * k * k + 2 * k;

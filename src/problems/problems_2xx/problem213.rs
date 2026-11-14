@@ -1,6 +1,6 @@
+use crate::maths::matrix::Matrix;
 use crate::register_problem;
 use ndarray::Array2;
-use crate::maths::matrix::Matrix;
 
 register_problem!(213, "Flea Circus", problem213);
 

@@ -1,7 +1,7 @@
 use crate::register_problem;
+use crate::utils::mpz_number::MpzNumber;
 use std::collections::{BTreeMap, HashMap};
 use std::ops::AddAssign;
-use crate::utils::mpz_number::MpzNumber;
 
 register_problem!(253, "Tidying up", problem253);
 
@@ -40,7 +40,7 @@ fn algorithm(mut cache: &mut HashMap<Vec<u32>, Dictionary>, sizes: &Vec<u32>) ->
 
                     let tmp = algorithm(&mut cache, &copy_sizes);
                     join(&mut result, tmp, sum, size);
-                    
+
                     if m1 != 0 {
                         copy_sizes[m1] -= 1;
                     }
@@ -60,9 +60,15 @@ fn algorithm(mut cache: &mut HashMap<Vec<u32>, Dictionary>, sizes: &Vec<u32>) ->
 fn join(result: &mut BTreeMap<u32, MpzNumber>, tmp: Dictionary, sum: u32, size: u32) {
     for (k, v) in tmp {
         if k < sum {
-            result.entry(sum).or_insert_with(MpzNumber::new).add_assign(v * size);
+            result
+                .entry(sum)
+                .or_insert_with(MpzNumber::new)
+                .add_assign(v * size);
         } else {
-            result.entry(k).or_insert_with(MpzNumber::new).add_assign(v * size);
+            result
+                .entry(k)
+                .or_insert_with(MpzNumber::new)
+                .add_assign(v * size);
         }
     }
 }
@@ -90,7 +96,7 @@ fn join(result: &mut BTreeMap<u32, MpzNumber>, tmp: Dictionary, sum: u32, size: 
 ///
 /// Let M be the maximum number of segments encountered during a random tidy-up of the caterpillar.
 /// For a caterpillar of ten pieces, the number of possibilities for each M is
-/// 
+///
 ///                                  M	Possibilities
 ///                                  1	512      
 ///                                  2	250912      

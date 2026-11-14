@@ -1,9 +1,9 @@
 use crate::maths::integer_root;
-use crate::register_problem;
-use std::collections::hash_map::Entry;
-use std::collections::HashMap;
-use Entry::{Occupied, Vacant};
 use crate::maths::polygonal::Polygonal;
+use crate::register_problem;
+use Entry::{Occupied, Vacant};
+use std::collections::HashMap;
+use std::collections::hash_map::Entry;
 
 fn period(r: i32) -> Option<i32> {
     if r.is_square() {

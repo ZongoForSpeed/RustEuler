@@ -1,10 +1,6 @@
 use crate::register_problem;
 
-register_problem!(
-    282,
-    "The Ackermann function",
-    problem282
-);
+register_problem!(282, "The Ackermann function", problem282);
 
 fn ackermann(m: u64, n: u64) -> u64 {
     if m == 0 {
@@ -38,7 +34,10 @@ fn factorisation(mut m: u64) -> Vec<(u64, u32)> {
 }
 
 fn phi(facteurs: &[(u64, u32)]) -> u64 {
-    facteurs.iter().map(|&(p, e)| p.pow(e - 1) * (p - 1)).product()
+    facteurs
+        .iter()
+        .map(|&(p, e)| p.pow(e - 1) * (p - 1))
+        .product()
 }
 
 fn puissance_modulaire(base: u64, exposant: u64, modulo: u64) -> u64 {
@@ -86,11 +85,7 @@ fn tetration(a: u64, m: u64) -> u64 {
             const F: [u64; 5] = [0, 2, 4, 16, 65536];
             const LOG_F: [u32; 6] = [0, 1, 2, 4, 16, 65536];
             let a = a as usize;
-            if a < F.len() && e > LOG_F[a] {
-                F[a]
-            } else {
-                0
-            }
+            if a < F.len() && e > LOG_F[a] { F[a] } else { 0 }
         } else {
             // si m premier avec 2
             // alors 2↑↑a mod m = 2**(2↑↑(a-1) mod phi(m)) mod m

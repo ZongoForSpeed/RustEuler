@@ -5,8 +5,7 @@ use fraction::Fraction;
 register_problem!(112, "Bouncy numbers", problem112);
 
 fn is_sorted(d: &Vec<u64>) -> bool {
-    d.windows(2).all(|w| w[0] <= w[1])
-        || d.windows(2).all(|w| w[0] >= w[1])
+    d.windows(2).all(|w| w[0] <= w[1]) || d.windows(2).all(|w| w[0] >= w[1])
 }
 
 /// Working from left-to-right if no digit is exceeded by the digit to its left it is called an

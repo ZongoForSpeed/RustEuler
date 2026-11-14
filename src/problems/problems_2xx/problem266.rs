@@ -1,6 +1,6 @@
-use num_traits::{One, Zero};
 use crate::register_problem;
 use crate::utils::mpz_number::MpzNumber;
+use num_traits::{One, Zero};
 
 register_problem!(266, "Pseudo Square Root", problem266);
 

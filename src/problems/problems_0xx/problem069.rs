@@ -22,7 +22,7 @@ register_problem!(69, "Totient maximum", problem069);
 ///
 /// Find the value of n ≤ 1,000,000 for which n/φ(n) is a maximum.
 pub fn problem069() -> String {
-    let mut primes:Vec<u32> = Vec::new();
+    let mut primes: Vec<u32> = Vec::new();
     crible23(100, |p| primes.push(p));
 
     let limit = 1000000;

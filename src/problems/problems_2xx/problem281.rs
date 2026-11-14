@@ -3,11 +3,7 @@ use crate::maths::primes::crible235;
 use crate::register_problem;
 use crate::utils::mpz_number::MpzNumber;
 
-register_problem!(
-    281,
-    "Pizza Toppings",
-    problem281
-);
+register_problem!(281, "Pizza Toppings", problem281);
 
 fn combinaison(m: u64, n: u64) -> MpzNumber {
     let factorielle_n = MpzNumber::factorial(n);

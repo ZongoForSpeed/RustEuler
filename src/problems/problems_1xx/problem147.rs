@@ -1,5 +1,5 @@
-use itertools::iproduct;
 use crate::register_problem;
+use itertools::iproduct;
 
 register_problem!(147, "Rectangles in cross-hatched grids", problem147);
 
@@ -23,11 +23,11 @@ register_problem!(147, "Rectangles in cross-hatched grids", problem147);
 pub fn problem147() -> String {
     let mut result = 0;
 
-    for (m,n) in iproduct!(1..=43, 1..=47) {
+    for (m, n) in iproduct!(1..=43, 1..=47) {
         for (x, y) in iproduct!(1..=m, 1..=n) {
             result += (m - x + 1) * (n - y + 1);
         }
-        
+
         for (x, y) in iproduct!(1..=2 * m, 1..=2 * m) {
             let z = (x + y - 1) / 2;
             let w = x + y - 1 - z;

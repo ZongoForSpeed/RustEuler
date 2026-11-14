@@ -1,11 +1,7 @@
 use crate::maths::primes::crible2;
 use crate::register_problem;
 
-register_problem!(
-    272,
-    "Modular Cubes, part 2",
-    problem272
-);
+register_problem!(272, "Modular Cubes, part 2", problem272);
 
 fn algorithme(premiers: &[(u64, bool)], limite: u64, m: i64, n0: u64) -> u64 {
     if m < 0 {
@@ -65,7 +61,8 @@ pub fn problem272() -> String {
     let mut premiers = Vec::new();
     crible2::<u64, _>(100_000_000, |p| premiers.push(p));
 
-    let premiers_cubiques: Vec<(u64, bool)> = premiers.into_iter().map(|p| (p, p % 3 == 1)).collect();
+    let premiers_cubiques: Vec<(u64, bool)> =
+        premiers.into_iter().map(|p| (p, p % 3 == 1)).collect();
 
     algorithme(&premiers_cubiques, limite, 5, 1).to_string()
 }

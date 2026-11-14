@@ -1,10 +1,6 @@
 use crate::register_problem;
 
-register_problem!(
-    286,
-    "Scoring probabilities",
-    problem286
-);
+register_problem!(286, "Scoring probabilities", problem286);
 
 /// Probabilité d'obtenir exactement 20 points sur les 50 tirs, un tir à distance x réussissant avec probabilité 1 - x/q.
 /// Loi de Poisson binomiale, calculée par programmation dynamique (que des termes positifs, donc stable).

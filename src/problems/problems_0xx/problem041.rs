@@ -35,7 +35,8 @@ pub fn problem041() -> String {
         .rev()
         .filter(|p| pandigital(*p, &pandigits))
         .next()
-        .unwrap().to_string()
+        .unwrap()
+        .to_string()
 }
 
 #[cfg(test)]

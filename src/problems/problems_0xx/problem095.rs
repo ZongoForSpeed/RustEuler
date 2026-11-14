@@ -19,9 +19,9 @@ register_problem!(95, "Amicable chains", problem095);
 ///
 /// Find the smallest member of the longest amicable chain with no element exceeding one million.
 pub fn problem095() -> String {
-    let limit:usize = 1000000;
+    let limit: usize = 1000000;
 
-    let mut primes:Vec<usize> = Vec::new();
+    let mut primes: Vec<usize> = Vec::new();
     crible23(limit as usize, |p| primes.push(p));
 
     let mut sum_divisors = vec![0; limit];

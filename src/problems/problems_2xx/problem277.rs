@@ -1,10 +1,6 @@
 use crate::register_problem;
 
-register_problem!(
-    277,
-    "A Modified Collatz sequence",
-    problem277
-);
+register_problem!(277, "A Modified Collatz sequence", problem277);
 
 fn test_sequence(mut n: i64, sequence: &str) -> i64 {
     for s in sequence.chars().rev() {

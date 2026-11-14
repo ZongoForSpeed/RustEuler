@@ -24,7 +24,7 @@ register_problem!(65, "Convergents of e", problem065);
 ///
 /// Find the sum of digits in the numerator of the 100th convergent of the continued fraction for e.
 pub fn problem065() -> String {
-    let mut continuous_fraction:Vec<u64> = vec![2];
+    let mut continuous_fraction: Vec<u64> = vec![2];
     for n in (2..=100).step_by(2) {
         continuous_fraction.push(1);
         continuous_fraction.push(n);

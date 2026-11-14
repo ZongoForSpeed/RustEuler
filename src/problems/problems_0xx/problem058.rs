@@ -24,7 +24,9 @@ register_problem!(58, "Spiral primes", problem058);
 /// for which the ratio of primes along both diagonals first falls below 10%?
 pub fn problem058() -> String {
     let mut primes: HashSet<u64> = HashSet::new();
-    crible235(1000000000, |p| {primes.insert(p);});
+    crible235(1000000000, |p| {
+        primes.insert(p);
+    });
 
     let mut nb_primes = 0;
     let mut nb_diagonals = 1;

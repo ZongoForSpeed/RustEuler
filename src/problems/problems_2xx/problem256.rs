@@ -1,5 +1,5 @@
-use num_integer::Roots;
 use crate::register_problem;
+use num_integer::Roots;
 
 register_problem!(256, "Tatami-Free Rooms", problem256);
 

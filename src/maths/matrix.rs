@@ -93,19 +93,28 @@ mod tests {
 
     #[test]
     fn test_power_matrix_f64() {
+        #[rustfmt::skip]
         let a = array![
             [0.5, 0.0],
             [0.0, 2.0]
         ];
         let result = f64::power_matrix(&a, 3);
+        #[rustfmt::skip]
         let expected = array![
             [0.125, 0.0],
             [0.0, 8.0]
         ];
-        
+
         for ((r, c), &val) in result.indexed_iter() {
             let exp = expected[[r, c]];
-            assert!((val - exp).abs() < 1e-10, "At [{}, {}]: {} != {}", r, c, val, exp);
+            assert!(
+                (val - exp).abs() < 1e-10,
+                "At [{}, {}]: {} != {}",
+                r,
+                c,
+                val,
+                exp
+            );
         }
     }
 }

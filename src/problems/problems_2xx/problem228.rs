@@ -100,8 +100,7 @@ fn convert(n: i64) -> Vec<Coordinate> {
     }
 
     let len = v.len();
-    let mut result =
-        vec![v[0].minus(&v[len - 1]).normalize()];
+    let mut result = vec![v[0].minus(&v[len - 1]).normalize()];
 
     for (i, j) in v.iter().tuple_windows() {
         let p = j.minus(i).normalize();

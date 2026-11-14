@@ -17,7 +17,7 @@ register_problem!(110, "Diophantine reciprocals II", problem110);
 /// brute force approach it requires a clever implementation.
 pub fn problem110() -> String {
     let limit = 4000000;
-    let mut primes:Vec<u64> = Vec::new();
+    let mut primes: Vec<u64> = Vec::new();
     crible235(limit * 3, |p| primes.push(p));
 
     let mut solution = 0;
