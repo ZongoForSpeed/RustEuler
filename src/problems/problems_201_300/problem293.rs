@@ -1,34 +1,8 @@
-use crate::maths::primes::crible2;
+use crate::maths::primes::{Primes, crible2};
 use crate::register_problem;
 use std::collections::BTreeSet;
 
 register_problem!(293, "Pseudo-Fortunate Numbers", problem293);
-
-fn est_premier(n: u64) -> bool {
-    if n < 2 {
-        return false;
-    }
-
-    let mut d = 2;
-    while d * d <= n {
-        if n % d == 0 {
-            return false;
-        }
-        d += 1;
-    }
-
-    true
-}
-
-/// Plus petit nombre premier strictement supérieur à x.
-fn premier_apres(x: u64) -> u64 {
-    let mut m = x + 1;
-    while !est_premier(m) {
-        m += 1;
-    }
-
-    m
-}
 
 /// An even positive integer N will be called admissible, if it is a power of 2 or its distinct prime factors are
 /// consecutive primes. The first twelve admissible numbers are 2,4,6,8,12,16,18,24,30,32,36,48.
@@ -76,7 +50,7 @@ pub fn problem293() -> String {
         suivant.sort();
 
         for &n in &suivant {
-            let m = premier_apres(n + 1) - n;
+            let m = (n + 1).next_prime(25) - n;
             pseudo_fortunate.insert(m);
         }
 

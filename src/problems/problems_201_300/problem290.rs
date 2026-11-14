@@ -1,17 +1,8 @@
+use crate::maths::digits::Digits;
 use crate::register_problem;
 use std::collections::HashMap;
 
 register_problem!(290, "Digital Signature", problem290);
-
-fn somme_chiffres(mut n: i64) -> i64 {
-    let mut somme = 0;
-    while n > 0 {
-        somme += n % 10;
-        n /= 10;
-    }
-
-    somme
-}
 
 /// How many integers 0 ≤ n < 10**18 have the property that the sum of the digits of n equals the sum of digits of 137n?
 pub fn problem290() -> String {
@@ -39,7 +30,7 @@ pub fn problem290() -> String {
 
     let mut resultat = 0;
     for (&(difference, retenue), &compteur) in &table {
-        if somme_chiffres(retenue) == difference {
+        if retenue.sum_digits(10) == difference {
             resultat += compteur;
         }
     }

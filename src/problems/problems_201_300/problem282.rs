@@ -1,3 +1,6 @@
+use crate::maths::arithmetic::Arithmetic;
+use crate::maths::power::Power;
+use crate::maths::primes::crible2;
 use crate::register_problem;
 
 register_problem!(282, "The Ackermann function", problem282);
@@ -12,63 +15,7 @@ fn ackermann(m: u64, n: u64) -> u64 {
     }
 }
 
-fn factorisation(mut m: u64) -> Vec<(u64, u32)> {
-    let mut facteurs = Vec::new();
-    let mut p = 2;
-    while p * p <= m {
-        if m % p == 0 {
-            let mut e = 0;
-            while m % p == 0 {
-                m /= p;
-                e += 1;
-            }
-            facteurs.push((p, e));
-        }
-        p += 1;
-    }
-    if m > 1 {
-        facteurs.push((m, 1));
-    }
-
-    facteurs
-}
-
-fn phi(facteurs: &[(u64, u32)]) -> u64 {
-    facteurs
-        .iter()
-        .map(|&(p, e)| p.pow(e - 1) * (p - 1))
-        .product()
-}
-
-fn puissance_modulaire(base: u64, exposant: u64, modulo: u64) -> u64 {
-    let mut resultat: u128 = 1;
-    let mut b = base as u128 % modulo as u128;
-    let mut e = exposant;
-    while e > 0 {
-        if e & 1 == 1 {
-            resultat = resultat * b % modulo as u128;
-        }
-        b = b * b % modulo as u128;
-        e >>= 1;
-    }
-
-    resultat as u64
-}
-
-fn inverse_modulaire(a: u64, m: u64) -> u64 {
-    // algorithme d'Euclide étendu, a et m premiers entre eux
-    let (mut r0, mut r1) = (m as i128, a as i128 % m as i128);
-    let (mut t0, mut t1) = (0i128, 1i128);
-    while r1 != 0 {
-        let q = r0 / r1;
-        (r0, r1) = (r1, r0 - q * r1);
-        (t0, t1) = (t1, t0 - q * t1);
-    }
-
-    t0.rem_euclid(m as i128) as u64
-}
-
-fn tetration(a: u64, m: u64) -> u64 {
+fn tetration(a: u64, m: u64, primes: &[u64]) -> u64 {
     // calcule 2↑↑a mod m
     if m < 2 {
         return 0;
@@ -78,7 +25,8 @@ fn tetration(a: u64, m: u64) -> u64 {
         return 2 % m;
     }
 
-    let facteurs = factorisation(m);
+    let mut facteurs = Vec::new();
+    m.factorization(primes, |p, e| facteurs.push((p, e as u32)));
     if facteurs.len() == 1 {
         let (p, e) = facteurs[0];
         if p == 2 {
@@ -89,8 +37,8 @@ fn tetration(a: u64, m: u64) -> u64 {
         } else {
             // si m premier avec 2
             // alors 2↑↑a mod m = 2**(2↑↑(a-1) mod phi(m)) mod m
-            let x = tetration(a - 1, phi(&facteurs));
-            puissance_modulaire(2, x, m)
+            let x = tetration(a - 1, m.phi(primes), primes);
+            2u64.power_mod(x, m)
         }
     } else {
         // théorème des restes chinois sur les puissances de premiers de m
@@ -98,8 +46,12 @@ fn tetration(a: u64, m: u64) -> u64 {
         let mut reste: u64 = 0;
         for &(p, e) in &facteurs {
             let mi = p.pow(e);
-            let ri = tetration(a, mi);
-            let t = (ri + mi - reste % mi) % mi * inverse_modulaire(modulo_total % mi, mi) % mi;
+            let ri = tetration(a, mi, primes);
+            // inverse de modulo_total modulo mi (modulo_total et mi sont premiers entre eux)
+            let inverse = i64::bezout(modulo_total as i64 % mi as i64, mi as i64)
+                .0
+                .rem_euclid(mi as i64) as u64;
+            let t = (ri + mi - reste % mi) % mi * inverse % mi;
             reste += modulo_total * t;
             modulo_total *= mi;
         }
@@ -120,16 +72,21 @@ fn tetration(a: u64, m: u64) -> u64 {
 pub fn problem282() -> String {
     let modulo = 14u64.pow(8);
 
+    // les diviseurs de modulo et les modules intermédiaires sont inférieurs à 14**8,
+    // donc il suffit de cribler jusqu'à sqrt(14**8) ≈ 38 800
+    let mut primes = Vec::new();
+    crible2::<u64, _>(40_000, |p| primes.push(p));
+
     let mut resultat = 0;
     resultat += ackermann(0, 0);
     resultat += ackermann(1, 1);
     resultat += ackermann(2, 2);
     resultat += ackermann(3, 3);
     // A(4, 4) = 2↑↑7 - 3
-    resultat += (tetration(7, modulo) + modulo - 3) % modulo;
+    resultat += (tetration(7, modulo, &primes) + modulo - 3) % modulo;
     // A(5, 5) = 2↑↑↑8 - 3
     //         = 2↑↑N - 3
-    resultat += 2 * ((tetration(100, modulo) + modulo - 3) % modulo);
+    resultat += 2 * ((tetration(100, modulo, &primes) + modulo - 3) % modulo);
     resultat %= modulo;
 
     resultat.to_string()

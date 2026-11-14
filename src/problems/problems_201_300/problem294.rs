@@ -1,3 +1,4 @@
+use crate::maths::power::Power;
 use crate::register_problem;
 use std::collections::HashMap;
 
@@ -5,21 +6,6 @@ register_problem!(294, "Sum of digits - experience #23", problem294);
 
 // clé : (somme des chiffres, reste modulo), valeur : compteur
 type Dictionnaire = HashMap<(u64, u64), u64>;
-
-fn puissance_modulaire(base: u64, exposant: u64, modulo: u64) -> u64 {
-    let mut resultat = 1 % modulo;
-    let mut b = base % modulo;
-    let mut e = exposant;
-    while e > 0 {
-        if e & 1 == 1 {
-            resultat = resultat * b % modulo;
-        }
-        b = b * b % modulo;
-        e >>= 1;
-    }
-
-    resultat
-}
 
 fn algorithme(chiffres: u64, modulo: u64, masque: u64) -> Dictionnaire {
     if chiffres == 0 {
@@ -29,7 +15,7 @@ fn algorithme(chiffres: u64, modulo: u64, masque: u64) -> Dictionnaire {
     let mut resultat = Dictionnaire::new();
     if chiffres % 2 == 0 {
         let recursion = algorithme(chiffres / 2, modulo, masque);
-        let m = puissance_modulaire(10, chiffres / 2, modulo);
+        let m = 10u64.power_mod(chiffres / 2, modulo);
 
         for (&(somme1, reste1), &compteur1) in &recursion {
             for (&(somme2, reste2), &compteur2) in &recursion {
