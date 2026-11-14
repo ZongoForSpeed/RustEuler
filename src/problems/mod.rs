@@ -1,4 +1,4 @@
 pub mod euler;
-mod problems_0xx;
-mod problems_1xx;
-mod problems_2xx;
+mod problems_001_100;
+mod problems_101_200;
+mod problems_201_300;
